@@ -2,29 +2,41 @@
 import type { TFormSchema } from '@/types/schema'
 import { ref, watch } from 'vue'
 import VueDraggable from 'vuedraggable'
+import { componentsMap } from './componentMap.ts'
+import { ElForm, ElFormItem } from 'element-plus'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
+const _formData = ref<{ [key: string]: any }>()
 </script>
 
 <template>
   <div class="middle_area">
     <div class="canvas_area" :class="{ option_hint: !formSchema.formContentConfigList.length }">
-      <VueDraggable
-        v-model="formSchema.formContentConfigList"
-        :animation="200"
-        :disabled="false"
-        group="form"
-        tag="div"
-        item-key="key"
-        class="drag_container"
-      >
-        <template #item="{ element }">
-          <div>
-            <div>{{ element }}</div>
-            <div></div>
-          </div>
-        </template>
-      </VueDraggable>
+      <el-form :model="_formData" style="height: 100%">
+        <VueDraggable
+          v-model="formSchema.formContentConfigList"
+          :animation="200"
+          :disabled="false"
+          group="form"
+          tag="div"
+          item-key="id"
+          class="drag_container"
+        >
+          <template #item="{ element }">
+            <div>
+              <el-form-item :prop="element.formItemAttrs.field" v-bind="element.formItemAttrs">
+                <component
+                  :is="componentsMap[element.componentName]"
+                  :key="element.id"
+                  v-model="element.defaultValue"
+                  v-bind="element.attrs"
+                >
+                </component>
+              </el-form-item>
+            </div>
+          </template>
+        </VueDraggable>
+      </el-form>
     </div>
   </div>
 </template>
