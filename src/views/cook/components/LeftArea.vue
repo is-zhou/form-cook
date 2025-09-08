@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VueDraggable from 'vuedraggable'
-type DraggableItem = {
-  label: string
-  key: string
-}
-const list = ref<DraggableItem[]>([
-  { label: '标签1', key: '1' },
-  { label: '标签2', key: '2' },
-])
-const pushContentItem = (current: DraggableItem) => {
+import input from '@/materials/form/input'
+import type { Material } from '@/types/material'
+
+const materials = ref<Material[]>([input])
+
+const pushContentItem = (current: Material) => {
   return current
 }
 </script>
@@ -17,7 +14,7 @@ const pushContentItem = (current: DraggableItem) => {
 <template>
   <div class="left_area">
     <VueDraggable
-      v-model="list"
+      v-model="materials"
       :group="{ name: 'form', pull: 'clone', put: false }"
       :clone="pushContentItem"
       :sort="false"
