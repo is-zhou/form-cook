@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
     MiddleArea: typeof import('./src/views/cook/components/MiddleArea.vue')['default']
     RightArea: typeof import('./src/views/cook/components/RightArea.vue')['default']

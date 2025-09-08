@@ -1,0 +1,8 @@
+* {
+  box-sizing: border-box;
+}
+.custom_svg {
+  width: 90px;
+  height: 60px;
+  margin-top: 6px;
+}

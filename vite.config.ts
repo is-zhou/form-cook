@@ -16,7 +16,7 @@ export default defineConfig({
       imports: ['vue', 'vue-router'],
     }),
     Components({
-      dirs: ['src/views/cook/components'],
+      dirs: ['src/components', 'src/views/cook/components'],
     }),
   ],
   resolve: {

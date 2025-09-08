@@ -2,7 +2,7 @@ import type { Material } from '@/types/material.ts'
 
 const input: Material = {
   label: '输入框',
-  icon: '',
+  icon: 'IconInput',
   materialContent: {
     id: '',
     componentName: 'input',
