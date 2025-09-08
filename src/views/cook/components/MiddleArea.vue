@@ -5,6 +5,8 @@ import VueDraggable from 'vuedraggable'
 import { componentsMap } from './componentMap.ts'
 import { ElForm, ElFormItem } from 'element-plus'
 
+type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
+
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 const _formData = ref<{ [key: string]: any }>()
 
@@ -12,6 +14,10 @@ const currentSelectId = defineModel<string>('currentSelectId')
 
 const handleSelectChange = (element: TComponentConfig | null) => {
   currentSelectId.value = element?.id
+}
+
+const handleSelected = (res: TDragCurrent) => {
+  currentSelectId.value = res.item._underlying_vm_.id
 }
 </script>
 
@@ -23,6 +29,8 @@ const handleSelectChange = (element: TComponentConfig | null) => {
           v-model="formSchema.formContentConfigList"
           :animation="200"
           :disabled="false"
+          @add="handleSelected"
+          @end="handleSelected"
           group="form"
           tag="div"
           item-key="id"
