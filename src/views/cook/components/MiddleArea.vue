@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TFormSchema } from '@/types/schema'
+import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { ref, watch } from 'vue'
 import VueDraggable from 'vuedraggable'
 import { componentsMap } from './componentMap.ts'
@@ -7,6 +7,12 @@ import { ElForm, ElFormItem } from 'element-plus'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 const _formData = ref<{ [key: string]: any }>()
+
+const currentSelectId = defineModel<string>('currentSelectId')
+
+const handleSelectChange = (element: TComponentConfig | null) => {
+  currentSelectId.value = element?.id
+}
 </script>
 
 <template>
@@ -23,8 +29,12 @@ const _formData = ref<{ [key: string]: any }>()
           class="drag_container"
         >
           <template #item="{ element }">
-            <div>
-              <el-form-item :prop="element.formItemAttrs.field" v-bind="element.formItemAttrs">
+            <div class="component_wrap" @click.stop="handleSelectChange(element)">
+              <el-form-item
+                :prop="element.formItemAttrs.field"
+                v-bind="element.formItemAttrs"
+                :class="{ selected: currentSelectId === element.id }"
+              >
                 <component
                   :is="componentsMap[element.componentName]"
                   :key="element.id"
@@ -75,6 +85,32 @@ const _formData = ref<{ [key: string]: any }>()
     height: 100%;
     background-color: #fff;
     padding-bottom: 20px;
+    .component_wrap {
+      .selected {
+        position: relative;
+        border: var(--el-color-primary) dashed 1px;
+      }
+    }
+    ::v-deep(.sortable-ghost) {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      overflow: hidden;
+      border: none !important;
+      &::before {
+        content: '';
+        display: block;
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--el-color-primary);
+        z-index: 10000000;
+      }
+    }
   }
 }
 </style>
