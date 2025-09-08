@@ -1,15 +1,4 @@
-
-type TComponentConfig = {
-  id: string
-  sort?: number
-  componentName: string
-  componentType: string
-  defaultValue: unknown
-  formItemAttrs: {}
-  attrs: {}
-  style?: {}
-  slots?: any[]
-}
+import type { TComponentConfig } from "./schema"
 
 export type Material = {
   label: string

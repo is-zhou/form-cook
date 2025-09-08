@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VueDraggable from 'vuedraggable'
-import input from '@/materials/form/input'
+import material from '@/materials/index'
 import type { Material } from '@/types/material'
 
-const materials = ref<Material[]>([input])
+const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
 
 const pushContentItem = (current: Material) => {
   return current
