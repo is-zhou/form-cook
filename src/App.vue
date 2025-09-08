@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ElConfigProvider } from 'element-plus'
+const zIndex = 3000
+const size = 'small'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <el-config-provider :size="size" :z-index="zIndex">
+    <RouterView />
+  </el-config-provider>
 </template>
 
 <style scoped></style>

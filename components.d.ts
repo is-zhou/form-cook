@@ -8,7 +8,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
+    MiddleArea: typeof import('./src/views/cook/components/MiddleArea.vue')['default']
+    RightArea: typeof import('./src/views/cook/components/RightArea.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TopArea: typeof import('./src/views/cook/components/TopArea.vue')['default']
   }
 }
