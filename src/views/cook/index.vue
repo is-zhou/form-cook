@@ -1,11 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { TFormSchema } from '@/types/schema'
+import { ref } from 'vue'
+
+const formSchema = ref<TFormSchema>({
+  formContentConfigList: [],
+})
+</script>
 
 <template>
   <div class="page">
     <TopArea></TopArea>
     <main class="main">
       <LeftArea />
-      <MiddleArea />
+      <MiddleArea v-model:form-schema="formSchema" />
       <RightArea />
     </main>
   </div>

@@ -3,7 +3,8 @@ import { ref, type Component } from 'vue'
 import VueDraggable from 'vuedraggable'
 import material from '@/materials/index'
 import type { Material } from '@/types/material'
-
+import type { TComponentConfig } from '@/types/schema'
+import { cloneDeep } from 'lodash'
 import IconInput from '@/components/icon/IconInput.vue'
 
 const iconMap: { [key: string]: Component } = { IconInput }
@@ -11,7 +12,13 @@ const iconMap: { [key: string]: Component } = { IconInput }
 const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
 
 const pushContentItem = (current: Material) => {
-  return current
+  const materialContent: TComponentConfig = cloneDeep(current.materialContent)
+  materialContent.id = `id_${Date.now()}`
+
+  if (materialContent.componentType === 'form') {
+    materialContent.formItemAttrs.field = `field_${Date.now()}`
+  }
+  return materialContent
 }
 </script>
 

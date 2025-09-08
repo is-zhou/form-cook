@@ -1,3 +1,4 @@
+import type { FormRules } from "element-plus";
 
 export type TComponentType = 'form' | 'layout'
 
@@ -30,5 +31,10 @@ export type TConfig<T extends TComponentType> = T extends 'form'
   }
 
 export type TComponentConfig = TConfig<'form'> | TConfig<'layout'>
+
+
+export type TFormSchema = {
+  formContentConfigList: TComponentConfig[]
+}
 
 
