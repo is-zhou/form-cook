@@ -8,9 +8,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/views/cook/components/MiddleArea/index copy.vue')['default']
+    DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
     IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
-    MiddleArea: typeof import('./src/views/cook/components/MiddleArea.vue')['default']
+    MiddleArea: typeof import('./src/views/cook/components/MiddleArea/index.vue')['default']
     RightArea: typeof import('./src/views/cook/components/RightArea.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
