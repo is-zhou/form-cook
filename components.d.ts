@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ConfigFormRender: typeof import('./src/views/cook/components/RightArea/ConfigFormRender.vue')['default']
     copy: typeof import('./src/views/cook/components/MiddleArea/index copy.vue')['default']
     DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -17,10 +18,11 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    FormRender: typeof import('./src/components/FormRender/FormRender.vue')['default']
     IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
     MiddleArea: typeof import('./src/views/cook/components/MiddleArea/index.vue')['default']
-    RightArea: typeof import('./src/views/cook/components/RightArea.vue')['default']
+    RightArea: typeof import('./src/views/cook/components/RightArea/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TopArea: typeof import('./src/views/cook/components/TopArea.vue')['default']
