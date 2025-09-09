@@ -15,7 +15,17 @@ import {
 
 export const componentsMap = {
   input: ElInput,
+  textarea: ElInput,
+  inputNumber: ElInputNumber,
+  inputTag: ElInputTag,
+  rate: ElRate,
+  radioGroup: ElRadioGroup,
+  radio: ElRadio,
+  radioButton: ElRadioButton,
+  select: ElSelect,
   switch: ElSwitch,
+  slider: ElSlider,
+  colorPicker: ElColorPicker,
   div: 'div'
 }
 
