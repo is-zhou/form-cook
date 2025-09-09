@@ -20,6 +20,7 @@
     "@element-plus/icons-vue": "^2.3.2",
     "element-plus": "^2.11.2",
     "lodash": "^4.17.21",
+    "nanoid": "^5.1.5",
     "normalize.css": "^8.0.1",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",

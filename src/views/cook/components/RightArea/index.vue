@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
 import { ref, watch } from 'vue'
-import ConfigFormRender from './ConfigFormRender.vue'
+import formAreaSetterList from '@/setters/formArea.ts'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
@@ -17,16 +17,7 @@ const componentSetters: TComponentConfig[] = [
     defaultValue: '',
   },
 ]
-const formAreaSetters: TComponentConfig[] = [
-  {
-    id: '',
-    componentName: 'switch',
-    componentType: 'form',
-    formItemAttrs: { field: 'inline', label: '行内表单模式' },
-    attrs: {},
-    defaultValue: '',
-  },
-]
+
 watch(
   () => componentConfig.value,
   () => {
@@ -53,7 +44,7 @@ watch(
         <ConfigFormRender
           v-if="formAreaConfig"
           :form-data="formAreaConfig.attrs"
-          :config-list="formAreaSetters || []"
+          :config-list="formAreaSetterList || []"
         ></ConfigFormRender>
       </el-tab-pane>
     </el-tabs>
