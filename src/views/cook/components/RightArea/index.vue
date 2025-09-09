@@ -47,6 +47,7 @@ watch(
           :form-data="componentConfig"
           :config-list="componentSetters || []"
         ></ConfigFormRender>
+        <div v-else class="option_hint"></div>
       </el-tab-pane>
       <el-tab-pane label="表单域配置" name="formArea">
         <ConfigFormRender
@@ -65,5 +66,20 @@ watch(
   height: 100%;
   overflow: auto;
   background-color: #fff;
+  .option_hint {
+    position: relative;
+    height: 100px;
+    &::before {
+      content: '请从左侧画布选中组件~';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #909399;
+    }
+  }
 }
 </style>
