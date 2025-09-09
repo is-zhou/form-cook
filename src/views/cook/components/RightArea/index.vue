@@ -40,7 +40,7 @@ watch(
       <el-tab-pane label="表单域配置" name="formArea">
         <ConfigFormRender
           v-if="formAreaConfig"
-          :form-data="formAreaConfig.attrs"
+          :form-data="formAreaConfig"
           :config-list="formAreaSetterList || []"
         ></ConfigFormRender>
       </el-tab-pane>
