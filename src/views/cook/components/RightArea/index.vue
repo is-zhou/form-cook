@@ -2,26 +2,23 @@
 import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
 import { ref, watch } from 'vue'
 import formAreaSetterList from '@/setters/formArea.ts'
+import setters from '@/setters'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
 
 const activeName = ref<'component' | 'formArea'>('formArea')
-const componentSetters: TComponentConfig[] = [
-  {
-    id: '',
-    componentName: 'switch',
-    componentType: 'form',
-    formItemAttrs: { field: 'clearable', label: '显示清除按钮' },
-    attrs: {},
-    defaultValue: '',
-  },
-]
+
+const componentSetterList = ref<Array<TComponentConfig>>()
 
 watch(
   () => componentConfig.value,
   () => {
     activeName.value = componentConfig.value?.componentType === 'form' ? 'component' : 'formArea'
+
+    if (componentConfig.value) {
+      componentSetterList.value = setters.setters[componentConfig.value.componentName]
+    }
   },
   {
     immediate: true,
@@ -36,7 +33,7 @@ watch(
         <ConfigFormRender
           v-if="componentConfig"
           :form-data="componentConfig"
-          :config-list="componentSetters || []"
+          :config-list="componentSetterList || []"
         ></ConfigFormRender>
         <div v-else class="option_hint"></div>
       </el-tab-pane>
