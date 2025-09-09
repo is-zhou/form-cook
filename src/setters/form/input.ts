@@ -11,6 +11,30 @@ const s: TSettersModuleType = {
     // attrs: {},
     // defaultValue: '',
     setterChildren: {
+      type: {
+        id: '',
+        componentName: 'select',
+        componentType: 'form',
+        formItemAttrs: { field: '', label: '输入框类型' },
+        attrs: {
+          clearable: true,
+          options: [
+            {
+              value: 'password',
+              label: 'password',
+            },
+            {
+              value: 'text',
+              label: 'text',
+            },
+            {
+              value: 'number',
+              label: 'number',
+            },
+          ],
+        },
+        defaultValue: '',
+      },
       autofocus: {
         id: '',
         componentName: 'switch',

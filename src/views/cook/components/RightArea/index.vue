@@ -4,6 +4,7 @@ import { ref, watch } from 'vue'
 import setters from '@/setters'
 import formAreaSetterList from '@/setters/formArea.ts'
 import publicFormSetterList from '@/setters/publicForm.ts'
+import publicSetterList from '@/setters/public.ts'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
@@ -15,10 +16,11 @@ const componentSetterList = ref<Array<TComponentConfig>>()
 watch(
   () => componentConfig.value,
   () => {
-    activeName.value = componentConfig.value?.componentType === 'form' ? 'component' : 'formArea'
+    activeName.value = componentConfig.value ? 'component' : 'formArea'
 
     if (componentConfig.value) {
       componentSetterList.value = [
+        ...publicSetterList,
         ...publicFormSetterList,
         ...(setters.setters[componentConfig.value.componentName] || []),
       ]
