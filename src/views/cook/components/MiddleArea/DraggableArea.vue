@@ -17,6 +17,11 @@ const handleSelectChange = (element: TComponentConfig | null) => {
 const handleSelected = (res: TDragCurrent) => {
   handleSelectChange(res.item._underlying_vm_)
 }
+
+const handleDel = (index: number) => {
+  configList.value?.splice(index, 1)
+  handleSelectChange(null)
+}
 </script>
 
 <template>
@@ -31,7 +36,7 @@ const handleSelected = (res: TDragCurrent) => {
     item-key="id"
     class="drag_container"
   >
-    <template #item="{ element }">
+    <template #item="{ index, element }">
       <div class="component_wrap" @click.stop="handleSelectChange(element)">
         <template v-if="element.children">
           <component
@@ -60,6 +65,13 @@ const handleSelected = (res: TDragCurrent) => {
             v-bind="element.attrs"
           >
           </component>
+          <el-icon
+            v-if="selectedConfig?.id === element.id"
+            class="current_del"
+            @click.stop="handleDel(index)"
+          >
+            <i-ep-Delete />
+          </el-icon>
         </el-form-item>
       </div>
     </template>
@@ -104,6 +116,12 @@ const handleSelected = (res: TDragCurrent) => {
       .selected {
         position: relative;
         border: var(--el-color-primary) dashed 1px;
+        .current_del {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          cursor: pointer;
+        }
       }
     }
     ::v-deep(.sortable-ghost) {

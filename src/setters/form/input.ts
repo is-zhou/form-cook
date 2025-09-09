@@ -6,7 +6,7 @@ const s: TSettersModuleType = {
     id: '',
     componentName: 'select',
     componentType: 'form',
-    formItemAttrs: { field: '', label: '输入框类型' },
+    formItemAttrs: { field: '', label: '字段组件名称' },
     attrs: {
       clearable: true,
       options: [

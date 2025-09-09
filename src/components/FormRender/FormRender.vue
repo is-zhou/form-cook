@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { componentsMap } from '@/components/FormRender/componentMap.ts'
-import type { TFormSchema } from '@/types/schema'
+import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { useFormData } from './hooks/useFormData'
 
 const submitFormData = defineModel<{ [key: string]: any }>({ required: true })
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 
 const schemaFormData = useFormData(submitFormData)
+
+const setDefault = (config: TComponentConfig) => {
+  if (config.componentType === 'form' && config.defaultValue !== '') {
+    schemaFormData.value[config.formItemAttrs.field] = config.defaultValue
+  }
+}
 </script>
 <template>
   <el-form :model="schemaFormData" v-bind="formSchema.formAreaConfig.attrs">
@@ -33,6 +39,7 @@ const schemaFormData = useFormData(submitFormData)
                   :is="componentsMap[config.componentName]"
                   :ref="config.formItemAttrs.field"
                   v-bind="config.attrs"
+                  :default="setDefault(config)"
                 >
                 </component>
               </slot>
