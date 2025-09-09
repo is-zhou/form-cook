@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import ConfigFormRender from './ConfigFormRender.vue'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
 
-const activeName = ref('formItem')
+const activeName = ref<'component' | 'formArea'>('formArea')
 const componentSetters: TComponentConfig[] = [
   {
     id: '',
@@ -27,12 +27,21 @@ const formAreaSetters: TComponentConfig[] = [
     defaultValue: '',
   },
 ]
+watch(
+  () => componentConfig.value,
+  () => {
+    activeName.value = componentConfig.value?.componentType === 'form' ? 'component' : 'formArea'
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <template>
   <div class="right_area">
     <el-tabs v-model="activeName" type="border-card" style="min-height: 100%">
-      <el-tab-pane label="组件配置" name="form">
+      <el-tab-pane label="组件配置" name="component">
         <ConfigFormRender
           v-if="componentConfig"
           :form-data="componentConfig"
