@@ -38,6 +38,7 @@ watch(
       <el-tab-pane label="组件配置" name="component">
         <ConfigFormRender
           v-if="componentConfig"
+          :key="componentConfig?.id"
           :form-data="componentConfig"
           :config-list="componentSetterList || []"
         ></ConfigFormRender>
