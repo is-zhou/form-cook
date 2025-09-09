@@ -1,4 +1,5 @@
-import type { TComponentName, TConfig, TComponentConfig } from '@/types/schema.ts'
+import type { TComponentName } from '@/components/FormRender/componentMap';
+import type { TConfig, TComponentConfig } from '@/types/schema.ts'
 
 export type TSetterGroup = 'formItem' | 'form';
 export type TisHide = true | undefined;

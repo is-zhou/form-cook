@@ -1,8 +1,7 @@
+import type { TComponentName } from "@/components/FormRender/componentMap";
 import type { FormRules } from "element-plus";
 
 export type TComponentType = 'form' | 'layout'
-
-export type TComponentName = 'input' | 'div' | 'switch' | 'select'
 
 export type TFormItem = { field: string; label: string; required?: boolean;[key: string]: any }
 

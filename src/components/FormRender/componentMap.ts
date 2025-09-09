@@ -12,19 +12,11 @@ import {
   ElSlider,
   ElColorPicker,
 } from 'element-plus'
-import type { Component } from 'vue'
 
-export const componentsMap: { [key: string]: Component } = {
+export const componentsMap = {
   input: ElInput,
-  textarea: ElInput,
   switch: ElSwitch,
-  rate: ElRate,
-  radioGroup: ElRadioGroup,
-  radio: ElRadio,
-  radioButton: ElRadioButton,
-  select: ElSelect,
-  inputNumber: ElInputNumber,
-  inputTag: ElInputTag,
-  slider: ElSlider,
-  colorPicker: ElColorPicker,
+  div: 'div'
 }
+
+export type TComponentName = keyof typeof componentsMap

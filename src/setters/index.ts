@@ -1,5 +1,5 @@
+import type { TComponentName } from '@/components/FormRender/componentMap'
 import type { TSetters, TSettersModuleType } from '@/types/setter.ts'
-import type { TComponentName } from '@/types/schema'
 import { getSettersListByObj } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 

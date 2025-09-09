@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { TComponentConfig } from '@/types/schema'
 import VueDraggable from 'vuedraggable'
-import { componentsMap } from '@/components/FormRender/componentMap.ts'
+import { componentsMap, type TComponentName } from '@/components/FormRender/componentMap.ts'
+import type { Component } from 'vue'
 
 type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
 
@@ -9,6 +10,10 @@ const configList = defineModel<TComponentConfig[]>('configList', { required: tru
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig', {
   required: true,
 })
+
+const cMap: {
+  [key in TComponentName]: Component | string
+} = componentsMap
 
 const handleSelectChange = (element: TComponentConfig | null) => {
   selectedConfig.value = element
@@ -40,7 +45,7 @@ const handleDel = (index: number) => {
       <div class="component_wrap" @click.stop="handleSelectChange(element)">
         <template v-if="element.children">
           <component
-            :is="componentsMap[element.componentName] || element.componentName"
+            :is="cMap[element.componentName as TComponentName] || element.componentName"
             :key="element.id"
             v-bind="element.attrs"
             :style="element.style"
@@ -59,7 +64,7 @@ const handleDel = (index: number) => {
           :class="{ selected: selectedConfig?.id === element.id }"
         >
           <component
-            :is="componentsMap[element.componentName]"
+            :is="cMap[element.componentName as TComponentName] || element.componentName"
             :key="element.id"
             v-model="element.defaultValue"
             v-bind="element.attrs"
