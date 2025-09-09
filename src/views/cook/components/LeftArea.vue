@@ -5,9 +5,8 @@ import material from '@/materials/index'
 import type { Material } from '@/types/material'
 import type { TComponentConfig } from '@/types/schema'
 import { cloneDeep } from 'lodash'
-import IconInput from '@/components/icon/IconInput.vue'
-
-const iconMap: { [key: string]: Component } = { IconInput }
+import IconInput from '@/components/MaterialIcons/IconInput.vue'
+import materialIconMap from '@/components/MaterialIcons/index'
 
 const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
 
@@ -36,7 +35,7 @@ const pushContentItem = (current: Material) => {
       <template #item="{ element }">
         <div class="material_item">
           <div>{{ element.label }}</div>
-          <component :is="iconMap[element.icon] || IconInput"></component>
+          <component :is="materialIconMap[element.icon] || IconInput"></component>
         </div>
       </template>
     </VueDraggable>

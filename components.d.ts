@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ConfigFormRender: typeof import('./src/views/cook/components/RightArea/ConfigFormRender.vue')['default']
+    copy: typeof import('./src/components/icon/IconInput copy.vue')['default']
     DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -19,7 +20,8 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     FormRender: typeof import('./src/components/FormRender/FormRender.vue')['default']
-    IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
+    IconInput: typeof import('./src/components/MaterialIcons/IconInput.vue')['default']
+    IconSwitch: typeof import('./src/components/MaterialIcons/IconSwitch.vue')['default']
     IEpDelete: typeof import('~icons/ep/delete')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
     MiddleArea: typeof import('./src/views/cook/components/MiddleArea/index.vue')['default']
