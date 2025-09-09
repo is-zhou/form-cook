@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
 import { ref, watch } from 'vue'
-import formAreaSetterList from '@/setters/formArea.ts'
 import setters from '@/setters'
+import formAreaSetterList from '@/setters/formArea.ts'
+import publicFormSetterList from '@/setters/publicForm.ts'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
@@ -17,7 +18,10 @@ watch(
     activeName.value = componentConfig.value?.componentType === 'form' ? 'component' : 'formArea'
 
     if (componentConfig.value) {
-      componentSetterList.value = setters.setters[componentConfig.value.componentName]
+      componentSetterList.value = [
+        ...publicFormSetterList,
+        ...(setters.setters[componentConfig.value.componentName] || []),
+      ]
     }
   },
   {
