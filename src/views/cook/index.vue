@@ -14,6 +14,16 @@ watch(
     console.log('selectedConfig', selectedConfig)
   },
 )
+
+watch(
+  () => formSchema.value,
+  () => {
+    console.log('formSchema.value', formSchema.value)
+  },
+  {
+    deep: true,
+  },
+)
 </script>
 
 <template>
@@ -22,7 +32,7 @@ watch(
     <main class="main">
       <LeftArea />
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
-      <RightArea />
+      <RightArea v-model:componentConfig="selectedConfig" />
     </main>
   </div>
 </template>
