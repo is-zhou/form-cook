@@ -12,7 +12,7 @@ const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 <template>
   <div class="middle_area">
     <div class="canvas_area" :class="{ option_hint: !formSchema.formContentConfigList.length }">
-      <el-form :model="_formData" style="height: 100%">
+      <el-form :model="_formData" style="height: 100%" v-bind="formSchema.formConfig.attrs">
         <DraggableArea
           v-model:configList="formSchema.formContentConfigList"
           v-model:selectedConfig="selectedConfig"

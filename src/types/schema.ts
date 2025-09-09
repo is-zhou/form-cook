@@ -34,6 +34,20 @@ export type TComponentConfig = TConfig<'form'> | TConfig<'layout'>
 
 
 export type TFormSchema = {
+  formConfig: {
+    attrs: {
+      rules?: FormRules
+      inline?: boolean
+      size?: '' | 'large' | 'default' | 'small'
+      disabled?: boolean
+      'label-position'?: 'left' | 'right' | 'top'
+      'label-width'?: number | string
+      'label-suffix'?: string
+      'hide-required-asterisk'?: boolean
+      'require-asterisk-position'?: 'left' | 'right'
+      [key: string]: any
+    }
+  }
   formContentConfigList: TComponentConfig[]
 }
 

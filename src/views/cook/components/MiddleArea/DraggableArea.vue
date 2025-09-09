@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TComponentConfig } from '@/types/schema'
 import VueDraggable from 'vuedraggable'
-import { componentsMap } from './componentMap.ts'
+import { componentsMap } from '@/components/FormRender/componentMap.ts'
 
 type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
 

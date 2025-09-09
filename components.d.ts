@@ -15,6 +15,8 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElSw: typeof import('element-plus/es')['ElSw']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
     MiddleArea: typeof import('./src/views/cook/components/MiddleArea/index.vue')['default']

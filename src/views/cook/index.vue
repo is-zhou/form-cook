@@ -3,6 +3,9 @@ import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { ref, watch } from 'vue'
 
 const formSchema = ref<TFormSchema>({
+  formConfig: {
+    attrs: {},
+  },
   formContentConfigList: [],
 })
 
@@ -32,7 +35,10 @@ watch(
     <main class="main">
       <LeftArea />
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
-      <RightArea v-model:componentConfig="selectedConfig" />
+      <RightArea
+        v-model:componentConfig="selectedConfig"
+        v-model:formConfig="formSchema.formConfig"
+      />
     </main>
   </div>
 </template>
