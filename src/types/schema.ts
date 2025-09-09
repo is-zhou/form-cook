@@ -13,19 +13,19 @@ export type TConfig<T extends TComponentType> = T extends 'form'
     componentName: TComponentName
     componentType: T
     formItemAttrs: TFormItem
-    attrs: {}
-    defaultValue: any
+    attrs: { [key: string]: unknown }
+    defaultValue: unknown
     style?: {}
-    slots?: any[]
+    slots?: unknown[]
   }
   : {
     id: string
     sort?: number
     componentName: TComponentName
     componentType: T
-    attrs: {}
+    attrs: { [key: string]: unknown }
     style?: {}
-    slots?: any[]
+    slots?: unknown[]
     children?: TComponentConfig[]
 
   }
@@ -45,7 +45,7 @@ export type TFormSchema = {
       'label-suffix'?: string
       'hide-required-asterisk'?: boolean
       'require-asterisk-position'?: 'left' | 'right'
-      [key: string]: any
+      [key: string]: unknown
     }
   }
   formContentConfigList: TComponentConfig[]
