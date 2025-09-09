@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { ref } from 'vue'
-import { ElForm } from 'element-plus'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 

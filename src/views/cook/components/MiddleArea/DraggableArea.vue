@@ -2,7 +2,6 @@
 import type { TComponentConfig } from '@/types/schema'
 import VueDraggable from 'vuedraggable'
 import { componentsMap } from './componentMap.ts'
-import { ElFormItem } from 'element-plus'
 
 type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
 

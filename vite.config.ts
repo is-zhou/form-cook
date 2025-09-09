@@ -6,6 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -14,9 +15,11 @@ export default defineConfig({
     vueDevTools(),
     AutoImport({
       imports: ['vue', 'vue-router'],
+      resolvers: [ElementPlusResolver()],
     }),
     Components({
       dirs: ['src/components', 'src/views/cook/components'],
+      resolvers: [ElementPlusResolver()],
     }),
   ],
   resolve: {

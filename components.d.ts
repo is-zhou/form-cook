@@ -10,6 +10,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     copy: typeof import('./src/views/cook/components/MiddleArea/index copy.vue')['default']
     DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElInput: typeof import('element-plus/es')['ElInput']
     IconInput: typeof import('./src/components/icon/IconInput.vue')['default']
     LeftArea: typeof import('./src/views/cook/components/LeftArea.vue')['default']
     MiddleArea: typeof import('./src/views/cook/components/MiddleArea/index.vue')['default']
