@@ -55,6 +55,14 @@ const handleDel = (index: number) => {
               v-model:configList="element.children"
               v-model:selectedConfig="selectedConfig"
             ></DraggableArea>
+            <el-icon
+              v-if="selectedConfig?.id === element.id"
+              @click.stop="handleDel(index)"
+              class="current_del"
+              size="12"
+            >
+              <i-ep-Delete />
+            </el-icon>
           </component>
         </template>
         <el-form-item
@@ -72,8 +80,9 @@ const handleDel = (index: number) => {
           </component>
           <el-icon
             v-if="selectedConfig?.id === element.id"
-            class="current_del"
             @click.stop="handleDel(index)"
+            class="current_del"
+            size="12"
           >
             <i-ep-Delete />
           </el-icon>
