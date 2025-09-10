@@ -2,7 +2,7 @@ import type { Material } from '@/types/material.ts'
 
 const select: Material = {
   label: '选择器',
-  icon: '',
+  icon: 'IconSelect',
   materialContent: {
     id: '',
     componentName: 'select',

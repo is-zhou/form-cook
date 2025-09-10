@@ -1,17 +1,18 @@
 import type { Material } from '@/types/material.ts'
 
-const radioGroup: Material = {
-  label: '单选框',
+const radioGroupButton: Material = {
+  label: '单选框按钮',
   icon: 'IconRadio',
   materialContent: {
     id: '',
     componentName: 'radioGroup',
     componentType: 'form',
-    formItemAttrs: { field: '', label: '单选框' },
+    formItemAttrs: { field: '', label: '单选框按钮' },
+    attrs: {},
     slots: [
       {
         name: 'default',
-        componentName: 'radio',
+        componentName: 'radioButton',
         options: [
           { value: 'large', label: 'large' },
           { value: 'default', label: 'default' },
@@ -19,9 +20,8 @@ const radioGroup: Material = {
         ],
       },
     ],
-    attrs: {},
     defaultValue: ""
   },
 }
 
-export default radioGroup
+export default radioGroupButton
