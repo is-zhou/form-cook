@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, useAttrs, watch } from 'vue'
 import { stringify } from 'javascript-stringify'
+
+const $attrs = useAttrs()
 
 const resultValue = defineModel()
 const text = ref(resultValue.value)
 const errMsg = ref('')
+
 watch(
   () => resultValue.value,
   () => {
@@ -34,6 +37,7 @@ const handleSave = () => {
     @blur="handleSave"
     type="textarea"
     placeholder="Please input"
+    v-bind="$attrs"
   />
   <span class="errMsg" v-if="errMsg">{{ errMsg }}</span>
 </template>

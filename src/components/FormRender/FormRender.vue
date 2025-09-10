@@ -46,7 +46,6 @@ async function onSubmit() {
               <slot
                 :data="schemaFormData[config.formItemAttrs.field]"
                 :config="config"
-                :props="$props"
                 :key="config.id"
                 :formData="schemaFormData"
                 :name="config.formItemAttrs.field"
