@@ -1,6 +1,9 @@
 import { ref, watch, type Ref } from "vue"
 
 export function useFormData(formData: Ref) {
+  if (!formData.value) {
+    formData.value = {}
+  }
   const _formData = ref<{ [key: string]: any }>(flattenObject(formData.value))
 
   function flattenObject(obj: any, prefix: string = ''): { [key: string]: any } {
