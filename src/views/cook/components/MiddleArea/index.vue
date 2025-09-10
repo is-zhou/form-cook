@@ -20,14 +20,17 @@ const previewFormData = ref<{ [key: string]: any }>()
       <form-render v-model="previewFormData" v-model:form-schema="formSchema"></form-render>
     </el-dialog>
 
-    <div class="canvas_area" :class="{ option_hint: !formSchema.formContentConfigList.length }">
-      <el-form :model="_formData" style="height: 100%" v-bind="formSchema.formAreaConfig.attrs">
-        <DraggableArea
-          v-model:configList="formSchema.formContentConfigList"
-          v-model:selectedConfig="selectedConfig"
-        ></DraggableArea>
-      </el-form>
-    </div>
+    <el-scrollbar height="100%">
+      <div class="canvas_area" :class="{ option_hint: !formSchema.formContentConfigList.length }">
+        <el-form :model="_formData" v-bind="formSchema.formAreaConfig.attrs">
+          <DraggableArea
+            class="area_hight"
+            v-model:configList="formSchema.formContentConfigList"
+            v-model:selectedConfig="selectedConfig"
+          ></DraggableArea>
+        </el-form>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -45,10 +48,14 @@ const previewFormData = ref<{ [key: string]: any }>()
   }
   .canvas_area {
     width: 375px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     background-color: #fff;
     padding: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    .area_hight {
+      min-height: calc(100vh - 40px - 20px - 20px);
+    }
 
     &.option_hint {
       position: relative;

@@ -34,23 +34,25 @@ watch(
 
 <template>
   <div class="right_area">
-    <el-tabs v-model="activeName" type="border-card" style="min-height: 100%">
-      <el-tab-pane label="组件配置" name="component">
-        <ConfigFormRender
-          v-if="componentConfig"
-          :key="componentConfig?.id"
-          :form-data="componentConfig"
-          :config-list="componentSetterList || []"
-        ></ConfigFormRender>
-        <div v-else class="option_hint"></div>
-      </el-tab-pane>
-      <el-tab-pane label="表单域配置" name="formArea">
-        <ConfigFormRender
-          v-if="formAreaConfig"
-          :form-data="formAreaConfig"
-          :config-list="formAreaSetterList || []"
-        ></ConfigFormRender>
-      </el-tab-pane>
+    <el-tabs v-model="activeName" type="border-card" class="custom_tab_pane">
+      <el-scrollbar height="100%">
+        <el-tab-pane label="组件配置" name="component">
+          <ConfigFormRender
+            v-if="componentConfig"
+            :key="componentConfig?.id"
+            :form-data="componentConfig"
+            :config-list="componentSetterList || []"
+          ></ConfigFormRender>
+          <div v-else class="option_hint"></div>
+        </el-tab-pane>
+        <el-tab-pane label="表单域配置" name="formArea">
+          <ConfigFormRender
+            v-if="formAreaConfig"
+            :form-data="formAreaConfig"
+            :config-list="formAreaSetterList || []"
+          ></ConfigFormRender>
+        </el-tab-pane>
+      </el-scrollbar>
     </el-tabs>
   </div>
 </template>
@@ -59,8 +61,18 @@ watch(
 .right_area {
   width: 330px;
   height: 100%;
-  overflow: auto;
   background-color: #fff;
+  .custom_tab_pane {
+    height: 100%;
+    ::v-deep(.el-tabs__content) {
+      padding-right: 0;
+      padding-bottom: 0;
+      .el-tab-pane {
+        padding-right: 15px;
+        padding-bottom: 15px;
+      }
+    }
+  }
   .option_hint {
     position: relative;
     height: 100px;

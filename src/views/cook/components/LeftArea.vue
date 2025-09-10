@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type Component } from 'vue'
+import { ref } from 'vue'
 import VueDraggable from 'vuedraggable'
 import material from '@/materials/index'
 import type { Material } from '@/types/material'
@@ -22,33 +22,35 @@ const pushContentItem = (current: Material) => {
 </script>
 
 <template>
-  <div class="left_area">
-    <VueDraggable
-      v-model="materials"
-      :group="{ name: 'form', pull: 'clone', put: false }"
-      :clone="pushContentItem"
-      :sort="false"
-      tag="div"
-      item-key="label"
-      class="drag_wrap"
-    >
-      <template #item="{ element }">
-        <div class="material_item">
-          <div>{{ element.label }}</div>
-          <component :is="materialIconMap[element.icon] || IconInput"></component>
-        </div>
-      </template>
-    </VueDraggable>
-  </div>
+  <el-scrollbar height="100%">
+    <div class="left_area">
+      <VueDraggable
+        v-model="materials"
+        :group="{ name: 'form', pull: 'clone', put: false }"
+        :clone="pushContentItem"
+        :sort="false"
+        tag="div"
+        item-key="label"
+        class="drag_wrap"
+      >
+        <template #item="{ element }">
+          <div class="material_item">
+            <div>{{ element.label }}</div>
+            <component :is="materialIconMap[element.icon] || IconInput"></component>
+          </div>
+        </template>
+      </VueDraggable>
+    </div>
+  </el-scrollbar>
 </template>
 
 <style scoped lang="scss">
 .left_area {
   width: 330px;
-  height: 100%;
   background-color: #fff;
-  overflow: auto;
   padding: 6px;
+  min-height: calc(100vh - 40px);
+  margin-right: 8px;
   .drag_wrap {
     display: flex;
     flex-wrap: wrap;
