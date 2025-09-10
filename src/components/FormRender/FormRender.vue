@@ -58,6 +58,14 @@ async function onSubmit() {
                   v-bind="config.attrs"
                   :default="setDefault(config)"
                 >
+                  <template v-for="slot in config?.slots" #[slot.name]>
+                    <component
+                      v-for="option in slot.options"
+                      :is="componentsMap[slot.componentName]"
+                      :value="option.value"
+                      >{{ option.label }}</component
+                    >
+                  </template>
                 </component>
               </slot>
             </el-form-item>

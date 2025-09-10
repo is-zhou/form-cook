@@ -8,9 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    1: typeof import('./src/components/MaterialIcons/1.vue')['default']
     ConfigFormRender: typeof import('./src/views/cook/components/RightArea/ConfigFormRender.vue')['default']
-    copy: typeof import('./src/components/MaterialIcons/temp copy.vue')['default']
     DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
     EditorStringToCode: typeof import('./src/components/FormRender/components/EditorStringToCode.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -20,8 +18,6 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     FormRender: typeof import('./src/components/FormRender/FormRender.vue')['default']

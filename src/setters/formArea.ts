@@ -35,7 +35,7 @@ const formArea: TSettersModuleType = {
         slots: [
           {
             name: 'default',
-            type: 'radioButton',
+            componentName: 'radioButton',
             options: [
               { value: 'left', label: 'left' },
               { value: 'right', label: 'right' },
@@ -67,7 +67,7 @@ const formArea: TSettersModuleType = {
         slots: [
           {
             name: 'default',
-            type: 'radioButton',
+            componentName: 'radioButton',
             options: [
               { value: 'large', label: 'large' },
               { value: 'default', label: 'default' },
@@ -102,7 +102,7 @@ const formArea: TSettersModuleType = {
         slots: [
           {
             name: 'default',
-            type: 'radioButton',
+            componentName: 'radioButton',
             options: [
               { value: 'left', label: 'left' },
               { value: 'right', label: 'right' },

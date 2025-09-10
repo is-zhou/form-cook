@@ -5,6 +5,8 @@ export type TComponentType = 'form' | 'layout'
 
 export type TFormItem = { field: string; label: string; required?: boolean;[key: string]: any }
 
+type TSlot = { name: string, componentName: TComponentName, options?: { label?: string, value?: unknown }[], [key: string]: unknown }
+
 export type TConfig<T extends TComponentType> = T extends 'form'
   ? {
     id: string
@@ -15,7 +17,7 @@ export type TConfig<T extends TComponentType> = T extends 'form'
     attrs: { [key: string]: unknown }
     defaultValue: unknown
     style?: {}
-    slots?: unknown[]
+    slots?: TSlot[]
   }
   : {
     id: string
@@ -24,7 +26,7 @@ export type TConfig<T extends TComponentType> = T extends 'form'
     componentType: T
     attrs: { [key: string]: unknown }
     style?: {}
-    slots?: unknown[]
+    slots?: TSlot[]
     children?: TComponentConfig[]
 
   }

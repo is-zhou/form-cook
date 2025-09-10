@@ -62,7 +62,7 @@ const publicFormItem: TSettersModuleType = {
         slots: [
           {
             name: 'default',
-            type: 'radioButton',
+            componentName: 'radioButton',
             options: [
               {
                 value: 'large',
