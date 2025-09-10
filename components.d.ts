@@ -8,7 +8,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    1: typeof import('./src/components/MaterialIcons/1.vue')['default']
     ConfigFormRender: typeof import('./src/views/cook/components/RightArea/ConfigFormRender.vue')['default']
+    copy: typeof import('./src/components/MaterialIcons/temp copy.vue')['default']
     DraggableArea: typeof import('./src/views/cook/components/MiddleArea/DraggableArea.vue')['default']
     EditorStringToCode: typeof import('./src/components/FormRender/components/EditorStringToCode.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -24,6 +26,10 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     FormRender: typeof import('./src/components/FormRender/FormRender.vue')['default']
     IconInput: typeof import('./src/components/MaterialIcons/IconInput.vue')['default']
+    IconInputNumber: typeof import('./src/components/MaterialIcons/IconInputNumber.vue')['default']
+    IconInputTag: typeof import('./src/components/MaterialIcons/IconInputTag.vue')['default']
+    IconRate: typeof import('./src/components/MaterialIcons/IconRate.vue')['default']
+    IconSlider: typeof import('./src/components/MaterialIcons/IconSlider.vue')['default']
     IconSwitch: typeof import('./src/components/MaterialIcons/IconSwitch.vue')['default']
     IEpDelete: typeof import('~icons/ep/delete')['default']
     IEpView: typeof import('~icons/ep/view')['default']
@@ -32,6 +38,7 @@ declare module 'vue' {
     RightArea: typeof import('./src/views/cook/components/RightArea/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Temp: typeof import('./src/components/MaterialIcons/temp.vue')['default']
     TopArea: typeof import('./src/views/cook/components/TopArea.vue')['default']
   }
 }
