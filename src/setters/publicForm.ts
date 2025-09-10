@@ -91,13 +91,13 @@ const publicFormItem: TSettersModuleType = {
       rules: {
         id: '',
         sort: 1,
-        componentName: 'input',
+        componentName: 'editorStringToCode',
         componentType: 'form',
         formItemAttrs: { field: '', label: '表单验证规则' },
         attrs: {
           clearable: true,
         },
-        defaultValue: '',
+        defaultValue: { required: true, message: '不能为空', trigger: 'blur' },
       },
       field: {
         id: '',

@@ -4,17 +4,27 @@ import { stringify } from 'javascript-stringify'
 
 const resultValue = defineModel()
 const text = ref(resultValue.value)
-
+const errMsg = ref('')
 watch(
   () => resultValue.value,
   () => {
-    const serialized = stringify(resultValue.value)
-    text.value = serialized
+    try {
+      errMsg.value = ''
+      const serialized = stringify(resultValue.value)
+      text.value = serialized
+    } catch (error) {
+      errMsg.value = `序列化失败：${error}`
+    }
   },
 )
 
 const handleSave = () => {
-  resultValue.value = new Function(`return (${text.value})`)()
+  try {
+    errMsg.value = ''
+    resultValue.value = new Function(`return (${text.value})`)()
+  } catch (error) {
+    errMsg.value = `反序列化失败：${error}`
+  }
 }
 </script>
 <template>
@@ -25,6 +35,12 @@ const handleSave = () => {
     type="textarea"
     placeholder="Please input"
   />
+  <span class="errMsg" v-if="errMsg">{{ errMsg }}</span>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.errMsg {
+  font-size: 12px;
+  color: var(--el-color-danger);
+}
+</style>
