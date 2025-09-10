@@ -2,20 +2,35 @@
 import { componentsMap } from '@/components/FormRender/componentMap.ts'
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { useFormData } from './hooks/useFormData'
+import { ref } from 'vue'
+import type { FormInstance } from 'element-plus'
 
 const submitFormData = defineModel<{ [key: string]: any }>({ required: true })
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 
 const schemaFormData = useFormData(submitFormData)
 
+const formRef = ref<FormInstance>()
+
 const setDefault = (config: TComponentConfig) => {
   if (config.componentType === 'form' && config.defaultValue !== '') {
     schemaFormData.value[config.formItemAttrs.field] = config.defaultValue
   }
 }
+
+async function onSubmit() {
+  console.log('点击保存', schemaFormData.value)
+  await formRef.value?.validate((valid, fields) => {
+    if (valid) {
+      console.log('submit!')
+    } else {
+      console.log('error submit!', fields)
+    }
+  })
+}
 </script>
 <template>
-  <el-form :model="schemaFormData" v-bind="formSchema.formAreaConfig.attrs">
+  <el-form :model="schemaFormData" ref="formRef" v-bind="formSchema.formAreaConfig.attrs">
     <slot
       name="form-content"
       :submitFormData="submitFormData"
@@ -49,6 +64,8 @@ const setDefault = (config: TComponentConfig) => {
         <template v-else> 非表单组件待处理 </template>
       </template>
     </slot>
+    <!-- 其他操作 -->
+    <el-button type="primary" @click="onSubmit">保存</el-button>
   </el-form>
 </template>
 
