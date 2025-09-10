@@ -14,7 +14,9 @@ const formRef = ref<FormInstance>()
 
 const setDefault = (config: TComponentConfig) => {
   if (config.componentType === 'form' && config.defaultValue !== '') {
-    schemaFormData.value[config.formItemAttrs.field] = config.defaultValue
+    if (typeof schemaFormData.value[config.formItemAttrs.field] === 'undefined') {
+      schemaFormData.value[config.formItemAttrs.field] = config.defaultValue
+    }
   }
 }
 
