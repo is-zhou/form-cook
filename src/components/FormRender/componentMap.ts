@@ -13,6 +13,9 @@ import {
   ElColorPicker,
 } from 'element-plus'
 
+
+import EditorStringToCode from './components/EditorStringToCode.vue'
+
 export const componentsMap = {
   input: ElInput,
   textarea: ElInput,
@@ -26,7 +29,8 @@ export const componentsMap = {
   switch: ElSwitch,
   slider: ElSlider,
   colorPicker: ElColorPicker,
-  div: 'div'
+  div: 'div',
+  editorStringToCode: EditorStringToCode,
 }
 
 export type TComponentName = keyof typeof componentsMap

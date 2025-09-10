@@ -19,6 +19,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "element-plus": "^2.11.2",
+    "javascript-stringify": "^2.1.0",
     "lodash": "^4.17.21",
     "nanoid": "^5.1.5",
     "normalize.css": "^8.0.1",
