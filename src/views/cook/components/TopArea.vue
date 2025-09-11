@@ -1,11 +1,36 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import IconRedo from '@/components/icon/IconRedo.vue'
+import IconUndo from '@/components/icon/IconUndo.vue'
+import { useUndoRedo } from '@/hooks/useUndoRedo'
+
+const { undo, redo, canUndo, canRedo } = useUndoRedo()
+</script>
 
 <template>
   <header class="top_area">
     <div class="top_area_left">
       <h3>FormCook</h3>
     </div>
-    <div class="top_area_middle"></div>
+    <div class="top_area_middle">
+      <el-tooltip effect="light" content="撤销" placement="bottom">
+        <el-button
+          :icon="IconUndo"
+          :type="canUndo ? 'primary' : ''"
+          :disabled="!canUndo"
+          @click="undo"
+          plain
+        />
+      </el-tooltip>
+      <el-tooltip effect="light" content="重做" placement="bottom">
+        <el-button
+          :icon="IconRedo"
+          :type="canRedo ? 'primary' : ''"
+          :disabled="!canRedo"
+          @click="redo"
+          plain
+        />
+      </el-tooltip>
+    </div>
     <div class="top_area_right"></div>
   </header>
 </template>
@@ -22,6 +47,7 @@
 .top_area_left {
   display: flex;
   gap: 10px;
+  width: 330px;
   h3 {
     font-weight: bold;
     margin: 0;
@@ -32,5 +58,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.top_area_right {
+  width: 330px;
 }
 </style>

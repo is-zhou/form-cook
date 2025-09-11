@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
-import IconRedo from '@/components/icon/IconRedo.vue'
-import IconUndo from '@/components/icon/IconUndo.vue'
+
 import { View } from '@element-plus/icons-vue'
 
 import { ref } from 'vue'
@@ -13,8 +12,6 @@ const _formData = ref<{ [key: string]: any }>()
 
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 
-const { undo, redo, canUndo, canRedo } = useUndoRedo()
-
 const dialogFormVisible = ref(false)
 const previewFormData = ref<{ [key: string]: any }>()
 </script>
@@ -22,24 +19,6 @@ const previewFormData = ref<{ [key: string]: any }>()
 <template>
   <div class="middle_area">
     <div class="area_options">
-      <el-tooltip effect="light" content="撤销" placement="bottom">
-        <el-button
-          :icon="IconUndo"
-          :type="canUndo ? 'primary' : ''"
-          :disabled="!canUndo"
-          @click="undo"
-          plain
-        />
-      </el-tooltip>
-      <el-tooltip effect="light" content="重做" placement="bottom">
-        <el-button
-          :icon="IconRedo"
-          :type="canRedo ? 'primary' : ''"
-          :disabled="!canRedo"
-          @click="redo"
-          plain
-        />
-      </el-tooltip>
       <el-tooltip effect="light" content="预览" placement="bottom">
         <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
       </el-tooltip>

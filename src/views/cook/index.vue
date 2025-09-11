@@ -15,8 +15,6 @@ const selectedConfig = ref<TComponentConfig>()
 const { state, initValue, commit, history, undo, redo, subscribe } = useUndoRedo(formSchema.value)
 
 const unsubscribe = subscribe((val) => {
-  console.log('history.value.length', history.value)
-
   if (val) {
     formSchema.value.formAreaConfig = cloneDeep(val).formAreaConfig
     formSchema.value.formContentConfigList = cloneDeep(val).formContentConfigList
