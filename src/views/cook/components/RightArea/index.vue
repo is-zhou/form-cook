@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import setters from '@/setters'
 import formAreaSetterList from '@/setters/formArea.ts'
 import publicFormSetterList from '@/setters/publicForm.ts'
 import publicSetterList from '@/setters/public.ts'
+import { debounce } from 'lodash'
 
 const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
@@ -13,23 +14,40 @@ const activeName = ref<'component' | 'formArea'>('formArea')
 
 const componentSetterList = ref<Array<TComponentConfig>>()
 
+const emits = defineEmits<{ (e: 'onChange'): void }>()
+
+const debouncedChange = debounce(handleChange, 200)
+
 watch(
   () => componentConfig.value,
-  () => {
-    activeName.value = componentConfig.value ? 'component' : 'formArea'
-
+  (current, pre) => {
     if (componentConfig.value) {
+      activeName.value = 'component'
       componentSetterList.value = [
         ...publicSetterList,
         ...publicFormSetterList,
         ...(setters.setters[componentConfig.value.componentName] || []),
       ]
+    } else {
+      activeName.value = 'formArea'
     }
+    debouncedChange()
   },
-  {
-    immediate: true,
-  },
+  { deep: true, immediate: true },
 )
+
+watch(
+  () => formAreaConfig.value,
+  () => {
+    activeName.value = 'formArea'
+    debouncedChange()
+  },
+  { deep: true },
+)
+
+function handleChange() {
+  emits('onChange')
+}
 </script>
 
 <template>

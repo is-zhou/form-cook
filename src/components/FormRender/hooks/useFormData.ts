@@ -46,5 +46,13 @@ export function useFormData(formData: Ref) {
     { immediate: true, deep: true },
   )
 
+  watch(
+    () => formData.value,
+    () => {
+      _formData.value = flattenObject(formData.value)
+    },
+    { immediate: true, deep: true },
+  )
+
   return _formData
 }

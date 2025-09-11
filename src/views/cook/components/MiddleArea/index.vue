@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
+import IconRedo from '@/components/icon/IconRedo.vue'
+import IconUndo from '@/components/icon/IconUndo.vue'
+import { View } from '@element-plus/icons-vue'
+
 import { ref } from 'vue'
+import { useUndoRedo } from '@/hooks/useUndoRedo'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 
@@ -8,13 +13,37 @@ const _formData = ref<{ [key: string]: any }>()
 
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 
+const { undo, redo, canUndo, canRedo } = useUndoRedo()
+
 const dialogFormVisible = ref(false)
 const previewFormData = ref<{ [key: string]: any }>()
 </script>
 
 <template>
   <div class="middle_area">
-    <el-icon class="preview" @click="dialogFormVisible = true"><i-ep-View /></el-icon>
+    <div class="area_options">
+      <el-tooltip effect="dark" content="撤销" placement="bottom">
+        <el-button
+          :icon="IconUndo"
+          :type="canUndo ? 'primary' : ''"
+          :disabled="!canUndo"
+          @click="undo"
+          circle
+        />
+      </el-tooltip>
+      <el-tooltip effect="dark" content="重做" placement="bottom">
+        <el-button
+          :icon="IconRedo"
+          :type="canRedo ? 'primary' : ''"
+          :disabled="!canRedo"
+          @click="redo"
+          circle
+        />
+      </el-tooltip>
+      <el-tooltip effect="dark" content="预览" placement="bottom">
+        <el-button :icon="View" @click="dialogFormVisible = true" circle />
+      </el-tooltip>
+    </div>
 
     <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
       <form-render v-model="previewFormData" v-model:form-schema="formSchema"></form-render>
@@ -42,10 +71,19 @@ const previewFormData = ref<{ [key: string]: any }>()
   align-items: stretch;
   justify-content: center;
   padding: 10px;
-  .preview {
+  .area_options {
     position: absolute;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-start;
     right: 10px;
+    img {
+      width: 20px;
+    }
   }
+
   .canvas_area {
     width: 375px;
     background-color: #fff;

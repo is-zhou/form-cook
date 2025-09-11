@@ -2,6 +2,8 @@
 import type { TComponentConfig } from '@/types/schema'
 import VueDraggable from 'vuedraggable'
 import { componentsMap, type TComponentName } from '@/components/FormRender/componentMap.ts'
+import { watch } from 'vue'
+import { cloneDeep } from 'lodash'
 
 type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
 
@@ -9,6 +11,8 @@ const configList = defineModel<TComponentConfig[]>('configList', { required: tru
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig', {
   required: true,
 })
+
+let preSelectedConfig: TComponentConfig | null
 
 const handleSelectChange = (element: TComponentConfig | null) => {
   selectedConfig.value = element
@@ -22,6 +26,25 @@ const handleDel = (index: number) => {
   configList.value?.splice(index, 1)
   handleSelectChange(null)
 }
+
+watch(
+  () => configList.value,
+  () => {
+    const target = configList.value.find((i) => i.id === selectedConfig.value?.id)
+    const preTarget = configList.value.find((i) => i.id === preSelectedConfig?.id)
+
+    if (selectedConfig.value && !target) {
+      preSelectedConfig = cloneDeep(selectedConfig.value)
+    }
+    if (!configList.value.length) {
+      handleSelectChange(null)
+      return
+    }
+
+    handleSelectChange(target || preTarget || null)
+  },
+  { deep: true, immediate: true },
+)
 </script>
 
 <template>

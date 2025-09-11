@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useUndoRedo } from '@/hooks/useUndoRedo'
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
-import { ref, watch } from 'vue'
+import { cloneDeep, isEqual } from 'lodash'
+import { onBeforeUnmount, ref } from 'vue'
 
 const formSchema = ref<TFormSchema>({
   formAreaConfig: {
@@ -8,25 +10,28 @@ const formSchema = ref<TFormSchema>({
   },
   formContentConfigList: [],
 })
-
 const selectedConfig = ref<TComponentConfig>()
 
-watch(
-  () => selectedConfig.value,
-  () => {
-    console.log('selectedConfig', selectedConfig)
-  },
-)
+const { state, initValue, commit, history, undo, redo, subscribe } = useUndoRedo(formSchema.value)
 
-watch(
-  () => formSchema.value,
-  () => {
-    console.log('formSchema.value', formSchema.value)
-  },
-  {
-    deep: true,
-  },
-)
+const unsubscribe = subscribe((val) => {
+  console.log('history.value.length', history.value)
+
+  if (val) {
+    formSchema.value.formAreaConfig = cloneDeep(val).formAreaConfig
+    formSchema.value.formContentConfigList = cloneDeep(val).formContentConfigList
+  }
+})
+
+function handleCommit() {
+  if (!isEqual(state.value, formSchema.value) && !isEqual(formSchema.value, initValue.value)) {
+    state.value = cloneDeep(formSchema.value)
+    commit()
+  }
+}
+onBeforeUnmount(() => {
+  unsubscribe()
+})
 </script>
 
 <template>
@@ -36,8 +41,9 @@ watch(
       <LeftArea />
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
       <RightArea
-        v-model:componentConfig="selectedConfig"
-        v-model:formAreaConfig="formSchema.formAreaConfig"
+        :componentConfig="selectedConfig"
+        :formAreaConfig="formSchema.formAreaConfig"
+        @onChange="handleCommit"
       />
     </main>
   </div>
