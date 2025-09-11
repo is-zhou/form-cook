@@ -22,26 +22,26 @@ const previewFormData = ref<{ [key: string]: any }>()
 <template>
   <div class="middle_area">
     <div class="area_options">
-      <el-tooltip effect="dark" content="撤销" placement="bottom">
+      <el-tooltip effect="light" content="撤销" placement="bottom">
         <el-button
           :icon="IconUndo"
           :type="canUndo ? 'primary' : ''"
           :disabled="!canUndo"
           @click="undo"
-          circle
+          plain
         />
       </el-tooltip>
-      <el-tooltip effect="dark" content="重做" placement="bottom">
+      <el-tooltip effect="light" content="重做" placement="bottom">
         <el-button
           :icon="IconRedo"
           :type="canRedo ? 'primary' : ''"
           :disabled="!canRedo"
           @click="redo"
-          circle
+          plain
         />
       </el-tooltip>
-      <el-tooltip effect="dark" content="预览" placement="bottom">
-        <el-button :icon="View" @click="dialogFormVisible = true" circle />
+      <el-tooltip effect="light" content="预览" placement="bottom">
+        <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
       </el-tooltip>
     </div>
 
