@@ -13,7 +13,7 @@ watch(
   () => {
     try {
       errMsg.value = ''
-      const serialized = stringify(resultValue.value)
+      const serialized = stringify(resultValue.value, null, 2)
       text.value = serialized
     } catch (error) {
       errMsg.value = `序列化失败：${error}`
