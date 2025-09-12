@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
-
 import { View } from '@element-plus/icons-vue'
-
 import { ref, watch } from 'vue'
+import IconCode from '@/components/icon/IconCode.vue'
 
 import typeDefs from '@/types/typeDefs'
 
@@ -25,7 +24,12 @@ const previewFormData = ref<{ [key: string]: any }>()
         <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
       </el-tooltip>
       <el-tooltip effect="light" content="Schema" placement="bottom">
-        <el-button type="primary" @click="dialogSchemaVisible = true" plain>Schema</el-button>
+        <el-button
+          :icon="IconCode"
+          type="primary"
+          @click="dialogSchemaVisible = true"
+          plain
+        ></el-button>
       </el-tooltip>
     </div>
 
