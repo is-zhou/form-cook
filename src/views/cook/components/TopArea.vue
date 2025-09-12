@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import IconRedo from '@/components/icon/IconRedo.vue'
 import IconUndo from '@/components/icon/IconUndo.vue'
+import IconSave from '@/components/icon/IconSave.vue'
+import IconClear from '@/components/icon/IconClear.vue'
 import { useUndoRedo } from '@/hooks/useUndoRedo'
 
-const { undo, redo, canUndo, canRedo } = useUndoRedo()
+const { undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, canSave } =
+  useUndoRedo()
 </script>
 
 <template>
@@ -29,6 +32,24 @@ const { undo, redo, canUndo, canRedo } = useUndoRedo()
           @click="redo"
           plain
         />
+      </el-tooltip>
+      <el-tooltip effect="light" content="保存" placement="bottom">
+        <el-button
+          :icon="IconSave"
+          :type="canSave ? 'primary' : ''"
+          :disabled="!canSave"
+          @click="saveSchemaToLocal"
+          plain
+        ></el-button>
+      </el-tooltip>
+      <el-tooltip effect="light" content="清空" placement="bottom">
+        <el-button
+          :icon="IconClear"
+          :type="canClear ? 'primary' : ''"
+          :disabled="!canClear"
+          @click="clearSchema"
+          plain
+        ></el-button>
       </el-tooltip>
     </div>
     <div class="top_area_right"></div>

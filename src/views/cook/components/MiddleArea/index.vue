@@ -6,7 +6,6 @@ import { View } from '@element-plus/icons-vue'
 import { ref, watch } from 'vue'
 
 import typeDefs from '@/types/typeDefs'
-import { useUndoRedo } from '@/hooks/useUndoRedo'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 
@@ -17,7 +16,6 @@ const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 const dialogFormVisible = ref(false)
 const dialogSchemaVisible = ref(false)
 const previewFormData = ref<{ [key: string]: any }>()
-
 </script>
 
 <template>

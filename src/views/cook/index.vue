@@ -4,15 +4,12 @@ import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { cloneDeep, isEqual } from 'lodash'
 import { onBeforeUnmount, ref, watch } from 'vue'
 
-const formSchema = ref<TFormSchema>({
-  formAreaConfig: {
-    attrs: {},
-  },
-  formContentConfigList: [],
-})
+const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
+
+const formSchema = ref<TFormSchema>(initValue)
 const selectedConfig = ref<TComponentConfig>()
 
-const { state, initValue, commit, history, undo, redo, subscribe } = useUndoRedo(formSchema.value)
+formSchema.value = getSchemaByLocal()
 
 watch(
   () => formSchema.value,
@@ -24,13 +21,13 @@ watch(
 
 const unsubscribe = subscribe((val) => {
   if (val) {
-    formSchema.value.formAreaConfig = cloneDeep(val).formAreaConfig
-    formSchema.value.formContentConfigList = cloneDeep(val).formContentConfigList
+    const result = cloneDeep(val)
+    formSchema.value = result
   }
 })
 
 function handleCommit() {
-  if (!isEqual(state.value, formSchema.value) && !isEqual(formSchema.value, initValue.value)) {
+  if (!isEqual(state.value, formSchema.value)) {
     state.value = cloneDeep(formSchema.value)
     commit()
   }
