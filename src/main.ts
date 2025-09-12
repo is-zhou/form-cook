@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import 'normalize.css/normalize.css';
 import 'element-plus/dist/index.css'
+import "vue-serialize-input/dist/index.css";
 import "@/assets/base.scss"
 
 import App from './App.vue'

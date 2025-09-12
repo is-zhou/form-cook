@@ -13,8 +13,7 @@ import {
   ElColorPicker,
 } from 'element-plus'
 
-
-import EditorStringToCode from './components/EditorStringToCode.vue'
+import { SerializeInput } from "vue-serialize-input"
 
 export const componentsMap = {
   input: ElInput,
@@ -30,7 +29,7 @@ export const componentsMap = {
   slider: ElSlider,
   colorPicker: ElColorPicker,
   div: 'div',
-  editorStringToCode: EditorStringToCode,
+  serializeInput: SerializeInput
 }
 
 export type TComponentName = keyof typeof componentsMap
