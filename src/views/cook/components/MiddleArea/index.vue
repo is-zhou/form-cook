@@ -3,7 +3,9 @@ import type { TComponentConfig, TFormSchema } from '@/types/schema'
 
 import { View } from '@element-plus/icons-vue'
 
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+
+import typeDefs from '@/types/typeDefs'
 import { useUndoRedo } from '@/hooks/useUndoRedo'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
@@ -15,6 +17,7 @@ const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 const dialogFormVisible = ref(false)
 const dialogSchemaVisible = ref(false)
 const previewFormData = ref<{ [key: string]: any }>()
+
 </script>
 
 <template>
@@ -33,7 +36,12 @@ const previewFormData = ref<{ [key: string]: any }>()
     </el-dialog>
 
     <el-dialog v-if="dialogSchemaVisible" v-model="dialogSchemaVisible" title="Schema">
-      <CodeEditor v-model="formSchema" language="typescript" />
+      <CodeEditorMonaco
+        v-if="dialogSchemaVisible"
+        v-model="formSchema"
+        :typeDefs="typeDefs"
+        language="typescript"
+      />
     </el-dialog>
 
     <el-scrollbar height="100%">

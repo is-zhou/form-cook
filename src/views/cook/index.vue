@@ -2,7 +2,7 @@
 import { useUndoRedo } from '@/hooks/useUndoRedo'
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { cloneDeep, isEqual } from 'lodash'
-import { onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 
 const formSchema = ref<TFormSchema>({
   formAreaConfig: {
@@ -13,6 +13,14 @@ const formSchema = ref<TFormSchema>({
 const selectedConfig = ref<TComponentConfig>()
 
 const { state, initValue, commit, history, undo, redo, subscribe } = useUndoRedo(formSchema.value)
+
+watch(
+  () => formSchema.value,
+  () => {
+    console.log('formSchema', formSchema.value)
+  },
+  { deep: true },
+)
 
 const unsubscribe = subscribe((val) => {
   if (val) {

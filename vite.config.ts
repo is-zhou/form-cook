@@ -9,6 +9,8 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import monacoEditorPlugin from 'vite-plugin-monaco-editor-esm'
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -39,6 +41,9 @@ export default defineConfig({
     Icons({
       autoInstall: true,
     }),
+    monacoEditorPlugin({
+      languageWorkers: ['editorWorkerService', 'typescript', 'json']
+    })
   ],
   resolve: {
     alias: {
