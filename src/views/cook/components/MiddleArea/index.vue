@@ -13,6 +13,7 @@ const _formData = ref<{ [key: string]: any }>()
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
 
 const dialogFormVisible = ref(false)
+const dialogSchemaVisible = ref(false)
 const previewFormData = ref<{ [key: string]: any }>()
 </script>
 
@@ -22,10 +23,17 @@ const previewFormData = ref<{ [key: string]: any }>()
       <el-tooltip effect="light" content="预览" placement="bottom">
         <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
       </el-tooltip>
+      <el-tooltip effect="light" content="Schema" placement="bottom">
+        <el-button type="primary" @click="dialogSchemaVisible = true" plain>Schema</el-button>
+      </el-tooltip>
     </div>
 
     <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
       <form-render v-model="previewFormData" v-model:form-schema="formSchema"></form-render>
+    </el-dialog>
+
+    <el-dialog v-if="dialogSchemaVisible" v-model="dialogSchemaVisible" title="Schema">
+      <CodeEditor v-model="formSchema" language="typescript" />
     </el-dialog>
 
     <el-scrollbar height="100%">
