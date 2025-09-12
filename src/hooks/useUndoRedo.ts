@@ -58,11 +58,13 @@ const saveSchemaToLocal = () => {
     ElMessage({
       message: '保存成功',
       type: 'success',
+      placement: "bottom"
     })
   } catch (error) {
     ElMessage({
       message: `保存失败:${error}`,
       type: 'error',
+      placement: "bottom"
     })
   }
 }
