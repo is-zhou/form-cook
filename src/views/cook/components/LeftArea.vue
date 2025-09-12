@@ -10,7 +10,17 @@ import materialIconMap from '@/components/MaterialIcons/index'
 
 const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
 
+const emits = defineEmits<{ (e: 'clickPushContentItem', value: TComponentConfig): void }>()
+
 const pushContentItem = (current: Material) => {
+  return cloneComponentConfig(current)
+}
+
+const handleClick = (current: Material) => {
+  emits('clickPushContentItem', cloneComponentConfig(current))
+}
+
+function cloneComponentConfig(current: Material) {
   const materialContent: TComponentConfig = cloneDeep(current.materialContent)
   materialContent.id = `id_${Date.now()}`
 
@@ -34,7 +44,7 @@ const pushContentItem = (current: Material) => {
         class="drag_wrap"
       >
         <template #item="{ element }">
-          <div class="material_item">
+          <div class="material_item" @click.stop="handleClick(element)">
             <div>{{ element.label }}</div>
             <component :is="materialIconMap[element.icon] || IconInput"></component>
           </div>

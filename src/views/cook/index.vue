@@ -32,6 +32,12 @@ function handleCommit() {
     commit()
   }
 }
+
+function clickPushContentItem(componentConfig: TComponentConfig) {
+  formSchema.value.formContentConfigList.push(componentConfig)
+  handleCommit()
+}
+
 onBeforeUnmount(() => {
   unsubscribe()
 })
@@ -41,7 +47,7 @@ onBeforeUnmount(() => {
   <div class="page">
     <TopArea></TopArea>
     <main class="main">
-      <LeftArea />
+      <LeftArea @clickPushContentItem="clickPushContentItem" />
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
       <RightArea
         :componentConfig="selectedConfig"
