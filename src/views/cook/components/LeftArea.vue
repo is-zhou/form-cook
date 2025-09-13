@@ -59,7 +59,7 @@ function cloneComponentConfig(current: Material) {
   width: 330px;
   background-color: #fff;
   padding: 6px;
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - 42px);
   margin-right: 8px;
   .drag_wrap {
     display: flex;

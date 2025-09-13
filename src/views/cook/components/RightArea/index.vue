@@ -77,9 +77,11 @@ function handleChange() {
 
 <style scoped lang="scss">
 .right_area {
+  position: relative;
   width: 330px;
   height: 100%;
   background-color: #fff;
+
   .custom_tab_pane {
     height: 100%;
     ::v-deep(.el-tabs__content) {
