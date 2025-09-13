@@ -34,6 +34,7 @@ function handleCommit() {
 }
 
 function clickPushContentItem(componentConfig: TComponentConfig) {
+  selectedConfig.value = componentConfig
   formSchema.value.formContentConfigList.push(componentConfig)
   handleCommit()
 }
