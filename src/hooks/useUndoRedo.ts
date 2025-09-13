@@ -92,9 +92,15 @@ const canClear = computed(() => {
 })
 
 const canSave = computed(() => {
-  if (saveSchemaData.value == serialize(state.value)) {
+
+  if (saveSchemaData.value === serialize(state.value)) {
     return false
   }
+
+  if ((typeof saveSchemaData.value === "undefined" && serialize(state.value) === serialize(DEFAULT))) {
+    return false
+  }
+
   return true
 })
 
