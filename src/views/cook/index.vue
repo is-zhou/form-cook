@@ -4,10 +4,13 @@ import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { cloneDeep, isEqual } from 'lodash'
 import { onBeforeUnmount, ref, watch } from 'vue'
 
+import typeDefs from '@/types/typeDefs'
 const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
 
 const formSchema = ref<TFormSchema>(initValue)
 const selectedConfig = ref<TComponentConfig>()
+
+const dialogSchemaVisible = ref(false)
 
 formSchema.value = getSchemaByLocal()
 
@@ -45,7 +48,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="page">
-    <TopArea></TopArea>
+    <TopArea @clickHandleSchema="dialogSchemaVisible = true"></TopArea>
     <main class="main">
       <LeftArea @clickPushContentItem="clickPushContentItem" />
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
@@ -55,6 +58,15 @@ onBeforeUnmount(() => {
         @onChange="handleCommit"
       />
     </main>
+
+    <el-dialog v-if="dialogSchemaVisible" v-model="dialogSchemaVisible" title="Schema">
+      <CodeEditorMonaco
+        v-if="dialogSchemaVisible"
+        v-model="formSchema"
+        :typeDefs="typeDefs"
+        language="typescript"
+      />
+    </el-dialog>
   </div>
 </template>
 

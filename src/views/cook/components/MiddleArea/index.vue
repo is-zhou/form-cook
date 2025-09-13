@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import type { TComponentConfig, TFormSchema } from '@/types/schema'
-import { View } from '@element-plus/icons-vue'
 import { ref, watch } from 'vue'
-import IconCode from '@/components/icon/IconCode.vue'
 import IconPull from '@/components/icon/IconPull.vue'
 
-import typeDefs from '@/types/typeDefs'
 import { useResizable } from '@/hooks/useResizable'
 
 const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
@@ -13,10 +10,6 @@ const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
 const _formData = ref<{ [key: string]: any }>()
 
 const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
-
-const dialogFormVisible = ref(false)
-const dialogSchemaVisible = ref(false)
-const previewFormData = ref<{ [key: string]: any }>()
 
 const parentRef = ref<HTMLElement | null>(null)
 const targetRef = ref<HTMLElement | null>(null)
@@ -30,32 +23,6 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
 
 <template>
   <div class="middle_area" ref="parentRef">
-    <div class="area_options">
-      <el-tooltip effect="light" content="预览" placement="bottom">
-        <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
-      </el-tooltip>
-      <el-tooltip effect="light" content="Schema" placement="bottom">
-        <el-button
-          :icon="IconCode"
-          type="primary"
-          @click="dialogSchemaVisible = true"
-          plain
-        ></el-button>
-      </el-tooltip>
-    </div>
-
-    <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
-      <form-render v-model="previewFormData" v-model:form-schema="formSchema"></form-render>
-    </el-dialog>
-
-    <el-dialog v-if="dialogSchemaVisible" v-model="dialogSchemaVisible" title="Schema">
-      <CodeEditorMonaco
-        v-if="dialogSchemaVisible"
-        v-model="formSchema"
-        :typeDefs="typeDefs"
-        language="typescript"
-      />
-    </el-dialog>
     <div class="canvas_wrap" :style="{ width: `${width + 10}px` }">
       <el-scrollbar height="100%">
         <div

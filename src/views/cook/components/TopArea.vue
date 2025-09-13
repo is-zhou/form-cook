@@ -3,10 +3,20 @@ import IconRedo from '@/components/icon/IconRedo.vue'
 import IconUndo from '@/components/icon/IconUndo.vue'
 import IconSave from '@/components/icon/IconSave.vue'
 import IconClear from '@/components/icon/IconClear.vue'
-import { useUndoRedo } from '@/hooks/useUndoRedo'
+import IconCode from '@/components/icon/IconCode.vue'
+import { View } from '@element-plus/icons-vue'
 
-const { undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, canSave } =
+import { useUndoRedo } from '@/hooks/useUndoRedo'
+import { ref } from 'vue'
+
+const emits = defineEmits(['clickHandleSchema'])
+
+const { state, undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, canSave } =
   useUndoRedo()
+
+const dialogFormVisible = ref(false)
+
+const previewFormData = ref<{ [key: string]: any }>()
 </script>
 
 <template>
@@ -15,44 +25,63 @@ const { undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, 
       <h3>FormCook</h3>
     </div>
     <div class="top_area_middle">
-      <el-tooltip effect="light" content="撤销" placement="bottom">
-        <el-button
-          :icon="IconUndo"
-          :type="canUndo ? 'primary' : ''"
-          :disabled="!canUndo"
-          @click="undo"
-          plain
-        />
-      </el-tooltip>
-      <el-tooltip effect="light" content="重做" placement="bottom">
-        <el-button
-          :icon="IconRedo"
-          :type="canRedo ? 'primary' : ''"
-          :disabled="!canRedo"
-          @click="redo"
-          plain
-        />
-      </el-tooltip>
-      <el-tooltip effect="light" content="保存" placement="bottom">
-        <el-button
-          :icon="IconSave"
-          :type="canSave ? 'primary' : ''"
-          :disabled="!canSave"
-          @click="saveSchemaToLocal"
-          plain
-        ></el-button>
-      </el-tooltip>
-      <el-tooltip effect="light" content="清空" placement="bottom">
-        <el-button
-          :icon="IconClear"
-          :type="canClear ? 'primary' : ''"
-          :disabled="!canClear"
-          @click="clearSchema"
-          plain
-        ></el-button>
-      </el-tooltip>
+      <div class="middle_l"></div>
+      <div class="middle_m">
+        <el-tooltip effect="light" content="撤销" placement="bottom">
+          <el-button
+            :icon="IconUndo"
+            :type="canUndo ? 'primary' : ''"
+            :disabled="!canUndo"
+            @click="undo"
+            plain
+          />
+        </el-tooltip>
+        <el-tooltip effect="light" content="重做" placement="bottom">
+          <el-button
+            :icon="IconRedo"
+            :type="canRedo ? 'primary' : ''"
+            :disabled="!canRedo"
+            @click="redo"
+            plain
+          />
+        </el-tooltip>
+        <el-tooltip effect="light" content="保存" placement="bottom">
+          <el-button
+            :icon="IconSave"
+            :type="canSave ? 'primary' : ''"
+            :disabled="!canSave"
+            @click="saveSchemaToLocal"
+            plain
+          ></el-button>
+        </el-tooltip>
+        <el-tooltip effect="light" content="清空" placement="bottom">
+          <el-button
+            :icon="IconClear"
+            :type="canClear ? 'primary' : ''"
+            :disabled="!canClear"
+            @click="clearSchema"
+            plain
+          ></el-button>
+        </el-tooltip>
+      </div>
+      <div class="middle_r">
+        <el-tooltip effect="light" content="预览" placement="bottom">
+          <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
+        </el-tooltip>
+        <el-tooltip effect="light" content="Schema" placement="bottom">
+          <el-button
+            :icon="IconCode"
+            type="primary"
+            @click="emits('clickHandleSchema')"
+            plain
+          ></el-button>
+        </el-tooltip>
+      </div>
     </div>
     <div class="top_area_right"></div>
+    <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
+      <form-render v-model="previewFormData" v-model:form-schema="state"></form-render>
+    </el-dialog>
   </header>
 </template>
 
@@ -78,7 +107,19 @@ const { undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, 
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  .middle_l {
+    text-align: left;
+  }
+  .middle_m {
+    text-align: center;
+  }
+  .middle_r {
+    text-align: right;
+  }
+  > div {
+    flex: 1;
+  }
 }
 .top_area_right {
   width: 330px;
