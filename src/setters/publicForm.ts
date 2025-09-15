@@ -11,6 +11,7 @@ const componentNameOptions: {
 const publicFormItem: TSettersModuleType = {
   componentName: {
     id: '',
+    sort: 1,
     componentName: 'select',
     componentType: 'form',
     formItemAttrs: { field: '', label: '组件名称' },
@@ -106,6 +107,28 @@ const publicFormItem: TSettersModuleType = {
   },
   formItemAttrs: {
     setterChildren: {
+      field: {
+        id: '',
+        sort: 1,
+        componentName: 'input',
+        componentType: 'form',
+        formItemAttrs: { field: '', label: '字段' },
+        attrs: {
+          clearable: true,
+        },
+        defaultValue: '',
+      },
+      label: {
+        id: '',
+        sort: 1,
+        componentName: 'input',
+        componentType: 'form',
+        formItemAttrs: { field: '', label: '标签' },
+        attrs: {
+          clearable: true,
+        },
+        defaultValue: '',
+      },
       rules: {
         id: '',
         sort: 1,
@@ -120,26 +143,7 @@ const publicFormItem: TSettersModuleType = {
         },
         defaultValue: { required: true, message: '不能为空', trigger: 'blur' },
       },
-      field: {
-        id: '',
-        componentName: 'input',
-        componentType: 'form',
-        formItemAttrs: { field: '', label: '字段' },
-        attrs: {
-          clearable: true,
-        },
-        defaultValue: '',
-      },
-      label: {
-        id: '',
-        componentName: 'input',
-        componentType: 'form',
-        formItemAttrs: { field: '', label: '标签' },
-        attrs: {
-          clearable: true,
-        },
-        defaultValue: '',
-      },
+
       required: {
         id: '',
         componentName: 'switch',
@@ -157,4 +161,5 @@ const publicFormItem: TSettersModuleType = {
 
 
 const list = getSettersListByObj(publicFormItem)
+
 export default list

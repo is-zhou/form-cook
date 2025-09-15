@@ -34,9 +34,9 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
         list.push(...getSettersListByObj(item.setterChildren, key))
       }
     })
-    list = list.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
+
   }
-  return list
+  return sortByProperty(list, 'sort')
 }
 
 
@@ -65,7 +65,7 @@ export function updateSettersByComponentConfig(componentConfig: ComponentConfig)
   const targetList = setters.setters[componentConfig.componentName] || []
 
   list = list.concat(targetList)
-  return list.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
+  return sortByProperty(list, 'sort')
 }
 
 export function objectAssignByComponentConfig(currentConfig: Ref<ComponentConfig | null | undefined>, newName: string) {
@@ -105,4 +105,15 @@ export function objectAssignByComponentConfig(currentConfig: Ref<ComponentConfig
     }
 
   }
+}
+
+
+function sortByProperty<T>(arr: Array<T>, property: keyof T) {
+  return arr.sort((a, b) => {
+    // 获取 'property' 属性的值，如果没有，则视为 Infinity，排到后面
+    const valueA = a[property] ?? Infinity;
+    const valueB = b[property] ?? Infinity;
+
+    return Number(valueA) - Number(valueB);
+  });
 }
