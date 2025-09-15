@@ -132,16 +132,14 @@ const publicFormItem: TSettersModuleType = {
       rules: {
         id: '',
         sort: 1,
-        componentName: 'serializeInput',
+        componentName: 'RuleEditor',
         componentType: 'form',
         formItemAttrs: { field: '', label: '表单验证规则' },
         attrs: {
-          clearable: true,
-          autosize: true,
-          width: "100%",
-          serializeType: ['array', "object"]
+          serializeType: ['array'],
+          placeholder: "请输入验证规则",
         },
-        defaultValue: { required: true, message: '不能为空', trigger: 'blur' },
+        defaultValue: [],
       },
 
       required: {

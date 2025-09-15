@@ -7,13 +7,16 @@ const formArea: TSettersModuleType = {
     setterChildren: {
       rules: {
         id: '',
-        componentName: 'input',
+        componentName: 'RuleEditor',
         componentType: 'form',
         formItemAttrs: { field: '', label: '表单验证规则' },
         attrs: {
           clearable: true,
+          availableFields: ["msg"],
+          placeholder: "请输入验证规则",
+          serializeType: ['object'],
         },
-        defaultValue: "",
+        defaultValue: {},
       },
       inline: {
         id: '',

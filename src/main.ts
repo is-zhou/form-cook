@@ -9,13 +9,13 @@ import App from './App.vue'
 import router from './router'
 import formRender from 'form-cook-render'
 import { SerializeInput } from 'vue-serialize-input'
-
+import RuleEditor from "@/components/RuleEditor/index.vue"
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(formRender, {
-  components: { serializeInput: SerializeInput, div: "div" }
+  components: { serializeInput: SerializeInput, div: "div", RuleEditor }
 })
 
 app.mount('#app')
