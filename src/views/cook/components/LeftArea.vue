@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import VueDraggable from 'vuedraggable'
 import material from '@/materials/index'
 import type { Material } from '@/types/material'
-import { cloneDeep } from 'lodash'
+import type { ComponentConfig } from 'form-cook-render'
 import IconInput from '@/components/MaterialIcons/IconInput.vue'
 import materialIconMap from '@/components/MaterialIcons/index'
-import type { ComponentConfig } from 'form-cook-render'
+import { cloneComponentConfig } from '@/utils'
 
 const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
 
@@ -18,16 +17,6 @@ const pushContentItem = (current: Material) => {
 
 const handleClick = (current: Material) => {
   emits('clickPushContentItem', cloneComponentConfig(current))
-}
-
-function cloneComponentConfig(current: Material) {
-  const materialContent: ComponentConfig = cloneDeep(current.materialContent)
-  materialContent.id = `id_${Date.now()}`
-
-  if (materialContent.componentType === 'form') {
-    materialContent.formItemAttrs.field = `field_${Date.now()}`
-  }
-  return materialContent
 }
 </script>
 

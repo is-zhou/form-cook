@@ -1,7 +1,25 @@
+import type { Material } from '@/types/material'
 import type { TSettersModuleType } from '@/types/setter.ts'
 import { getSettersListByObj } from '@/utils'
+import material from '@/materials/index'
+const materials: Material[] = [...material.materialFormList,]
 
+const componentNameOptions: {
+  value: string,
+  label: string,
+}[] = materials.map(i => ({ value: i.materialContent.componentName, label: i.label }))
 const publicFormItem: TSettersModuleType = {
+  componentName: {
+    id: '',
+    componentName: 'select',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '组件名称' },
+    attrs: {
+      clearable: true,
+      options: componentNameOptions,
+    },
+    defaultValue: '',
+  },
   defaultValue: {
     id: '',
     componentName: 'input',

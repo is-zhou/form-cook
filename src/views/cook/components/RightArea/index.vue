@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import setters from '@/setters'
 import formAreaSetterList from '@/setters/formArea.ts'
-import publicFormSetterList from '@/setters/publicForm.ts'
-import publicSetterList from '@/setters/public.ts'
-import { debounce } from 'lodash'
+import { debounce, omit } from 'lodash'
+
 import type { ComponentConfig, FormAreaConfig } from 'form-cook-render'
+import {
+  cloneComponentConfig,
+  objectAssignByComponentConfig,
+  updateSettersByComponentConfig,
+} from '@/utils'
 
 const componentConfig = defineModel<ComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<FormAreaConfig>('formAreaConfig', { required: true })
@@ -23,11 +26,7 @@ watch(
   (current, pre) => {
     if (componentConfig.value) {
       activeName.value = 'component'
-      componentSetterList.value = [
-        ...publicSetterList,
-        ...publicFormSetterList,
-        ...(setters.setters[componentConfig.value.componentName] || []),
-      ]
+      componentSetterList.value = updateSettersByComponentConfig(componentConfig.value)
     } else {
       activeName.value = 'formArea'
     }
@@ -41,6 +40,16 @@ watch(
   () => {
     activeName.value = 'formArea'
     debouncedChange()
+  },
+  { deep: true },
+)
+
+watch(
+  () => [componentConfig.value?.componentName, componentConfig.value?.id],
+  ([newName, newId], [oldName, oldId]) => {
+    if (oldId && oldName && newName && newName !== oldName && newId === oldId) {
+      objectAssignByComponentConfig(componentConfig, newName)
+    }
   },
   { deep: true },
 )

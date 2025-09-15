@@ -1,6 +1,16 @@
+import type { Material } from '@/types/material'
 import type { TSettersItem, TSettersModuleType } from '@/types/setter'
-import type { ComponentConfig } from 'form-cook-render'
+import type { ComponentConfig, ComponentName } from 'form-cook-render'
+import { cloneDeep, omit } from 'lodash'
 import { nanoid } from 'nanoid'
+
+import setters from '@/setters'
+import publicFormSetterList from '@/setters/publicForm.ts'
+import publicSetterList from '@/setters/public.ts'
+import publicLayoutSetterList from '@/setters/publicLayout.ts'
+
+import material from '@/materials/index'
+const materials: Material[] = [...material.materialFormList, ...material.materialLayoutList]
 
 export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
   let list: ComponentConfig[] = []
@@ -29,3 +39,70 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
   return list
 }
 
+
+
+export function cloneComponentConfig(current: Material): ComponentConfig {
+  const materialContent: ComponentConfig = cloneDeep(current.materialContent)
+  materialContent.id = `id_${Date.now()}`
+
+  if (materialContent.componentType === 'form') {
+    materialContent.formItemAttrs.field = `field_${Date.now()}`
+  }
+  return { ...materialContent }
+}
+
+
+
+export function updateSettersByComponentConfig(componentConfig: ComponentConfig) {
+  let list = [...publicSetterList]
+
+  if (componentConfig.componentType === 'form') {
+    list = list.concat(publicFormSetterList)
+  }
+  if (componentConfig.componentType === 'layout') {
+    list = list.concat(publicLayoutSetterList)
+  }
+  const targetList = setters.setters[componentConfig.componentName] || []
+
+  list = list.concat(targetList)
+  return list.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
+}
+
+export function objectAssignByComponentConfig(currentConfig: Ref<ComponentConfig | null | undefined>, newName: string) {
+  const target = materials.find((i) => i.materialContent.componentName === newName)
+
+  if (target && currentConfig.value) {
+    const cloneConfig = cloneComponentConfig(target)
+
+    if (
+      currentConfig.value.componentType === 'form' &&
+      cloneConfig.componentType === 'form' && (currentConfig.value.defaultValue || cloneConfig.defaultValue)
+    ) {
+      currentConfig.value.defaultValue = cloneConfig.defaultValue
+    }
+
+    if (
+      currentConfig.value.componentType === 'layout' &&
+      cloneConfig.componentType === 'layout' && (currentConfig.value.children || cloneConfig.children)
+    ) {
+      currentConfig.value.children = cloneConfig.children
+    }
+
+    if (currentConfig.value.sort || cloneConfig.sort) {
+      currentConfig.value.sort = cloneConfig.sort
+    }
+
+    if (currentConfig.value.attrs || cloneConfig.attrs) {
+      currentConfig.value.attrs = cloneConfig.attrs
+    }
+
+    if (currentConfig.value.style || cloneConfig.style) {
+      currentConfig.value.style = cloneConfig.style
+    }
+
+    if (currentConfig.value.slots || cloneConfig.slots) {
+      currentConfig.value.slots = cloneConfig.slots
+    }
+
+  }
+}
