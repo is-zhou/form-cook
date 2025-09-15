@@ -9,7 +9,7 @@ const formArea: TSettersModuleType = {
         id: '',
         componentName: 'RuleEditor',
         componentType: 'form',
-        formItemAttrs: { field: '', label: '表单验证规则' },
+        formItemAttrs: { field: '', label: '表单验证规则', },
         attrs: {
           clearable: true,
           availableFields: ["msg"],
@@ -54,7 +54,7 @@ const formArea: TSettersModuleType = {
         formItemAttrs: { field: '', label: '标签的长度' },
         attrs: {
           clearable: true,
-          type: 'number',
+          type: 'text',
         },
         defaultValue: "",
       },

@@ -25,6 +25,7 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
           arg.id = nanoid(10)
           if (arg.componentType === 'form') {
             arg.formItemAttrs.field = preKey ? `${preKey}.${key}` : key
+            arg.formItemAttrs.style = " border: 1px solid var(--el-border-color-light); padding:10px"
           }
           list.push(arg)
         }
