@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import type { TComponentConfig } from '@/types/schema'
 import VueDraggable from 'vuedraggable'
-import { componentsMap, type TComponentName } from '@/components/FormRender/componentMap.ts'
 import { watch } from 'vue'
 import { cloneDeep } from 'lodash'
+import { getComponent, type ComponentConfig, type ComponentName } from 'form-cook-render'
 
-type TDragCurrent = { item: { _underlying_vm_: TComponentConfig } }
+type TDragCurrent = { item: { _underlying_vm_: ComponentConfig } }
 
-const configList = defineModel<TComponentConfig[]>('configList', { required: true })
-const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig', {
+const configList = defineModel<ComponentConfig[]>('configList', { required: true })
+const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
   required: true,
 })
 
-let preSelectedConfig: TComponentConfig | null
+let preSelectedConfig: ComponentConfig | null
 
-const handleSelectChange = (element: TComponentConfig | null) => {
+const handleSelectChange = (element: ComponentConfig | null) => {
   selectedConfig.value = element
 }
 
@@ -63,7 +62,7 @@ watch(
       <div class="component_wrap" @click.stop="handleSelectChange(element)">
         <template v-if="element.children">
           <component
-            :is="componentsMap[element.componentName as TComponentName] || element.componentName"
+            :is="getComponent(element.componentName) || element.componentName"
             :key="element.id"
             v-bind="element.attrs"
             :style="element.style"
@@ -90,7 +89,7 @@ watch(
           :class="{ selected: selectedConfig?.id === element.id }"
         >
           <component
-            :is="componentsMap[element.componentName as TComponentName] || element.componentName"
+            :is="getComponent(element.componentName) || element.componentName"
             :key="element.id"
             v-model="element.defaultValue"
             v-bind="element.attrs"
@@ -98,7 +97,7 @@ watch(
             <template v-for="slot in element?.slots" #[slot?.name]>
               <component
                 v-for="option in slot.options"
-                :is="componentsMap[slot.componentName as TComponentName]"
+                :is="getComponent(slot.componentName)"
                 :value="option.value"
                 >{{ option.label }}</component
               >

@@ -1,5 +1,4 @@
-import type { TComponentName } from '@/components/FormRender/componentMap';
-import type { TConfig, TComponentConfig } from '@/types/schema.ts'
+import type { ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render';
 
 export type TSetterGroup = 'formItem' | 'form';
 export type TisHide = true | undefined;
@@ -14,14 +13,14 @@ export type TSettersItem<T extends TisHide = undefined> = T extends true
     isHide?: T;
     group?: TSetterGroup;
     setterChildren?: Record<string, TSettersItem<true> | TSettersItem>;
-  } & TComponentConfig
+  } & ComponentConfig
 
-type CombinedKeys = keyof TConfig<'form'> | keyof TConfig<'layout'>;
+type CombinedKeys = keyof FormCompConfig | keyof LayoutCompConfig;
 
 export type TSettersModuleType = {
   [key in CombinedKeys]?: TSettersItem<true> | TSettersItem;
 };
 
 export type TSetters = {
-  [key in TComponentName]?: Array<TComponentConfig>;
+  [key in ComponentName]?: Array<ComponentConfig>;
 };

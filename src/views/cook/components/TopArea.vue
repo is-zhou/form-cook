@@ -80,7 +80,7 @@ const previewFormData = ref<{ [key: string]: any }>()
     </div>
     <div class="top_area_right"></div>
     <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
-      <form-render v-model="previewFormData" v-model:form-schema="state"></form-render>
+      <form-cook-render v-model="previewFormData" v-model:form-schema="state"></form-cook-render>
     </el-dialog>
   </header>
 </template>

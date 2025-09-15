@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import FormRender from '@/components/FormRender/FormRender.vue'
 import { watch, ref } from 'vue'
-import type { TFormSchema, TComponentConfig } from '@/types/schema'
+import type { ComponentConfig, FormSchema } from 'form-cook-render'
 
 const formData = defineModel<{ [key: string]: any }>('formData', { required: true })
 
-const configList = defineModel<TComponentConfig[]>('configList', { required: true })
+const configList = defineModel<ComponentConfig[]>('configList', { required: true })
 
-const formSchema = ref<TFormSchema>({
+const formSchema = ref<FormSchema>({
   formAreaConfig: {
     attrs: {
       'label-position': 'top',
@@ -30,7 +29,7 @@ watch(
 </script>
 
 <template>
-  <form-render v-model="formData" v-model:form-schema="formSchema"></form-render>
+  <form-cook-render v-model="formData" v-model:form-schema="formSchema"></form-cook-render>
 </template>
 
 <style scoped lang="scss"></style>

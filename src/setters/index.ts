@@ -1,6 +1,6 @@
-import type { TComponentName } from '@/components/FormRender/componentMap'
 import type { TSetters, TSettersModuleType } from '@/types/setter.ts'
 import { getSettersListByObj } from '@/utils'
+import type { ComponentName } from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 
 interface ModuleType {
@@ -20,7 +20,7 @@ function setSetters(target: Record<string, ModuleType>) {
   for (const path in target) {
     const defaultExport = cloneDeep(target[path].default)
 
-    setters[path.replace(/^.*\/(.*)\.ts$/, '$1') as TComponentName] = getSettersListByObj(defaultExport)
+    setters[path.replace(/^.*\/(.*)\.ts$/, '$1') as ComponentName] = getSettersListByObj(defaultExport)
   }
 }
 

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { TComponentConfig, TFormAreaConfig } from '@/types/schema'
-import { onBeforeUnmount, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import setters from '@/setters'
 import formAreaSetterList from '@/setters/formArea.ts'
 import publicFormSetterList from '@/setters/publicForm.ts'
 import publicSetterList from '@/setters/public.ts'
 import { debounce } from 'lodash'
+import type { ComponentConfig, FormAreaConfig } from 'form-cook-render'
 
-const componentConfig = defineModel<TComponentConfig | null>('componentConfig')
-const formAreaConfig = defineModel<TFormAreaConfig>('formAreaConfig', { required: true })
+const componentConfig = defineModel<ComponentConfig | null>('componentConfig')
+const formAreaConfig = defineModel<FormAreaConfig>('formAreaConfig', { required: true })
 
 const activeName = ref<'component' | 'formArea'>('formArea')
 
-const componentSetterList = ref<Array<TComponentConfig>>()
+const componentSetterList = ref<Array<ComponentConfig>>()
 
 const emits = defineEmits<{ (e: 'onChange'): void }>()
 

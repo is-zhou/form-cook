@@ -1,12 +1,12 @@
-import type { TComponentConfig } from '@/types/schema'
 import type { TSettersItem, TSettersModuleType } from '@/types/setter'
+import type { ComponentConfig } from 'form-cook-render'
 import { nanoid } from 'nanoid'
 
 export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
-  let list: TComponentConfig[] = []
+  let list: ComponentConfig[] = []
   if (obj) {
     Object.keys(obj).forEach((key) => {
-      const item = obj[key as keyof TComponentConfig]!
+      const item = obj[key as keyof ComponentConfig]!
 
       if (item.isHide !== true) {
         const { setterChildren, ...arg } = item as TSettersItem

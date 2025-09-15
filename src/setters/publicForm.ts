@@ -98,7 +98,7 @@ const publicFormItem: TSettersModuleType = {
           clearable: true,
           autosize: true,
           width: "100%",
-          serializeType: "array"
+          serializeType: ['array', "object"]
         },
         defaultValue: { required: true, message: '不能为空', trigger: 'blur' },
       },

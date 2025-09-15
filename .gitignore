@@ -30,3 +30,4 @@ coverage
 *.tsbuildinfo
 components.d.ts
 auto-imports.d.ts
+pnpm-workspace.yaml

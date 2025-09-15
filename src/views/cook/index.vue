@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useUndoRedo } from '@/hooks/useUndoRedo'
-import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { cloneDeep, isEqual } from 'lodash'
 import { onBeforeUnmount, ref, watch } from 'vue'
 
 import typeDefs from '@/types/typeDefs'
+
+import type { ComponentConfig, FormSchema } from 'form-cook-render'
 const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
 
-const formSchema = ref<TFormSchema>(initValue)
-const selectedConfig = ref<TComponentConfig>()
+const formSchema = ref<FormSchema>(initValue)
+const selectedConfig = ref<ComponentConfig>()
 
 const dialogSchemaVisible = ref(false)
 
@@ -36,7 +37,7 @@ function handleCommit() {
   }
 }
 
-function clickPushContentItem(componentConfig: TComponentConfig) {
+function clickPushContentItem(componentConfig: ComponentConfig) {
   selectedConfig.value = componentConfig
   formSchema.value.formContentConfigList.push(componentConfig)
 }

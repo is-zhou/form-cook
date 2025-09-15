@@ -1,14 +1,14 @@
 import type { TSettersModuleType } from '@/types/setter.ts'
 
-import { componentsMap } from "@/components/FormRender/componentMap"
 import { getSettersListByObj } from '@/utils'
+import { defaultComponents } from 'form-cook-render'
 
 const componentNameOptions: {
   value: string,
   label: string,
 }[] = []
 
-Object.keys(componentsMap).forEach(key => {
+Object.keys(defaultComponents()).forEach(key => {
   componentNameOptions.push({
     value: key,
     label: key,

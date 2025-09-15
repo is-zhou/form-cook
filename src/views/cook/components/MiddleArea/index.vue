@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { TComponentConfig, TFormSchema } from '@/types/schema'
 import { ref, watch } from 'vue'
 import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
+import type { ComponentConfig, FormSchema } from 'form-cook-render'
 
-const formSchema = defineModel<TFormSchema>('formSchema', { required: true })
+const formSchema = defineModel<FormSchema>('formSchema', { required: true })
 
 const _formData = ref<{ [key: string]: any }>()
 
-const selectedConfig = defineModel<TComponentConfig | null>('selectedConfig')
+const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig')
 
 const parentRef = ref<HTMLElement | null>(null)
 const targetRef = ref<HTMLElement | null>(null)

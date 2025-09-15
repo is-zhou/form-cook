@@ -1,10 +1,10 @@
 // composables/useUndoRedo.ts
-import { computed, ref, type Ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useManualRefHistory } from '@vueuse/core'
-import type { TFormSchema } from '@/types/schema'
 import { cloneDeep, isEqual } from 'lodash'
 import { useSerialize } from 'vue-serialize-input'
 import { ElMessage } from 'element-plus'
+import type { FormSchema } from 'form-cook-render'
 
 const DEFAULT = {
   formAreaConfig: {
@@ -15,7 +15,7 @@ const DEFAULT = {
 
 let saveSchemaData = ref<undefined | string>()
 
-const state = ref<TFormSchema>(cloneDeep(DEFAULT))
+const state = ref<FormSchema>(cloneDeep(DEFAULT))
 
 
 const { history, commit, undo: _undo, redo: _redo, canUndo, canRedo } = useManualRefHistory(state, {
@@ -26,7 +26,7 @@ const { history, commit, undo: _undo, redo: _redo, canUndo, canRedo } = useManua
 const { serialize, deserialize } = useSerialize()
 
 
-type Listener = (val: TFormSchema | undefined) => void
+type Listener = (val: FormSchema | undefined) => void
 const listeners = new Set<Listener>()
 
 function notify() {
@@ -73,7 +73,7 @@ const getSchemaByLocal = () => {
   const value = localStorage.getItem("formSchema")
   if (value) {
     saveSchemaData.value = value
-    return deserialize<TFormSchema>(value)
+    return deserialize<FormSchema>(value)
   }
   return cloneDeep(state.value)
 }
