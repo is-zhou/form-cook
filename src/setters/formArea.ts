@@ -35,8 +35,8 @@ const formArea: TSettersModuleType = {
           clearable: true,
         },
         defaultValue: "",
-        slots: [
-          {
+        slots: {
+          default: {
             name: 'default',
             componentName: 'radioButton',
             options: [
@@ -45,7 +45,7 @@ const formArea: TSettersModuleType = {
               { value: 'top', label: 'top' },
             ],
           },
-        ],
+        },
       },
       'label-width': {
         id: '',
@@ -67,8 +67,8 @@ const formArea: TSettersModuleType = {
           clearable: true,
         },
         defaultValue: "",
-        slots: [
-          {
+        slots: {
+          default: {
             name: 'default',
             componentName: 'radioButton',
             options: [
@@ -77,7 +77,7 @@ const formArea: TSettersModuleType = {
               { value: 'small', label: 'small' },
             ],
           },
-        ],
+        },
       },
       disabled: {
         id: '',
@@ -102,8 +102,8 @@ const formArea: TSettersModuleType = {
         formItemAttrs: { field: '', label: '星号的位置' },
         attrs: {},
         defaultValue: "",
-        slots: [
-          {
+        slots: {
+          default: {
             name: 'default',
             componentName: 'radioButton',
             options: [
@@ -111,7 +111,7 @@ const formArea: TSettersModuleType = {
               { value: 'right', label: 'right' },
             ],
           },
-        ],
+        },
       },
       'inline-message': {
         id: '',

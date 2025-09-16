@@ -78,8 +78,8 @@ const publicFormItem: TSettersModuleType = {
         },
         attrs: {},
         defaultValue: "",
-        slots: [
-          {
+        slots: {
+          default: {
             name: 'default',
             componentName: 'radioButton',
             options: [
@@ -100,8 +100,8 @@ const publicFormItem: TSettersModuleType = {
                 label: '不设置',
               },
             ],
-          },
-        ],
+          }
+        },
       },
     },
   },

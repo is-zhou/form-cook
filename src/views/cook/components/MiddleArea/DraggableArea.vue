@@ -94,11 +94,12 @@ watch(
             v-model="element.defaultValue"
             v-bind="element.attrs"
           >
-            <template v-for="slot in element?.slots" #[slot?.name]>
+            <template v-for="(slot, name) in element?.slots" #[name]>
               <component
                 v-for="option in slot.options"
                 :is="getComponent(slot.componentName)"
                 :value="option.value"
+                :name="option.name"
                 >{{ option.label }}</component
               >
             </template>

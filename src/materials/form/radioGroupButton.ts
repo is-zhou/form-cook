@@ -9,9 +9,8 @@ const radioGroupButton: Material = {
     componentType: 'form',
     formItemAttrs: { field: '', label: '单选框按钮' },
     attrs: {},
-    slots: [
-      {
-        name: 'default',
+    slots: {
+      default: {
         componentName: 'radioButton',
         options: [
           { value: 'large', label: 'large' },
@@ -19,7 +18,7 @@ const radioGroupButton: Material = {
           { value: 'small', label: 'small' },
         ],
       },
-    ],
+    },
     defaultValue: ""
   },
 }
