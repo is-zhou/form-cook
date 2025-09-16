@@ -10,5 +10,6 @@ declare module 'form-cook-render' {
     'serializeInput': unknown;
     'div': unknown;
     RuleEditor: unknown;
+    OptionsEditor: unknown;
   }
 }
