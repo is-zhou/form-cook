@@ -98,8 +98,7 @@ watch(
               <component
                 v-for="option in slot.options"
                 :is="getComponent(slot.componentName)"
-                :value="option.value"
-                :name="option.name"
+                v-bind="option"
                 >{{ option.label }}</component
               >
             </template>

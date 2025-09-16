@@ -32,7 +32,7 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
       }
 
       if (item.setterChildren) {
-        list.push(...getSettersListByObj(item.setterChildren, key))
+        list.push(...getSettersListByObj(item.setterChildren, preKey ? `${preKey}.${key}` : key))
       }
     })
 
