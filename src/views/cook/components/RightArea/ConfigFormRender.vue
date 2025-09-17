@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue'
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
+import cloneDeep from 'lodash/cloneDeep'
 
 const formData = defineModel<{ [key: string]: any }>('formData', { required: true })
 
@@ -19,7 +20,7 @@ const formSchema = ref<FormSchema>({
 watch(
   () => configList.value,
   () => {
-    formSchema.value.formContentConfigList = configList.value
+    formSchema.value.formContentConfigList = cloneDeep(configList.value)
   },
   {
     immediate: true,
