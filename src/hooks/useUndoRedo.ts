@@ -8,7 +8,9 @@ import type { FormSchema } from 'form-cook-render'
 
 const DEFAULT = {
   formAreaConfig: {
-    attrs: {},
+    attrs: {
+      rules: {}
+    }
   },
   formContentConfigList: [],
 }
