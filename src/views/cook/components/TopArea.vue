@@ -8,6 +8,7 @@ import { View } from '@element-plus/icons-vue'
 
 import { useUndoRedo } from '@/hooks/useUndoRedo'
 import { ref } from 'vue'
+import { cloneDeep } from 'lodash'
 
 const emits = defineEmits(['clickHandleSchema'])
 
@@ -17,6 +18,11 @@ const { state, undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, can
 const dialogFormVisible = ref(false)
 
 const previewFormData = ref<{ [key: string]: any }>({})
+const c = ref({})
+const handlePreview = () => {
+  c.value = cloneDeep(state.value)
+  dialogFormVisible.value = true
+}
 </script>
 
 <template>
@@ -66,7 +72,7 @@ const previewFormData = ref<{ [key: string]: any }>({})
       </div>
       <div class="middle_r">
         <el-tooltip effect="light" content="预览" placement="bottom">
-          <el-button :icon="View" type="primary" @click="dialogFormVisible = true" plain />
+          <el-button :icon="View" type="primary" @click="handlePreview" plain />
         </el-tooltip>
         <el-tooltip effect="light" content="Schema" placement="bottom">
           <el-button
@@ -80,7 +86,7 @@ const previewFormData = ref<{ [key: string]: any }>({})
     </div>
     <div class="top_area_right"></div>
     <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
-      <form-cook-render v-model="previewFormData" v-model:form-schema="state"></form-cook-render>
+      <form-cook-render v-model="previewFormData" v-model:form-schema="c"></form-cook-render>
     </el-dialog>
   </header>
 </template>
