@@ -31,6 +31,7 @@ const publicFormItem: TSettersModuleType = {
     },
     defaultValue: '',
   },
+
   'attrs.placeholder': {
     id: '',
     componentName: 'input',
@@ -44,9 +45,22 @@ const publicFormItem: TSettersModuleType = {
     },
     defaultValue: "",
   },
+  visible: {
+    id: '',
+    componentName: 'BooleanOrFunctionInput',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '显示',
+    },
+    attrs: {
+      clearable: true,
+    },
+    defaultValue: true,
+  },
   'attrs.disabled': {
     id: '',
-    componentName: 'switch',
+    componentName: 'BooleanOrFunctionInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -56,7 +70,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'attrs.readonly': {
     id: '',
-    componentName: 'switch',
+    componentName: 'BooleanOrFunctionInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',

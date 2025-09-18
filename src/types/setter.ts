@@ -5,7 +5,12 @@ export type TisHide = true | undefined;
 
 export type TSettersItem = { group?: TSetterGroup } & ComponentConfig
 
-export type TSettersModuleType = { [key: string]: TSettersItem };
+
+type CombinedKeys = keyof FormCompConfig | keyof LayoutCompConfig;
+
+export type TSettersModuleType = {
+  [key in CombinedKeys | string]?: TSettersItem;
+};
 
 export type TSetters = {
   [key in ComponentName]?: Array<ComponentConfig>;

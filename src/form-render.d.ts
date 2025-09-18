@@ -11,5 +11,6 @@ declare module 'form-cook-render' {
     'div': unknown;
     RuleEditor: unknown;
     OptionsEditor: unknown;
+    BooleanOrFunctionInput: unknown
   }
 }
