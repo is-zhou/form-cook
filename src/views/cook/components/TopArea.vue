@@ -16,7 +16,7 @@ const { state, undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, can
 
 const dialogFormVisible = ref(false)
 
-const previewFormData = ref<{ [key: string]: any }>()
+const previewFormData = ref<{ [key: string]: any }>({})
 </script>
 
 <template>
