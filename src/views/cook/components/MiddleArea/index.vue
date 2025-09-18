@@ -7,7 +7,7 @@ import type { ComponentConfig, FormSchema } from 'form-cook-render'
 
 const formSchema = defineModel<FormSchema>('formSchema', { required: true })
 
-const _formData = ref<{ [key: string]: any }>()
+const _formData = ref<{ [key: string]: any }>({})
 
 const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig')
 
@@ -33,6 +33,7 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
           <el-form :model="_formData" v-bind="formSchema.formAreaConfig.attrs">
             <DraggableArea
               class="area_hight"
+              :form-data="_formData"
               v-model:configList="formSchema.formContentConfigList"
               v-model:selectedConfig="selectedConfig"
             ></DraggableArea>

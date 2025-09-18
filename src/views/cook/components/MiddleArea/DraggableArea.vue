@@ -2,7 +2,12 @@
 import VueDraggable from 'vuedraggable'
 import { watch } from 'vue'
 import { cloneDeep } from 'lodash'
-import { getComponent, type ComponentConfig, type ComponentName } from 'form-cook-render'
+import {
+  getComponent,
+  type Attrs,
+  type ComponentConfig,
+  type ComponentName,
+} from 'form-cook-render'
 
 type TDragCurrent = { item: { _underlying_vm_: ComponentConfig } }
 
@@ -10,6 +15,7 @@ const configList = defineModel<ComponentConfig[]>('configList', { required: true
 const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
   required: true,
 })
+const { formData } = defineProps<{ formData: { [key: string]: any } }>()
 
 let preSelectedConfig: ComponentConfig | null
 
@@ -44,6 +50,37 @@ watch(
   },
   { deep: true, immediate: true },
 )
+
+function getAttrs(node: ComponentConfig) {
+  if (node.componentType === 'form') {
+    if (typeof node.attrs.disabled === 'function') {
+      const isVisible = node.attrs.disabled({ formData: formData, schemaItem: node })
+      node.attrs.disabled = !!isVisible
+    }
+
+    if (typeof node.attrs.readonly === 'function') {
+      const isVisible = node.attrs.readonly({ formData: formData, schemaItem: node })
+      node.attrs.readonly = !!isVisible
+    }
+  }
+
+  return node.attrs
+}
+
+function getVisible(node: ComponentConfig) {
+  let isVisible = true
+  if (typeof node.visible === 'boolean' && !node.visible) {
+    isVisible = false
+  }
+  if (typeof node.visible === 'function') {
+    isVisible = !!node.visible({
+      formData: formData,
+      schemaItem: node,
+    })
+  }
+
+  return isVisible
+}
 </script>
 
 <template>
@@ -64,13 +101,18 @@ watch(
           <component
             :is="getComponent(element.componentName) || element.componentName"
             :key="element.id"
-            v-bind="element.attrs"
+            v-bind="getAttrs(element)"
             :style="element.style"
-            :class="{ selected: selectedConfig?.id === element.id }"
+            :class="{
+              selected: selectedConfig?.id === element.id,
+              unVisible: !getVisible(element),
+              layout: true,
+            }"
           >
             <DraggableArea
               v-model:configList="element.children"
               v-model:selectedConfig="selectedConfig"
+              :form-data="formData"
             ></DraggableArea>
             <el-icon
               v-if="selectedConfig?.id === element.id"
@@ -86,13 +128,13 @@ watch(
           v-else
           :prop="element.formItemAttrs.field"
           v-bind="element.formItemAttrs"
-          :class="{ selected: selectedConfig?.id === element.id }"
+          :class="{ selected: selectedConfig?.id === element.id, unVisible: !getVisible(element) }"
         >
           <component
             :is="getComponent(element.componentName) || element.componentName"
             :key="element.id"
             v-model="element.defaultValue"
-            v-bind="element.attrs"
+            v-bind="getAttrs(element)"
           >
             <template v-for="(slot, name) in element?.slots" #[name]>
               <component
@@ -124,6 +166,9 @@ watch(
   background-color: #fff;
   padding-bottom: 10px;
   .component_wrap {
+    .layout {
+      border: #cbcdd3 dashed 1px;
+    }
     .selected {
       position: relative;
       border: var(--el-color-primary) dashed 1px;
@@ -133,6 +178,10 @@ watch(
         right: 0;
         cursor: pointer;
       }
+    }
+    .unVisible {
+      background-color: rgb(245, 244, 244) !important;
+      padding: 2px 0;
     }
   }
   ::v-deep(.sortable-ghost) {
