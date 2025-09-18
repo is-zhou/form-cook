@@ -12,7 +12,7 @@ const m: Material = {
       label: '数字输入框',
     },
     attrs: {},
-    defaultValue: ""
+    defaultValue: 0
   },
 }
 export default m

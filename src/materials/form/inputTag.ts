@@ -12,7 +12,7 @@ const input: Material = {
       label: '标签输入框',
     },
     attrs: {},
-    defaultValue: ""
+    defaultValue: []
   },
 }
 

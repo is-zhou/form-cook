@@ -12,7 +12,7 @@ const slider: Material = {
       label: '滑块',
     },
     attrs: {},
-    defaultValue: ""
+    defaultValue: 0
   },
 }
 

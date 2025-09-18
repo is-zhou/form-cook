@@ -15,7 +15,7 @@ const m: Material = {
       'active-value': true,
       'inactive-value': false,
     },
-    defaultValue: "",
+    defaultValue: false,
   },
 }
 

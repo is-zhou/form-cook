@@ -12,7 +12,7 @@ const rate: Material = {
       label: '评分',
     },
     attrs: {},
-    defaultValue: ""
+
   },
 
 }

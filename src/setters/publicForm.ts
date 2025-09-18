@@ -53,7 +53,6 @@ const publicFormItem: TSettersModuleType = {
       label: '是否禁用',
     },
     attrs: {},
-    defaultValue: "",
   },
   'attrs.readonly': {
     id: '',
@@ -64,7 +63,6 @@ const publicFormItem: TSettersModuleType = {
       label: '是否只读',
     },
     attrs: {},
-    defaultValue: "",
   },
   'attrs.size': {
     id: '',
@@ -143,7 +141,6 @@ const publicFormItem: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: '',
   },
 }
 
