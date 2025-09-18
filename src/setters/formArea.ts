@@ -22,7 +22,7 @@ const formArea: TSettersModuleType = {
     formItemAttrs: { field: '', label: '行内表单模式' },
     attrs: {},
   },
-  'label-position': {
+  'attrs.label-position': {
     id: '',
     componentName: 'radioGroup',
     componentType: 'form',
@@ -42,7 +42,7 @@ const formArea: TSettersModuleType = {
       },
     },
   },
-  'label-width': {
+  'attrs.label-width': {
     id: '',
     componentName: 'input',
     componentType: 'form',
