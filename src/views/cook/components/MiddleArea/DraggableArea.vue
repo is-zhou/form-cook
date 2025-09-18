@@ -32,24 +32,24 @@ const handleDel = (index: number) => {
   handleSelectChange(null)
 }
 
-watch(
-  () => configList.value,
-  () => {
-    const target = configList.value.find((i) => i.id === selectedConfig.value?.id)
-    const preTarget = configList.value.find((i) => i.id === preSelectedConfig?.id)
+// watch(
+//   () => configList.value,
+//   () => {
+//     const target = configList.value.find((i) => i.id === selectedConfig.value?.id)
+//     const preTarget = configList.value.find((i) => i.id === preSelectedConfig?.id)
 
-    if (selectedConfig.value && !target) {
-      preSelectedConfig = cloneDeep(selectedConfig.value)
-    }
-    if (!configList.value.length) {
-      handleSelectChange(null)
-      return
-    }
+//     if (selectedConfig.value && !target) {
+//       preSelectedConfig = cloneDeep(selectedConfig.value)
+//     }
+//     if (!configList.value.length) {
+//       handleSelectChange(null)
+//       return
+//     }
 
-    handleSelectChange(target || preTarget || null)
-  },
-  { deep: true, immediate: true },
-)
+//     handleSelectChange(target || preTarget || null)
+//   },
+//   { deep: true, immediate: true },
+// )
 
 function getAttrs(node: ComponentConfig) {
   if (node.componentType === 'form') {
@@ -136,7 +136,7 @@ function getVisible(node: ComponentConfig) {
             v-model="element.defaultValue"
             v-bind="getAttrs(element)"
           >
-            <template v-for="(slot, name) in element?.slots" #[name]>
+            <template v-for="(slot, name) in element?.slots" #[name!]>
               <component
                 v-for="option in slot.options"
                 :is="getComponent(slot.componentName)"
