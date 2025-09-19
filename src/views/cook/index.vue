@@ -6,6 +6,8 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 import typeDefs from '@/types/typeDefs'
 
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
+import { collectFieldPaths } from '@/utils'
+import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
 const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
 
 const formSchema = ref<FormSchema>(initValue)
@@ -32,7 +34,9 @@ const unsubscribe = subscribe((val) => {
 
 function handleCommit() {
   if (!isEqual(state.value, formSchema.value)) {
-    state.value = cloneDeep(formSchema.value)
+    const current = cloneDeep(formSchema.value)
+    state.value = current
+    updateAvailableFields(collectFieldPaths(current.formContentConfigList))
     commit()
   }
 }

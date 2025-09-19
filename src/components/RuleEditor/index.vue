@@ -5,6 +5,7 @@ import { Delete } from '@element-plus/icons-vue'
 import { SerializeInput } from 'vue-serialize-input'
 import { cloneDeep, isEqual } from 'lodash'
 import type { SerializeType } from 'vue-serialize-input/dist/components/SerializeInput.vue'
+import { getAvailableFields } from './availableFields'
 
 /** 规则类型 */
 type RuleType = 'required' | 'length' | 'pattern' | 'custom'
@@ -265,7 +266,7 @@ const newField = ref('')
           filterable
           style="width: 200px"
         >
-          <el-option v-for="f in props.availableFields || []" :key="f" :label="f" :value="f" />
+          <el-option v-for="f in getAvailableFields() || []" :key="f" :label="f" :value="f" />
         </el-select>
         <el-button size="small" type="primary" style="margin-left: 6px" @click="addField(newField)">
           添加字段

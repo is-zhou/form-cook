@@ -118,3 +118,44 @@ function sortByProperty<T>(arr: Array<T>, property: keyof T) {
     return Number(valueA) - Number(valueB);
   });
 }
+
+
+/**
+ * 遍历 schema，收集所有字段路径
+ * @param schema schema 列表（数组）
+ * @param parentPath 父级路径，用于递归拼接
+ */
+export function collectFieldPaths(
+  schema: ComponentConfig[],
+  parentPath = "",
+  seen: Set<string> = new Set()
+): string[] {
+  const paths: string[] = [];
+
+  for (const node of schema) {
+    if (node.componentType === 'form' && node.formItemAttrs?.field) {
+      const fullPath = parentPath
+        ? `${parentPath}.${node.formItemAttrs.field}`
+        : node.formItemAttrs.field;
+
+      if (seen.has(fullPath)) {
+
+        ElMessage.error(`字段重复${fullPath}`)
+
+      } else {
+        seen.add(fullPath);
+        paths.push(fullPath);
+      }
+    }
+
+    // 递归 children
+    if (node.componentType === 'layout' && Array.isArray(node.children) && node.children.length > 0) {
+      const childPaths = collectFieldPaths(
+        node.children,
+        parentPath
+      );
+      paths.push(...childPaths);
+    }
+  }
+  return paths;
+}
