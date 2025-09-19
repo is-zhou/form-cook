@@ -12,12 +12,13 @@ import { SerializeInput } from 'vue-serialize-input'
 import RuleEditor from "@/components/RuleEditor/index.vue"
 import OptionsEditor from "@/components/OptionsEditor/index.vue"
 import BooleanOrFunctionInput from "@/components/BooleanOrFunctionInput.vue"
+import EventEditor from "@/components/EventEditor.vue"
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(formRender, {
-  components: { serializeInput: SerializeInput, div: "div", RuleEditor, OptionsEditor, BooleanOrFunctionInput }
+  components: { serializeInput: SerializeInput, div: "div", RuleEditor, OptionsEditor, BooleanOrFunctionInput, EventEditor }
 })
 
 app.mount('#app')
