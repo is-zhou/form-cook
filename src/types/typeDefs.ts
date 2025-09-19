@@ -1,40 +1,145 @@
 const typeDefs = `
-type TComponentName= 'input'|'textarea'|'inputNumber'|'inputTag'|'rate'|'radioGroup'|'radio'|'radioButton'|'select'|'switch'|'slider'|'colorPicker'|'div'|'editorStringToCode'
-type FormRules = Record<string, any>;
-type TComponentType = 'form' | 'layout'
-type TFormItem = { field: string; label: string; required?: boolean;[key: string]: any }
 
-type TSlot = { name: string, componentName: TComponentName, options?: { label?: string, value?: unknown }[], [key: string]: unknown }
+import type { FormRules } from "element-plus";
 
-type TConfig<T extends TComponentType> = T extends 'form'
-  ? {
-    id: string
-    sort?: number
-    componentName: TComponentName
-    componentType: T
-    formItemAttrs: TFormItem
-    attrs: { [key: string]: unknown }
-    defaultValue: unknown
-    style?: {}
-    slots?: TSlot[]
-  }
-  : {
-    id: string
-    sort?: number
-    componentName: TComponentName
-    componentType: T
-    attrs: { [key: string]: unknown }
-    style?: {}
-    slots?: TSlot[]
-    children?: TComponentConfig[]
 
-  }
+type ComponentType = 'form' | 'layout'
 
-type TComponentConfig = TConfig<'form'> | TConfig<'layout'>
+export interface ComponentNameMap {
+  input: unknown,
+  textarea: unknown,
+  inputNumber: unknown,
+  inputTag: unknown,
+  rate: unknown,
+  radioGroup: unknown,
+  radio: unknown,
+  radioButton: unknown,
+  select: unknown,
+  switch: unknown,
+  slider: unknown,
+  colorPicker: unknown,
+  option: unknown,
+  selectV2: unknown,
+  datePicker: unknown,
+  timePicker: unknown,
+  formItem: unknown,
+  segmented: unknown,
+  checkboxGroup: unknown,
+  checkbox: unknown,
+}
 
-type TFormAreaConfig = {
+export type ComponentName = keyof ComponentNameMap
+
+/*
+外部扩展ComponentName类型：
+  外部项目通过声明declare module 方式扩展ComponentName，因为ComponentName是keyof ComponentNameMap所得，所以外部声明扩展 ComponentNameMap即可
+  (注意:ComponentNameMap必须为interface且在库的入口中被导出)
+
+在使用方（比如 src/main.ts 或某个 .d.ts 文件里）如下声明
+import 'form-cook-render'
+// 扩展内置接口
+declare module 'form-cook-render' {
+  export interface ComponentNameMap {
+     customInput: unknown
+   }
+ }
+*/
+
+type DynamicProp<T> = (params: {
+  formData: Record<string, any>
+  schemaItem: ComponentConfig
+}) => T | void
+
+type DynamicPropOption<T> = (params: {
+  formData: Record<string, any>
+  schemaItem: ComponentConfig
+}) => [T, string[]] | Promise<[T, string[]]> | void
+
+type remoteType = {
+  url: string
+  method?: 'GET' | 'POST'
+  map: (res: { data: any }, params: {
+    formData: Record<string, any>
+    schemaItem: ComponentConfig
+  }) => [Array<Option>, string[]]
+}
+type staticType = Option[]
+type functionType = DynamicPropOption<Option[]>
+
+export type Option = {
+  label: string
+  value: string | number
+  disabled?: boolean
+  [key: string]: unknown
+} | string | number
+
+export type OptionsConfig = staticType | functionType | remoteType
+
+interface FormItem {
+  field: string;
+  label?: string;
+  required?: boolean;
+  [key: string]: any
+}
+
+export interface Slot {
+  componentName: ComponentName,
+  options?: OptionsConfig,
+  [key: string]: unknown
+}
+
+export interface Attrs {
+  options?: OptionsConfig;
+  [key: string]: unknown
+}
+
+export interface Slots {
+  [key: string]: Slot
+}
+
+type eventName = 'click' | 'change' | 'input' | 'focus' | 'blur'
+export interface EventConfig {
+  eventName: eventName | string
+  handlerType: 'fn' | 'globalFn'
+  fn?: (formData: Record<string, unknown>) => unknown
+  fnName?: string
+}
+
+interface BaseConfig {
+  id: string;
+  componentName: ComponentName;
+  componentType: ComponentType;
+  sort?: number;
+  style?: Record<string, unknown>;
+  slots?: Slots;
+  _slots?: { [key: string]: () => Array<unknown> };
+  visible?: boolean | DynamicProp<boolean>
+  events?: EventConfig[]
+}
+
+export interface FormCompConfig extends BaseConfig {
+  componentType: "form";
+  formItemAttrs: FormItem;
+  defaultValue?: unknown;
+  attrs: Attrs & {
+    disabled?: boolean | DynamicProp<boolean>
+    readonly?: boolean | DynamicProp<boolean>
+  };
+}
+
+export interface LayoutCompConfig extends BaseConfig {
+  componentType: "layout";
+  attrs: Attrs;
+  children?: ComponentConfig[];
+}
+
+export type ComponentConfig = FormCompConfig | LayoutCompConfig;
+
+export interface FormAreaConfig {
+  defaultCreateBtn?: string | boolean;
+  defaultRestBtn?: string | boolean;
   attrs: {
-    rules?: FormRules
+    rules?: unknown
     inline?: boolean
     size?: '' | 'large' | 'default' | 'small'
     disabled?: boolean
@@ -48,10 +153,9 @@ type TFormAreaConfig = {
   [key: string]: unknown
 }
 
-
 export interface FormSchema {
-  formAreaConfig: TFormAreaConfig;
-  formContentConfigList: TComponentConfig[];
+  formAreaConfig: FormAreaConfig
+  formContentConfigList: ComponentConfig[]
 }
 
 declare const schema: FormSchema;
