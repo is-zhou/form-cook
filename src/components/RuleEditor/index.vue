@@ -120,9 +120,33 @@ function removeRule(field: string, index: number) {
 
 /** 保存 */
 function saveRule() {
+  // 必填校验：每条规则必须有提示信息 message
+  for (const [field, ruleArr] of Object.entries(rules.value)) {
+    for (const [idx, rule] of ruleArr.entries()) {
+      if (!rule.message || !rule.message.trim()) {
+        ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的提示信息不能为空`)
+        return
+      }
+      if (rule.type === 'pattern' && !rule.pattern) {
+        ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的正则表达式不能为空`)
+        return
+      }
+      if (rule.type === 'length' && (rule.min == null || rule.max == null)) {
+        ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的长度范围必须填写完整`)
+        return
+      }
+      if (rule.type === 'custom' && !rule.validatorFn) {
+        ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的自定义函数不能为空`)
+        return
+      }
+    }
+  }
+
   modelValue.value = isArrayMode.value
     ? cloneDeep(rules.value.default || [])
     : cloneDeep(rules.value)
+
+  ElMessage.success('保存成功')
 }
 
 /** 编辑器模式 */

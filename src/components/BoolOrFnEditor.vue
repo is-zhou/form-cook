@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ElSwitch, ElRadioGroup, ElRadioButton } from 'element-plus'
 import { SerializeInput } from 'vue-serialize-input'
 
 const modelValue = defineModel<boolean | Function | undefined>()
@@ -45,14 +44,14 @@ watch(
 <template>
   <div style="width: 100%">
     <!-- 模式切换 -->
-    <ElRadioGroup v-model="mode" size="small" class="custom_radiogroup">
-      <ElRadioButton label="boolean" style="width: 50%">布尔值</ElRadioButton>
-      <ElRadioButton label="function" style="width: 50%">函数</ElRadioButton>
-    </ElRadioGroup>
+    <el-radioGroup v-model="mode" size="small" class="custom_radiogroup">
+      <el-radioButton label="boolean" style="width: 50%">布尔值</el-radioButton>
+      <el-radioButton label="function" style="width: 50%">函数</el-radioButton>
+    </el-radioGroup>
 
     <!-- 布尔模式 -->
     <div class="mode_bool" v-if="mode === 'boolean'">
-      <el-radio-group v-model="booleanValue" class="ml-2">
+      <el-radio-group v-model="booleanValue">
         <el-radio :label="true">是</el-radio>
         <el-radio :label="false">否</el-radio>
         <el-radio :label="undefined">不设置</el-radio>

@@ -104,7 +104,25 @@ const saveEvents = async () => {
     modelValue.value = cloneDeep(formModel.events)
     ElMessage.success('保存成功')
   } catch (err) {
-    ElMessage.error('请完善必填项后再保存')
+    // 找出第一个未通过校验的事件
+    const firstInvalidIndex = formModel.events.findIndex(
+      (evt) =>
+        !evt.eventName ||
+        !evt.handlerType ||
+        (evt.handlerType === 'fn' && !evt.fn) ||
+        (evt.handlerType === 'globalFn' && !evt.fnName),
+    )
+
+    const msg =
+      firstInvalidIndex >= 0
+        ? `第 ${firstInvalidIndex + 1} 条事件未填写完整，请检查`
+        : '请完善必填项后再保存'
+
+    ElMessage({
+      type: 'error',
+      message: msg,
+      showClose: true,
+    })
   }
 }
 
@@ -159,7 +177,7 @@ const resetEvents = () => {
             </el-form-item>
 
             <el-form-item v-else :prop="`events[${index}].fnName`">
-              <el-select v-model="evt.fnName" placeholder="选择函数" class="mt-2">
+              <el-select v-model="evt.fnName" placeholder="选择函数">
                 <el-option v-for="fn in globalFunctions" :key="fn" :label="fn" :value="fn" />
               </el-select>
             </el-form-item>
