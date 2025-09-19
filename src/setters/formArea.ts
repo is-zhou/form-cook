@@ -123,7 +123,30 @@ const formArea: TSettersModuleType = {
     componentType: 'form',
     formItemAttrs: { field: '', label: '当校验失败时，滚动到第一个错误表单项' },
     attrs: {},
-  }
+  },
+  defaultCreateBtn: {
+    id: '',
+    componentName: 'serializeInput',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '默认提交按钮设置' },
+    attrs: {
+      type: "text",
+      clearable: true,
+      serializeType: ["boolean", "string", "undefined"]
+    },
+  },
+  defaultRestBtn: {
+    id: '',
+    componentName: 'serializeInput',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '默认重置按钮' },
+    attrs: {
+      type: "text",
+      clearable: true,
+      serializeType: ["boolean", "string", "undefined"]
+    },
+  },
+
 }
 
 const list = getSettersListByObj(formArea)

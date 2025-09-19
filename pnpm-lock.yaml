@@ -62,8 +62,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.21(typescript@5.8.3))
       vue-serialize-input:
-        specifier: ^0.0.17
-        version: 0.0.17(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
+        specifier: ^0.0.18
+        version: 0.0.18(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.21(typescript@5.8.3))
@@ -2521,8 +2521,8 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  vue-serialize-input@0.0.17:
-    resolution: {integrity: sha512-MR1QvCjiivi7NPEBGOOY9hzg0S7TMIa6wxKEsz0lZEFpcATAahlP6FxHtR1QDOvIgjVKBcPLnO6aMMjBZswC2w==}
+  vue-serialize-input@0.0.18:
+    resolution: {integrity: sha512-GsBLlkNaumL2lPiLLlxTnFqwlkoVh0pXvu8HuZ+mdR1LEc5Wd+BRthLRVMb3432hW61iZ/yWpldvzDfOONUvaQ==}
     peerDependencies:
       element-plus: ^2.11.2
       vue: ^3.5.21
@@ -5062,7 +5062,7 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.21(typescript@5.8.3)
 
-  vue-serialize-input@0.0.17(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
+  vue-serialize-input@0.0.18(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
     dependencies:
       element-plus: 2.11.2(vue@3.5.21(typescript@5.8.3))
       javascript-stringify: 2.1.0
