@@ -87,7 +87,7 @@ const publicFormItem: TSettersModuleType = {
       label: '组件大小',
     },
     attrs: {},
-    defaultValue: "",
+
     slots: {
       default: {
         name: 'default',

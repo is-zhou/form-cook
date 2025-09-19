@@ -12,7 +12,7 @@ const s: TSettersModuleType = {
     attrs: {
       type: 'number',
     },
-    defaultValue: "",
+    defaultValue: "auto",
   },
   'attrs.inline-prompt': {
     id: '',
@@ -23,7 +23,6 @@ const s: TSettersModuleType = {
       label: '只会呈现文本的第一个字符',
     },
     attrs: {},
-    defaultValue: "",
   },
   'attrs.active-text': {
     id: '',
@@ -36,7 +35,6 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
   },
   'attrs.inactive-text': {
     id: '',
@@ -49,7 +47,6 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
   },
   'attrs.active-value': {
     id: '',
@@ -62,7 +59,6 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
   },
   'attrs.inactive-value': {
     id: '',
@@ -75,7 +71,6 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
   },
   'attrs.active-color': {
     id: '',
@@ -88,7 +83,7 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
+
   },
   'attrs.inactive-color': {
     id: '',
@@ -101,7 +96,7 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
+
   },
   'attrs.border-color': {
     id: '',
@@ -114,7 +109,7 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    defaultValue: "",
+
   },
 }
 

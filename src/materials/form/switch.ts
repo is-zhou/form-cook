@@ -12,10 +12,10 @@ const m: Material = {
       label: '开关',
     },
     attrs: {
-      'active-value': true,
-      'inactive-value': false,
+      'active-value': 'true',
+      'inactive-value': 'false',
     },
-    defaultValue: false,
+    defaultValue: 'false',
   },
 }
 
