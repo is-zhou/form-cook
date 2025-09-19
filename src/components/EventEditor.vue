@@ -3,13 +3,7 @@ import { SerializeInput } from 'vue-serialize-input'
 import { ElMessage } from 'element-plus'
 import { cloneDeep, isEqual } from 'lodash'
 import { Delete } from '@element-plus/icons-vue'
-// 类型
-type EventConfig = {
-  eventName: string
-  handlerType: 'code' | 'globalFn'
-  code?: any
-  fnName?: string
-}
+import type { EventConfig } from 'form-cook-render'
 
 type Props = {
   availableEvents?: Array<'click' | 'change' | 'input' | 'focus' | 'blur'>
@@ -38,8 +32,8 @@ watch(
 const addEvent = () => {
   formModel.events.push({
     eventName: '',
-    handlerType: 'code',
-    code: '',
+    handlerType: 'fn',
+    fn: (formData) => console.log(formData),
   })
 }
 const removeEvent = (index: number) => {
@@ -51,14 +45,14 @@ const removeEvent = (index: number) => {
 const onHandlerTypeChange = (index: number) => {
   const evt = formModel.events[index]
   if (!evt) return
-  if (evt.handlerType === 'code') {
+  if (evt.handlerType === 'fn') {
     evt.fnName = undefined
-    if (evt.code == null) evt.code = () => {}
+    if (evt.fn == null) evt.fn = () => {}
     formRef.value?.clearValidate([`events[${index}].fnName`])
   } else {
-    evt.code = undefined
+    evt.fn = undefined
     if (!evt.fnName) evt.fnName = ''
-    formRef.value?.clearValidate([`events[${index}].code`])
+    formRef.value?.clearValidate([`events[${index}].fn`])
   }
 }
 
@@ -73,11 +67,11 @@ const dynamicRules = computed(() => {
     rules[`events[${i}].handlerType`] = [
       { required: true, message: '请选择处理方式', trigger: 'change' },
     ]
-    // code 模式下 code 必填（使用自定义 validator 来依据 handlerType 判断）
-    rules[`events[${i}].code`] = [
+    // fn 模式下 fn 必填（使用自定义 validator 来依据 handlerType 判断）
+    rules[`events[${i}].fn`] = [
       {
         validator: (_rule: any, value: any, callback: any) => {
-          if (formModel.events[i].handlerType === 'code') {
+          if (formModel.events[i].handlerType === 'fn') {
             const empty = value == null || (typeof value === 'string' && value.trim() === '')
             if (empty) return callback(new Error('请输入函数代码'))
           }
@@ -124,45 +118,58 @@ const resetEvents = () => {
 <template>
   <div class="event_item_wrap">
     <el-form ref="formRef" :model="formModel" :rules="dynamicRules">
-      <div v-for="(evt, index) in formModel.events" :key="index" class="event_item">
-        <el-form-item :prop="`events[${index}].eventName`">
-          <el-select v-model="evt.eventName" placeholder="选择事件">
-            <el-option v-for="e in availableEvents" :key="e" :label="e" :value="e" />
-          </el-select>
-        </el-form-item>
+      <el-collapse v-if="formModel.events.length" style="margin-bottom: 8px">
+        <el-collapse-item v-for="(evt, index) in formModel.events" :key="index">
+          <template #title>
+            <div
+              style="display: flex; justify-content: flex-start; align-items: center; width: 100%"
+            >
+              <el-button type="danger" :icon="Delete" circle @click.stop="removeEvent(index)">
+              </el-button>
+              &nbsp; &nbsp;
+              <span>事件 {{ index + 1 }}: {{ evt.eventName || '未选事件类型' }}</span>
+            </div>
+          </template>
+          <div class="event_item">
+            <el-form-item :prop="`events[${index}].eventName`">
+              <el-select v-model="evt.eventName" placeholder="选择事件">
+                <el-option v-for="e in availableEvents" :key="e" :label="e" :value="e" />
+              </el-select>
+            </el-form-item>
 
-        <el-form-item :prop="`events[${index}].handlerType`">
-          <el-radio-group
-            v-model="evt.handlerType"
-            class="ml-2"
-            @change="() => onHandlerTypeChange(index)"
-          >
-            <el-radio label="code">内联代码</el-radio>
-            <el-radio label="globalFn">内置函数</el-radio>
-          </el-radio-group>
-        </el-form-item>
+            <el-form-item :prop="`events[${index}].handlerType`">
+              <el-radio-group
+                v-model="evt.handlerType"
+                class="ml-2"
+                @change="() => onHandlerTypeChange(index)"
+              >
+                <el-radio label="fn">内联代码</el-radio>
+                <el-radio label="globalFn">内置函数</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-        <el-form-item v-if="evt.handlerType === 'code'" :prop="`events[${index}].code`">
-          <SerializeInput
-            v-model="evt.code"
-            type="textarea"
-            :rows="6"
-            serialize-type="function"
-            placeholder="请输入函数，如：event => console.log(event)"
-          />
-        </el-form-item>
+            <el-form-item v-if="evt.handlerType === 'fn'" :prop="`events[${index}].fn`">
+              <SerializeInput
+                v-model="evt.fn"
+                type="textarea"
+                :rows="6"
+                serialize-type="function"
+                placeholder="请输入函数，如：(formData) => console.log(formData)"
+              />
+            </el-form-item>
 
-        <el-form-item v-else :prop="`events[${index}].fnName`">
-          <el-select v-model="evt.fnName" placeholder="选择函数" class="mt-2">
-            <el-option v-for="fn in globalFunctions" :key="fn" :label="fn" :value="fn" />
-          </el-select>
-        </el-form-item>
-
-        <Delete class="custom_del" @click.stop="removeEvent(index)" />
-      </div>
+            <el-form-item v-else :prop="`events[${index}].fnName`">
+              <el-select v-model="evt.fnName" placeholder="选择函数" class="mt-2">
+                <el-option v-for="fn in globalFunctions" :key="fn" :label="fn" :value="fn" />
+              </el-select>
+            </el-form-item>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
 
       <div style="display: flex; gap: 8px; margin-top: 8px">
         <el-button style="flex: 1" @click="addEvent"> 添加事件 </el-button>
+        <el-button v-if="canSave" style="flex: 1" @click="resetEvents"> 重置 </el-button>
         <el-button
           v-if="canSave"
           style="flex: 1"
@@ -172,7 +179,6 @@ const resetEvents = () => {
         >
           保存
         </el-button>
-        <el-button v-if="canSave" style="flex: 1" @click="resetEvents"> 重置 </el-button>
       </div>
     </el-form>
   </div>
@@ -181,7 +187,9 @@ const resetEvents = () => {
 <style lang="scss" scoped>
 .event_item_wrap {
   width: 100%;
-
+  border: 1px solid var(--el-border-color-light);
+  padding: 8px;
+  border-radius: 6px;
   .event_item {
     position: relative;
     padding: 8px;

@@ -47,7 +47,7 @@ const publicFormItem: TSettersModuleType = {
   },
   visible: {
     id: '',
-    componentName: 'BooleanOrFunctionInput',
+    componentName: 'BoolOrFnEditor',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -60,7 +60,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'attrs.disabled': {
     id: '',
-    componentName: 'BooleanOrFunctionInput',
+    componentName: 'BoolOrFnEditor',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -70,7 +70,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'attrs.readonly': {
     id: '',
-    componentName: 'BooleanOrFunctionInput',
+    componentName: 'BoolOrFnEditor',
     componentType: 'form',
     formItemAttrs: {
       field: '',

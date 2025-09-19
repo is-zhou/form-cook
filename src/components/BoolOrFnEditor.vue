@@ -51,8 +51,12 @@ watch(
     </ElRadioGroup>
 
     <!-- 布尔模式 -->
-    <div v-if="mode === 'boolean'">
-      <ElSwitch v-model="booleanValue" />
+    <div class="mode_bool" v-if="mode === 'boolean'">
+      <el-radio-group v-model="booleanValue" class="ml-2">
+        <el-radio :label="true">是</el-radio>
+        <el-radio :label="false">否</el-radio>
+        <el-radio :label="undefined">不设置</el-radio>
+      </el-radio-group>
     </div>
 
     <!-- 函数模式 -->
@@ -73,5 +77,10 @@ watch(
   ::v-deep(.el-radio-button__inner) {
     width: 100%;
   }
+}
+.mode_bool {
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
 }
 </style>

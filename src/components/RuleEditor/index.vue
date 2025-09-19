@@ -130,6 +130,12 @@ const currentType = ref<'ui' | 'code'>('ui')
 
 /** 新字段选择器绑定 */
 const newField = ref('')
+
+const reset = () => {
+  rules.value = isArrayMode.value
+    ? { default: cloneDeep(modelValue.value as RuleArray) }
+    : cloneDeep(modelValue.value as RuleObject)
+}
 </script>
 
 <template>
@@ -275,6 +281,7 @@ const newField = ref('')
 
       <!-- 保存 -->
       <div style="text-align: right; margin-top: 10px">
+        <el-button v-if="canSave" style="flex: 1" @click="reset"> 重置 </el-button>
         <el-button v-if="canSave" type="primary" size="small" @click="saveRule()">
           保存规则
         </el-button>
@@ -304,9 +311,6 @@ const newField = ref('')
     margin-bottom: 8px;
   }
   .editor {
-    padding: 8px;
-    border: 1px dashed var(--el-border-color-light);
-    border-radius: 6px;
     width: 100%;
   }
   .field_block {
