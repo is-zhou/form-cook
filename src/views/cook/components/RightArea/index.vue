@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import formAreaSetterList from '@/setters/formArea.ts'
-import { debounce, omit } from 'lodash'
+import { cloneDeep, debounce } from 'lodash'
 
 import type { ComponentConfig, FormAreaConfig } from 'form-cook-render'
-import {
-  cloneComponentConfig,
-  objectAssignByComponentConfig,
-  updateSettersByComponentConfig,
-} from '@/utils'
+import { objectAssignByComponentConfig, updateSettersByComponentConfig } from '@/utils'
 
 const componentConfig = defineModel<ComponentConfig | null>('componentConfig')
 const formAreaConfig = defineModel<FormAreaConfig>('formAreaConfig', { required: true })
@@ -22,13 +17,22 @@ const emits = defineEmits<{ (e: 'onChange'): void }>()
 const debouncedChange = debounce(handleChange, 200)
 
 watch(
-  () => componentConfig.value,
-  (current, pre) => {
+  () => cloneDeep(componentConfig.value),
+  (newData, oldData) => {
     if (componentConfig.value) {
       activeName.value = 'component'
       componentSetterList.value = updateSettersByComponentConfig(componentConfig.value)
     } else {
       activeName.value = 'formArea'
+    }
+
+    if (
+      newData &&
+      oldData &&
+      newData.id === oldData.id &&
+      newData.componentName !== oldData.componentName
+    ) {
+      objectAssignByComponentConfig(componentConfig, newData.componentName)
     }
     debouncedChange()
   },
@@ -40,16 +44,6 @@ watch(
   () => {
     activeName.value = 'formArea'
     debouncedChange()
-  },
-  { deep: true },
-)
-
-watch(
-  () => [componentConfig.value?.componentName, componentConfig.value?.id],
-  ([newName, newId], [oldName, oldId]) => {
-    if (oldId && oldName && newName && newName !== oldName && newId === oldId) {
-      objectAssignByComponentConfig(componentConfig, newName)
-    }
   },
   { deep: true },
 )
