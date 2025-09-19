@@ -31,7 +31,7 @@ const handlePreview = () => {
       <h3>FormCook</h3>
     </div>
     <div class="top_area_middle">
-      <div class="middle_l"></div>
+      <div class="middle_l">生成代码</div>
       <div class="middle_m">
         <el-tooltip effect="light" content="撤销" placement="bottom">
           <el-button
@@ -82,6 +82,7 @@ const handlePreview = () => {
             plain
           ></el-button>
         </el-tooltip>
+        <DialogCreateCode></DialogCreateCode>
       </div>
     </div>
     <div class="top_area_right"></div>

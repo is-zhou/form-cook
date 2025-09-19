@@ -2,6 +2,7 @@
 import { onMounted, ref, onBeforeUnmount, watch } from 'vue'
 import * as monaco from 'monaco-editor'
 import { stringify } from 'javascript-stringify'
+import { useClipboard } from '@vueuse/core'
 
 interface Props {
   language?: 'typescript' | 'javascript'
@@ -9,6 +10,7 @@ interface Props {
   typeDefs?: string
 }
 
+const { copy, copied } = useClipboard()
 const modelValue = defineModel<Record<string, any> | string>()
 
 const { language = 'typescript', readOnly = false, typeDefs = '' } = defineProps<Props>()
@@ -112,21 +114,48 @@ watch(
     }
   },
 )
+
+const isDownloading = ref(false)
+const copyText = () => {
+  copy(stringify(modelValue.value, null, 2) || '')
+  ElMessage.success('复制成功')
+}
+
+const download = () => {
+  if (isDownloading.value) {
+    return
+  }
+  isDownloading.value = true
+
+  const blob = new Blob([stringify(modelValue.value, null, 2) || ''])
+
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = `${Date.now()}.ts`
+  link.click()
+}
 </script>
 
 <template>
   <div class="editor_wrap">
     <div ref="editorContainerRef" style="height: 400px; border: 1px solid #ccc" />
     <span v-if="massage" class="massage"> {{ massage }}</span>
+    <div class="btn">
+      <el-button type="primary" @click="download">下载文件</el-button>
+      <el-button type="primary" @click="copyText">复制代码</el-button>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.editor_wrap{
-  
+.editor_wrap {
 }
 .massage {
   font-size: 12px;
   color: red;
+}
+.btn {
+  text-align: center;
+  margin: 10px;
 }
 </style>
