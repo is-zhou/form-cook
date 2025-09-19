@@ -21,35 +21,41 @@ const handleClick = (current: Material) => {
 </script>
 
 <template>
-  <el-scrollbar height="100%">
-    <div class="left_area">
-      <VueDraggable
-        v-model="materials"
-        :group="{ name: 'form', pull: 'clone', put: false }"
-        :clone="pushContentItem"
-        :sort="false"
-        tag="div"
-        item-key="label"
-        class="drag_wrap"
-      >
-        <template #item="{ element }">
-          <div class="material_item" @click.stop="handleClick(element)">
-            <div>{{ element.label }}</div>
-            <component :is="materialIconMap[element.icon] || IconInput"></component>
-          </div>
-        </template>
-      </VueDraggable>
-    </div>
-  </el-scrollbar>
+  <div class="left_area_wrap">
+    <el-scrollbar height="100%">
+      <div class="left_area">
+        <VueDraggable
+          v-model="materials"
+          :group="{ name: 'form', pull: 'clone', put: false }"
+          :clone="pushContentItem"
+          :sort="false"
+          tag="div"
+          item-key="label"
+          class="drag_wrap"
+        >
+          <template #item="{ element }">
+            <div class="material_item" @click.stop="handleClick(element)">
+              <div>{{ element.label }}</div>
+              <component :is="materialIconMap[element.icon] || IconInput"></component>
+            </div>
+          </template>
+        </VueDraggable>
+      </div>
+    </el-scrollbar>
+  </div>
 </template>
 
 <style scoped lang="scss">
+.left_area_wrap {
+  flex-shrink: 0;
+  height: 100%;
+  width: 338px;
+}
 .left_area {
   width: 330px;
   background-color: #fff;
   padding: 6px;
   min-height: calc(100vh - 42px);
-  margin-right: 8px;
   .drag_wrap {
     display: flex;
     flex-wrap: wrap;

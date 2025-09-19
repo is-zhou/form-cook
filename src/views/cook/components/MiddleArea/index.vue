@@ -56,6 +56,28 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   align-items: stretch;
   justify-content: center;
   padding: 10px 10px;
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+
+  background: #f0f0f0;
+  background-image: radial-gradient(#dcdcdc 1px, transparent 1px);
+  background-size: 20px 20px;
+
+  border: #dcdcdc dashed 1px;
+
+  overflow: hidden;
+
+  // background-color: #fafafa; /* 主背景色 */
+  // background-image:
+  //   linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+  //   linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+  // background-size: 20px 20px; /* 每个小格子大小 */
+
+  // background-color: #1e1e1e;
+  // background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  // background-size: 20px 20px;
   .area_options {
     position: absolute;
 
@@ -70,7 +92,7 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   }
   .canvas_wrap {
     position: relative;
-    margin-left: 10px;
+
     .handle_pull {
       display: flex;
       align-items: center;
@@ -122,8 +144,14 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
     background-color: #fff;
     padding: 10px;
 
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px #ddd,
+      0 2px 6px rgba(0, 0, 0, 0.05);
+
     .area_hight {
-      min-height: calc(100vh - 40px - 20px - 22px);
+      min-height: calc(100vh - 40px - 20px - 40px);
     }
 
     &.option_hint {

@@ -59,8 +59,10 @@ export function useResizable(
     if (options?.parent?.value) {
       const style = getComputedStyle(options.parent.value)
       const pLeft = parseFloat(style.paddingLeft) || 0
+      const mLeft = parseFloat(style.marginLeft) || 0
+      const mRight = parseFloat(style.marginRight) || 0
       const pRight = parseFloat(style.paddingRight) || 0
-      maxWidth = options.parent.value.clientWidth - pLeft - pRight
+      maxWidth = options.parent.value.clientWidth - pLeft - pRight - mLeft - mRight
     }
 
     document.addEventListener('mousemove', onMouseMove)
