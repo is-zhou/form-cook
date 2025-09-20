@@ -18,60 +18,128 @@ const pushContentItem = (current: Material) => {
 const handleClick = (current: Material) => {
   emits('clickPushContentItem', cloneComponentConfig(current))
 }
+
+const menuList = ref([
+  { label: '所有', materials: [...material.materialFormList, ...material.materialLayoutList] },
+  { label: '表单', materials: [...material.materialFormList] },
+  { label: '容器', materials: [...material.materialLayoutList] },
+])
+const currentMenu = ref('所有')
+
+const changeMenu = (item: { label: string; materials: Material[] }) => {
+  currentMenu.value = item.label
+  materials.value = item.materials
+}
 </script>
 
 <template>
   <div class="left_area_wrap">
-    <el-scrollbar height="100%">
-      <div class="left_area">
-        <VueDraggable
-          v-model="materials"
-          :group="{ name: 'form', pull: 'clone', put: false }"
-          :clone="pushContentItem"
-          :sort="false"
-          tag="div"
-          item-key="label"
-          class="drag_wrap"
-        >
-          <template #item="{ element }">
-            <div class="material_item" @click.stop="handleClick(element)">
-              <div>{{ element.label }}</div>
-              <component :is="materialIconMap[element.icon] || IconInput"></component>
-            </div>
-          </template>
-        </VueDraggable>
+    <div class="head">
+      <span>
+        <span style="line-height: 1">组件</span>
+      </span>
+    </div>
+    <div class="body">
+      <ul class="menu">
+        <li v-for="item in menuList" @click="changeMenu(item)">
+          <el-button :type="currentMenu === item.label ? 'primary' : ''">{{
+            item.label
+          }}</el-button>
+        </li>
+      </ul>
+      <div class="menu_content">
+        <el-scrollbar height="100%">
+          <div class="left_area">
+            <VueDraggable
+              v-model="materials"
+              :group="{ name: 'form', pull: 'clone', put: false }"
+              :clone="pushContentItem"
+              :sort="false"
+              tag="div"
+              item-key="label"
+              class="drag_wrap"
+            >
+              <template #item="{ element }">
+                <div class="material_item" @click.stop="handleClick(element)">
+                  <div>{{ element.label }}</div>
+                  <component :is="materialIconMap[element.icon] || IconInput"></component>
+                </div>
+              </template>
+            </VueDraggable>
+          </div>
+        </el-scrollbar>
       </div>
-    </el-scrollbar>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .left_area_wrap {
   flex-shrink: 0;
-  height: 100%;
+  height: calc(100% - 4px);
   width: 330px;
-}
-.left_area {
-  width: 330px;
-  background-color: #fff;
-  padding: 6px;
-  min-height: calc(100vh - 42px);
-  .drag_wrap {
+  margin: 2px;
+  .head {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    :hover {
-      cursor: move;
-    }
-    .material_item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    justify-content: space-between;
+    align-items: center;
 
-      border: 1px dashed #dcdfe6;
+    padding: 0 10px;
+
+    height: 40px;
+    font-size: 12px;
+    background-color: #f5f7fa;
+    color: #000000;
+  }
+  .body {
+    display: flex;
+    height: calc(100vh - 42px - 42px);
+    width: 100%;
+    .menu {
+      width: 60px;
+      list-style: none;
+      margin: 2px 2px 0 0;
       padding: 6px;
-      border-radius: 10px;
-      font-size: 12px;
+      font-size: 14px;
+      background-color: #f5f7fa;
+      li {
+        padding: 4px 2px;
+        ::v-deep(.el-button) {
+          border: none;
+        }
+      }
+    }
+    .menu_content {
+      flex: 1;
+      margin-top: 2px;
+      background-color: #fafafa;
+      .left_area {
+        padding: 6px;
+
+        .drag_wrap {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          :hover {
+            cursor: move;
+          }
+          .material_item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            border: 1px dashed #dcdfe6;
+            padding: 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            background-color: #fff;
+            svg {
+              width: 108px;
+              height: 80px;
+            }
+          }
+        }
+      }
     }
   }
 }

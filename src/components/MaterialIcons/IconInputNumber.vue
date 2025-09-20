@@ -6,7 +6,6 @@
     viewBox="0 0 280 180"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="custom_svg"
   >
     <g clip-path="url(#clip0_12777_164044)">
       <rect width="280" height="180" fill="var(--el-fill-color-light)"></rect>

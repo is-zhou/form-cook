@@ -109,8 +109,7 @@ const isDrag = ref(false)
     .layout_warp {
       position: relative;
       .layout {
-        background-color: #f2f3f5;
-        border-radius: 2px;
+        background-color: #ffffff;
       }
       &:hover {
         .current_del {

@@ -35,7 +35,6 @@ const handlePreview = () => {
         <el-button
           :icon="IconTree"
           :type="statusStore.isTreeAreaOpen ? 'primary' : ''"
-          plain
           @click="statusStore.updateTreeAreaOpen"
       /></el-tooltip>
     </div>
@@ -116,10 +115,10 @@ const handlePreview = () => {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  width: 306px;
+  width: 312px;
   transition: all 0.3s ease;
   &.w {
-    width: 508px;
+    width: 512px;
   }
   h3 {
     font-weight: bold;

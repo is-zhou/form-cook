@@ -6,7 +6,6 @@
     viewBox="0 0 280 180"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="custom_svg"
   >
     <rect width="280" height="180" fill="var(--el-fill-color-light)"></rect>
     <rect x="60" y="93" width="160" height="4" rx="2" fill="var(--el-color-primary-light-8)"></rect>

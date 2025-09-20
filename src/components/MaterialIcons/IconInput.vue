@@ -6,7 +6,6 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     data-v-fad7165c=""
-    class="custom_svg"
   >
     <g clip-path="url(#clip0_12777_164035)">
       <rect width="280" height="180" fill="var(--el-fill-color-light)"></rect>

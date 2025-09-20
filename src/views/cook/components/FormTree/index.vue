@@ -33,7 +33,7 @@ const handleClick = (current: any) => {}
 <style scoped>
 .form_tree {
   width: 0px;
-  height: 99%;
+  height: calc(100% - 4px);
   overflow: hidden;
   transition: width 0.3s ease;
   margin: 2px;
@@ -54,11 +54,11 @@ const handleClick = (current: any) => {}
 
       height: 40px;
       font-size: 12px;
-      background-color: #e5e6eb;
+      background-color: #dcdfe6;
     }
     .body {
       padding: 8px 0 8px 8px;
-      background-color: #f2f3f5;
+      background-color: #f5f7fa;
       height: calc(100% - 50px);
 
       &.option_hint {

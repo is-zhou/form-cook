@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
   align-items: stretch;
   justify-content: space-between;
 
-  background-color: #edeff3;
+  background-color: #ffffff;
 
   height: calc(100vh - 50px);
 }
