@@ -29,19 +29,19 @@ const handlePreview = () => {
 
 <template>
   <header class="top_area">
-    <div class="top_area_left">
+    <div class="top_area_left" :class="{ w: statusStore.isTreeAreaOpen }">
       <h3>FormCook</h3>
-    </div>
-    <div class="top_area_middle">
-      <div class="middle_l">
+      <el-tooltip effect="light" content="表单树" placement="left">
         <el-button
           :icon="IconTree"
           :type="statusStore.isTreeAreaOpen ? 'primary' : ''"
           plain
           @click="statusStore.updateTreeAreaOpen"
-        />
-      </div>
-      <div class="middle_m">
+      /></el-tooltip>
+    </div>
+    <div class="top_area_middle">
+      <div class="middle_l">
+        <el-divider direction="vertical" />
         <el-tooltip effect="light" content="撤销" placement="bottom">
           <el-button
             :icon="IconUndo"
@@ -69,7 +69,7 @@ const handlePreview = () => {
             plain
           ></el-button>
         </el-tooltip>
-        <el-tooltip effect="light" content="清空" placement="bottom">
+        <el-tooltip effect="light" content="清空画布" placement="bottom">
           <el-button
             :icon="IconClear"
             :type="canClear ? 'primary' : ''"
@@ -79,6 +79,7 @@ const handlePreview = () => {
           ></el-button>
         </el-tooltip>
       </div>
+      <div class="middle_m"></div>
       <div class="middle_r">
         <el-tooltip effect="light" content="预览" placement="bottom">
           <el-button :icon="View" type="primary" @click="handlePreview" plain />
@@ -91,6 +92,7 @@ const handlePreview = () => {
             plain
           ></el-button>
         </el-tooltip>
+        <el-divider direction="vertical" />
         <DialogCreateCode></DialogCreateCode>
       </div>
     </div>
@@ -112,8 +114,13 @@ const handlePreview = () => {
 }
 .top_area_left {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
-  width: 330px;
+  width: 306px;
+  transition: all 0.3s ease;
+  &.w {
+    width: 508px;
+  }
   h3 {
     font-weight: bold;
     margin: 0;
@@ -138,6 +145,6 @@ const handlePreview = () => {
   }
 }
 .top_area_right {
-  width: 330px;
+  width: 324px;
 }
 </style>
