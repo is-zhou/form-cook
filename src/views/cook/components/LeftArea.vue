@@ -50,22 +50,25 @@ const changeMenu = (item: { label: string; materials: Material[] }) => {
       <div class="menu_content">
         <el-scrollbar height="100%">
           <div class="left_area">
-            <VueDraggable
-              v-model="materials"
-              :group="{ name: 'form', pull: 'clone', put: false }"
-              :clone="pushContentItem"
-              :sort="false"
-              tag="div"
-              item-key="label"
-              class="drag_wrap"
-            >
-              <template #item="{ element }">
-                <div class="material_item" @click.stop="handleClick(element)">
-                  <div>{{ element.label }}</div>
-                  <component :is="materialIconMap[element.icon] || IconInput"></component>
-                </div>
-              </template>
-            </VueDraggable>
+            <Transition name="fade-slide" mode="out-in">
+              <VueDraggable
+                v-model="materials"
+                :group="{ name: 'form', pull: 'clone', put: false }"
+                :clone="pushContentItem"
+                :sort="false"
+                tag="div"
+                item-key="label"
+                class="drag_wrap"
+                :key="currentMenu"
+              >
+                <template #item="{ element }">
+                  <div class="material_item" @click.stop="handleClick(element)">
+                    <div>{{ element.label }}</div>
+                    <component :is="materialIconMap[element.icon] || IconInput"></component>
+                  </div>
+                </template>
+              </VueDraggable>
+            </Transition>
           </div>
         </el-scrollbar>
       </div>
@@ -141,6 +144,19 @@ const changeMenu = (item: { label: string; materials: Material[] }) => {
         }
       }
     }
+  }
+
+  .fade-slide-enter-active,
+  .fade-slide-leave-active {
+    transition: all 0.3s ease;
+  }
+  .fade-slide-enter-from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }
 </style>
