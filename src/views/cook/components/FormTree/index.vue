@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import { useStatusStore } from '@/stores'
-import VueDraggable from 'vuedraggable'
-import IconSelect from '@/components/MaterialIcons/IconSelect.vue'
 const formSchema = defineModel<FormSchema>('formSchema', { required: true })
 const statusStore = useStatusStore()
 const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
@@ -20,7 +18,7 @@ const handleClick = (current: any) => {}
         </span>
         <el-icon @click="statusStore.updateTreeAreaOpen"><i-ep-DArrowLeft /></el-icon>
       </div>
-      <div class="body">
+      <div class="body" :class="{ option_hint: !formSchema.formContentConfigList.length }">
         <el-scrollbar height="100%">
           <TreeDraggableArea
             v-model:configList="formSchema.formContentConfigList"
@@ -62,6 +60,21 @@ const handleClick = (current: any) => {}
       padding: 8px 0 8px 8px;
       background-color: #f2f3f5;
       height: calc(100% - 50px);
+
+      &.option_hint {
+        position: relative;
+        &::before {
+          content: '暂无树~';
+          position: absolute;
+          left: 50%;
+          top: 6%;
+          width: 100%;
+          text-align: center;
+          transform: translate(-50%, -50%);
+          font-size: 14px;
+          color: #909399;
+        }
+      }
     }
   }
 }
