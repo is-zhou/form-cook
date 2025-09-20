@@ -8,6 +8,7 @@ import typeDefs from '@/types/typeDefs'
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import { collectFieldPaths } from '@/utils'
 import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
+import { useStatusStore } from '@/stores'
 const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
 
 const formSchema = ref<FormSchema>(initValue)
@@ -56,6 +57,7 @@ onBeforeUnmount(() => {
     <TopArea @clickHandleSchema="dialogSchemaVisible = true"></TopArea>
     <main class="main">
       <LeftArea @clickPushContentItem="clickPushContentItem" />
+      <FormTree v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig"></FormTree>
       <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
       <RightArea
         :componentConfig="selectedConfig"

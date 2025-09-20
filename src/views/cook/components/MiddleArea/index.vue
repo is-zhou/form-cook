@@ -56,9 +56,9 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   align-items: stretch;
   justify-content: center;
   padding: 10px 10px;
-  margin-top: 8px;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  margin-top: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
   border-radius: 10px;
 
   background: #f0f0f0;

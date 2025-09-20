@@ -49,7 +49,7 @@ const handleClick = (current: Material) => {
 .left_area_wrap {
   flex-shrink: 0;
   height: 100%;
-  width: 338px;
+  width: 330px;
 }
 .left_area {
   width: 330px;

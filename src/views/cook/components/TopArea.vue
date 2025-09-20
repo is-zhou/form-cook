@@ -4,17 +4,19 @@ import IconUndo from '@/components/icon/IconUndo.vue'
 import IconSave from '@/components/icon/IconSave.vue'
 import IconClear from '@/components/icon/IconClear.vue'
 import IconCode from '@/components/icon/IconCode.vue'
+import IconTree from '@/components/icon/IconTree.vue'
 import { View } from '@element-plus/icons-vue'
 
 import { useUndoRedo } from '@/hooks/useUndoRedo'
 import { ref } from 'vue'
 import { cloneDeep } from 'lodash'
+import { useStatusStore } from '@/stores'
 
 const emits = defineEmits(['clickHandleSchema'])
 
 const { state, undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, canSave } =
   useUndoRedo()
-
+const statusStore = useStatusStore()
 const dialogFormVisible = ref(false)
 
 const previewFormData = ref<{ [key: string]: any }>({})
@@ -31,7 +33,14 @@ const handlePreview = () => {
       <h3>FormCook</h3>
     </div>
     <div class="top_area_middle">
-      <div class="middle_l">生成代码</div>
+      <div class="middle_l">
+        <el-button
+          :icon="IconTree"
+          :type="statusStore.isTreeAreaOpen ? 'primary' : ''"
+          plain
+          @click="statusStore.updateTreeAreaOpen"
+        />
+      </div>
       <div class="middle_m">
         <el-tooltip effect="light" content="撤销" placement="bottom">
           <el-button
