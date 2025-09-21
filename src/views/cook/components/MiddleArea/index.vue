@@ -58,7 +58,7 @@ onMounted(() => {
         >
           <el-form
             ref="drag"
-            style="min-height: 60vh"
+            style="height: 100%; padding-bottom: 20px"
             :model="_formData"
             v-bind="formSchema.formAreaConfig.attrs"
           >
@@ -181,9 +181,30 @@ onMounted(() => {
     box-shadow:
       0 0 0 1px #ddd,
       0 2px 6px rgba(0, 0, 0, 0.05);
-
-    .area_hight {
+    min-height: calc(100vh - 40px - 20px - 40px);
+    .el-form {
       min-height: calc(100vh - 40px - 20px - 40px);
+    }
+
+    ::v-deep(.sortable-ghost) {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      overflow: hidden;
+      border: none !important;
+      &::before {
+        content: '';
+        display: block;
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--el-color-primary);
+        z-index: 10000000;
+      }
     }
 
     &.option_hint {
