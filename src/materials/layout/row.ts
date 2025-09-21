@@ -1,7 +1,7 @@
 import type { Material } from '@/types/material.ts'
 
 const m: Material = {
-  label: '格栅',
+  label: '格栅行',
   icon: '',
   materialContent: {
     id: '',
@@ -10,7 +10,7 @@ const m: Material = {
     attrs: {},
     children: [
       {
-        id: '1',
+        id: Date.now() + '',
         componentName: 'col',
         componentType: 'layout',
         attrs: {
@@ -21,18 +21,6 @@ const m: Material = {
         ],
         style: {},
       },
-      {
-        id: '2',
-        componentName: 'col',
-        componentType: 'layout',
-        attrs: {
-          span: 6
-        },
-        children: [
-
-        ],
-        style: {},
-      }
     ],
     style: {},
   },
