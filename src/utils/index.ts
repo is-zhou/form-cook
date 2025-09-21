@@ -44,10 +44,10 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
 
 export function cloneComponentConfig(current: Material): ComponentConfig {
   const materialContent: ComponentConfig = cloneDeep(current.materialContent)
-  materialContent.id = `id_${Date.now()}`
+  materialContent.id = `id_${nanoid(10)}`
 
   if (materialContent.componentType === 'form') {
-    materialContent.formItemAttrs.field = `field_${Date.now()}`
+    materialContent.formItemAttrs.field = `field_${nanoid(10)}`
   }
   return { ...materialContent }
 }

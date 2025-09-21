@@ -4,6 +4,9 @@ import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
+import Sortable from 'sortablejs'
+import { useMaterialsStore } from '@/stores/cook'
+import { cloneComponentConfig } from '@/utils'
 
 const formSchema = defineModel<FormSchema>('formSchema', { required: true })
 
@@ -19,6 +22,30 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   parent: parentRef,
   defaultWidth: 375,
 })
+
+const materialsStore = useMaterialsStore()
+const drag = ref()
+onMounted(() => {
+  const target = document.querySelector('.canvas_area .el-form') as HTMLElement
+
+  console.log('target', target)
+
+  new Sortable(target!, {
+    group: {
+      name: 'form',
+    },
+    animation: 150,
+
+    onAdd: function (/**Event*/ evt) {
+      const index = evt.newIndex!
+
+      const cloneType = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
+      formSchema.value.formContentConfigList.splice(index, 0, cloneType)
+      selectedConfig.value = cloneType
+      evt.item.parentNode?.removeChild(evt.item)
+    },
+  })
+})
 </script>
 
 <template>
@@ -30,13 +57,17 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
           class="canvas_area"
           :class="{ option_hint: !formSchema.formContentConfigList.length }"
         >
-          <el-form :model="_formData" v-bind="formSchema.formAreaConfig.attrs">
-            <DraggableArea
-              class="area_hight"
+          <el-form
+            ref="drag"
+            style="min-height: 60vh"
+            :model="_formData"
+            v-bind="formSchema.formAreaConfig.attrs"
+          >
+            <RenderFormItem
               :form-data="_formData"
               v-model:configList="formSchema.formContentConfigList"
               v-model:selectedConfig="selectedConfig"
-            ></DraggableArea>
+            ></RenderFormItem>
           </el-form>
         </div>
       </el-scrollbar>

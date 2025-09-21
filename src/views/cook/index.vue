@@ -8,7 +8,6 @@ import typeDefs from '@/types/typeDefs'
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import { collectFieldPaths } from '@/utils'
 import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
-import { useStatusStore } from '@/stores'
 const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
 
 const formSchema = ref<FormSchema>(initValue)

@@ -6,8 +6,10 @@ import type { ComponentConfig } from 'form-cook-render'
 import IconInput from '@/components/MaterialIcons/IconInput.vue'
 import materialIconMap from '@/components/MaterialIcons/index'
 import { cloneComponentConfig } from '@/utils'
+import Sortable from 'sortablejs'
+import { useMaterialsStore } from '@/stores/cook'
 
-const materials = ref<Material[]>([...material.materialFormList, ...material.materialLayoutList])
+const materialsStore = useMaterialsStore()
 
 const emits = defineEmits<{ (e: 'clickPushContentItem', value: ComponentConfig): void }>()
 
@@ -19,17 +21,24 @@ const handleClick = (current: Material) => {
   emits('clickPushContentItem', cloneComponentConfig(current))
 }
 
-const menuList = ref([
-  { label: '所有', materials: [...material.materialFormList, ...material.materialLayoutList] },
-  { label: '表单', materials: [...material.materialFormList] },
-  { label: '容器', materials: [...material.materialLayoutList] },
-])
 const currentMenu = ref('所有')
 
 const changeMenu = (item: { label: string; materials: Material[] }) => {
   currentMenu.value = item.label
-  materials.value = item.materials
+  materialsStore.changeMaterials(item.materials)
 }
+const drag = ref()
+onMounted(() => {
+  new Sortable(drag.value, {
+    group: {
+      name: 'form',
+      pull: 'clone',
+      put: false, // 不允许拖拽进这个列表
+    },
+    animation: 150,
+    sort: false, // 设为false，禁止sort
+  })
+})
 </script>
 
 <template>
@@ -41,7 +50,7 @@ const changeMenu = (item: { label: string; materials: Material[] }) => {
     </div>
     <div class="body">
       <ul class="menu">
-        <li v-for="item in menuList" @click="changeMenu(item)">
+        <li v-for="item in materialsStore.menuList" @click="changeMenu(item)">
           <el-button :type="currentMenu === item.label ? 'primary' : ''">{{
             item.label
           }}</el-button>
@@ -51,23 +60,14 @@ const changeMenu = (item: { label: string; materials: Material[] }) => {
         <el-scrollbar height="100%">
           <div class="left_area">
             <Transition name="fade-slide" mode="out-in">
-              <VueDraggable
-                v-model="materials"
-                :group="{ name: 'form', pull: 'clone', put: false }"
-                :clone="pushContentItem"
-                :sort="false"
-                tag="div"
-                item-key="label"
-                class="drag_wrap"
-                :key="currentMenu"
-              >
-                <template #item="{ element }">
+              <div ref="drag" class="drag_wrap">
+                <template v-for="element in materialsStore.materials">
                   <div class="material_item" @click.stop="handleClick(element)">
                     <div>{{ element.label }}</div>
                     <component :is="materialIconMap[element.icon] || IconInput"></component>
                   </div>
                 </template>
-              </VueDraggable>
+              </div>
             </Transition>
           </div>
         </el-scrollbar>
