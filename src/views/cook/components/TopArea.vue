@@ -7,22 +7,23 @@ import IconCode from '@/components/icon/IconCode.vue'
 import IconTree from '@/components/icon/IconTree.vue'
 import { View } from '@element-plus/icons-vue'
 
-import { useUndoRedo } from '@/hooks/useUndoRedo'
 import { ref } from 'vue'
 import { cloneDeep } from 'lodash'
 import { useStatusStore } from '@/stores'
+import { useSchemaStore } from '@/stores/schema'
 
 const emits = defineEmits(['clickHandleSchema'])
 
-const { state, undo, redo, canUndo, canRedo, saveSchemaToLocal, clearSchema, canClear, canSave } =
-  useUndoRedo()
+const state = useSchemaStore()
+const { history } = state
+
 const statusStore = useStatusStore()
 const dialogFormVisible = ref(false)
 
 const previewFormData = ref<{ [key: string]: any }>({})
 const c = ref({})
 const handlePreview = () => {
-  c.value = cloneDeep(state.value)
+  c.value = cloneDeep(state.formSchema)
   dialogFormVisible.value = true
 }
 </script>
@@ -44,36 +45,36 @@ const handlePreview = () => {
         <el-tooltip effect="light" content="撤销" placement="bottom">
           <el-button
             :icon="IconUndo"
-            :type="canUndo ? 'primary' : ''"
-            :disabled="!canUndo"
-            @click="undo"
+            :type="history.canUndo ? 'primary' : ''"
+            :disabled="!history.canUndo"
+            @click="history.undo"
             plain
           />
         </el-tooltip>
         <el-tooltip effect="light" content="重做" placement="bottom">
           <el-button
             :icon="IconRedo"
-            :type="canRedo ? 'primary' : ''"
-            :disabled="!canRedo"
-            @click="redo"
+            :type="history.canRedo ? 'primary' : ''"
+            :disabled="!history.canRedo"
+            @click="history.redo"
             plain
           />
         </el-tooltip>
         <el-tooltip effect="light" content="保存" placement="bottom">
           <el-button
             :icon="IconSave"
-            :type="canSave ? 'primary' : ''"
-            :disabled="!canSave"
-            @click="saveSchemaToLocal"
+            :type="history.canSave ? 'primary' : ''"
+            :disabled="!history.canSave"
+            @click="history.saveSchemaToLocal"
             plain
           ></el-button>
         </el-tooltip>
         <el-tooltip effect="light" content="清空画布" placement="bottom">
           <el-button
             :icon="IconClear"
-            :type="canClear ? 'primary' : ''"
-            :disabled="!canClear"
-            @click="clearSchema"
+            :type="history.canClear ? 'primary' : ''"
+            :disabled="!history.canClear"
+            @click="history.clearSchema"
             plain
           ></el-button>
         </el-tooltip>

@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
-import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/cook'
 import { cloneComponentConfig } from '@/utils'
+import { useSchemaStore } from '@/stores/schema'
+import { storeToRefs } from 'pinia'
 
-const formSchema = defineModel<FormSchema>('formSchema', { required: true })
+const store = useSchemaStore()
+const { formSchema, selectedConfig } = storeToRefs(store)
 
 const _formData = ref<{ [key: string]: any }>({})
-
-const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig')
 
 const parentRef = ref<HTMLElement | null>(null)
 const targetRef = ref<HTMLElement | null>(null)
@@ -63,11 +62,13 @@ onMounted(() => {
             :model="_formData"
             v-bind="formSchema.formAreaConfig.attrs"
           >
-            <RenderFormItem
-              :form-data="_formData"
-              v-model:configList="formSchema.formContentConfigList"
-              v-model:selectedConfig="selectedConfig"
-            ></RenderFormItem>
+            <template v-for="(config, index) in formSchema.formContentConfigList">
+              <RenderFormItem
+                :form-data="_formData"
+                v-model:config="formSchema.formContentConfigList[index]"
+                @onDel="formSchema.formContentConfigList.splice(index, 1)"
+              ></RenderFormItem>
+            </template>
           </el-form>
         </div>
       </el-scrollbar>

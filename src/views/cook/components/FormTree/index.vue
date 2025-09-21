@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import { useStatusStore } from '@/stores'
-const formSchema = defineModel<FormSchema>('formSchema', { required: true })
+import { useSchemaStore } from '@/stores/schema'
+import { storeToRefs } from 'pinia'
+
+const store = useSchemaStore()
+const { formSchema, selectedConfig } = storeToRefs(store)
+
 const statusStore = useStatusStore()
-const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
-  required: true,
-})
-const handleClick = (current: any) => {}
 </script>
 
 <template>

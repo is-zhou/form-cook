@@ -1,26 +1,29 @@
 <script setup lang="ts">
+import { useMaterialsStore } from '@/stores/cook'
+import { useSchemaStore } from '@/stores/schema'
+import { cloneComponentConfig } from '@/utils'
 import { getComponent, type ComponentConfig } from 'form-cook-render'
+import { nanoid } from 'nanoid'
+import { storeToRefs } from 'pinia'
+import Sortable from 'sortablejs'
 
-type TDragCurrent = { item: { _underlying_vm_: ComponentConfig } }
-
-const configList = defineModel<ComponentConfig[]>('configList', { required: true })
-const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
-  required: true,
-})
+const config = defineModel<ComponentConfig>('config', { required: true })
 const { formData } = defineProps<{ formData: { [key: string]: any } }>()
 
-let preSelectedConfig: ComponentConfig | null
+const store = useSchemaStore()
+const { selectedConfig } = storeToRefs(store)
 
 const handleSelectChange = (element: ComponentConfig | null) => {
-  selectedConfig.value = element
+  store.setSelect(element)
 }
 
-const handleSelected = (res: TDragCurrent) => {
-  handleSelectChange(res.item._underlying_vm_)
+const handleSelected = (res: ComponentConfig) => {
+  handleSelectChange(res)
 }
 
-const handleDel = (index: number) => {
-  configList.value?.splice(index, 1)
+const emits = defineEmits(['onDel'])
+const handleDel = () => {
+  emits('onDel')
   handleSelectChange(null)
 }
 
@@ -51,54 +54,107 @@ function getVisible(node: ComponentConfig) {
       schemaItem: node,
     })
   }
-
   return isVisible
 }
+
+const id = ref(`layout_${nanoid(10)}`)
+const drag = ref()
+const materialsStore = useMaterialsStore()
+const onCompMounted = () => {
+  const target = document.querySelector(`.${id.value}`) as HTMLElement
+  new Sortable(target, {
+    group: {
+      name: 'form',
+    },
+    animation: 150,
+    onAdd: function (/**Event*/ evt) {
+      const index = evt.newIndex!
+      const cloneType = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
+      if (config.value.componentType === 'layout') {
+        config.value.children?.splice(index, 0, cloneType)
+        handleSelected(cloneType)
+      }
+
+      evt.item.parentNode?.removeChild(evt.item)
+    },
+  })
+}
+watch(
+  () => drag.value,
+  () => {
+    if (drag.value) {
+      onCompMounted()
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
-  <template v-for="(element, index) in configList">
-    <template v-if="element.componentType === 'form'">
-      <el-form-item
-        :prop="element.formItemAttrs.field"
-        v-bind="element.formItemAttrs"
-        :class="{ selected: selectedConfig?.id === element.id, unVisible: !getVisible(element) }"
-        @click.stop="handleSelectChange(element)"
+  <template v-if="config.componentType === 'form'">
+    <el-form-item
+      :prop="config.formItemAttrs.field"
+      v-bind="config.formItemAttrs"
+      :class="{ selected: selectedConfig?.id === config.id, unVisible: !getVisible(config) }"
+      @click.stop="handleSelectChange(config)"
+    >
+      <component
+        :is="getComponent(config.componentName) || config.componentName"
+        :key="config.id"
+        v-model="config.defaultValue"
+        v-bind="getAttrs(config)"
       >
-        <component
-          :is="getComponent(element.componentName) || element.componentName"
-          :key="element.id"
-          v-model="element.defaultValue"
-          v-bind="getAttrs(element)"
-        >
-          <template v-for="(slot, name) in element?.slots" #[name!]>
-            <component
-              v-for="option in slot.options"
-              :is="getComponent(slot.componentName)"
-              v-bind="option"
-              >{{ option.label }}</component
-            >
-          </template>
-        </component>
+        <template v-for="(slot, name) in config?.slots" #[name!]>
+          <component
+            v-for="option in slot.options"
+            :is="getComponent(slot.componentName)"
+            v-bind="option"
+            >{{ option.label }}</component
+          >
+        </template>
+      </component>
+      <el-icon
+        v-if="selectedConfig?.id === config.id"
+        @click.stop="handleDel()"
+        class="current_del"
+        size="12"
+      >
+        <i-ep-Delete />
+      </el-icon>
+    </el-form-item>
+  </template>
+  <template v-if="config.componentType === 'layout'">
+    <template v-if="config.children">
+      <component
+        ref="drag"
+        :is="getComponent(config.componentName) || config.componentName"
+        :key="config.id"
+        v-bind="getAttrs(config)"
+        :style="config.style"
+        :class="{
+          selected: selectedConfig?.id === config.id,
+          unVisible: !getVisible(config),
+          layout: true,
+          [id]: true,
+        }"
+        @click.stop="handleSelectChange(config)"
+      >
+        <RenderFormItem
+          v-for="(child, i) in config.children"
+          :key="child.id"
+          v-model:config="config.children[i]"
+          :form-data="formData"
+          @onDel="config.children?.splice(i, 1)"
+        ></RenderFormItem>
         <el-icon
-          v-if="selectedConfig?.id === element.id"
-          @click.stop="handleDel(index)"
+          v-if="selectedConfig?.id === config.id"
+          @click.stop="handleDel()"
           class="current_del"
           size="12"
         >
           <i-ep-Delete />
         </el-icon>
-      </el-form-item>
-    </template>
-    <template v-if="element.componentType === 'layout'">
-      <template v-if="element.children">
-        <RenderLayout
-          :form-data="formData"
-          v-model:layoutCompConfig="configList[index]"
-          v-model:selectedConfig="selectedConfig"
-          @onDel="handleDel(index)"
-        ></RenderLayout>
-      </template>
+      </component>
     </template>
   </template>
 </template>

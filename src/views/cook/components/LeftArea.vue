@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import VueDraggable from 'vuedraggable'
-import material from '@/materials/index'
 import type { Material } from '@/types/material'
-import type { ComponentConfig } from 'form-cook-render'
 import IconInput from '@/components/MaterialIcons/IconInput.vue'
 import materialIconMap from '@/components/MaterialIcons/index'
 import { cloneComponentConfig } from '@/utils'
 import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/cook'
+import { useSchemaStore } from '@/stores/schema'
 
+const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
 
-const emits = defineEmits<{ (e: 'clickPushContentItem', value: ComponentConfig): void }>()
-
-const pushContentItem = (current: Material) => {
-  return cloneComponentConfig(current)
-}
-
 const handleClick = (current: Material) => {
-  emits('clickPushContentItem', cloneComponentConfig(current))
+  const result = cloneComponentConfig(current)
+  store.pushItem(result)
+  store.setSelect(result)
 }
 
 const currentMenu = ref('所有')

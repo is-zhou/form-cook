@@ -2,11 +2,13 @@
 import formAreaSetterList from '@/setters/formArea.ts'
 import { cloneDeep, debounce } from 'lodash'
 
-import type { ComponentConfig, FormAreaConfig } from 'form-cook-render'
+import type { ComponentConfig } from 'form-cook-render'
 import { objectAssignByComponentConfig, updateSettersByComponentConfig } from '@/utils'
+import { useSchemaStore } from '@/stores/schema'
+import { storeToRefs } from 'pinia'
 
-const componentConfig = defineModel<ComponentConfig | null>('componentConfig')
-const formAreaConfig = defineModel<FormAreaConfig>('formAreaConfig', { required: true })
+const store = useSchemaStore()
+const { formSchema, selectedConfig } = storeToRefs(store)
 
 const activeName = ref<'component' | 'formArea'>('formArea')
 
@@ -17,11 +19,11 @@ const emits = defineEmits<{ (e: 'onChange'): void }>()
 const debouncedChange = debounce(handleChange, 200)
 
 watch(
-  () => cloneDeep(componentConfig.value),
+  () => cloneDeep(selectedConfig.value),
   (newData, oldData) => {
-    if (componentConfig.value) {
+    if (selectedConfig.value) {
       activeName.value = 'component'
-      componentSetterList.value = updateSettersByComponentConfig(componentConfig.value)
+      componentSetterList.value = updateSettersByComponentConfig(selectedConfig.value)
     } else {
       activeName.value = 'formArea'
     }
@@ -32,7 +34,7 @@ watch(
       newData.id === oldData.id &&
       newData.componentName !== oldData.componentName
     ) {
-      objectAssignByComponentConfig(componentConfig, newData.componentName)
+      objectAssignByComponentConfig(selectedConfig, newData.componentName)
     }
     debouncedChange()
   },
@@ -40,7 +42,7 @@ watch(
 )
 
 watch(
-  () => formAreaConfig.value,
+  () => formSchema.value.formAreaConfig,
   () => {
     activeName.value = 'formArea'
     debouncedChange()
@@ -59,17 +61,17 @@ function handleChange() {
       <el-scrollbar height="100%">
         <el-tab-pane label="组件配置" name="component">
           <ConfigFormRender
-            v-if="componentConfig"
-            :key="componentConfig?.id"
-            :form-data="componentConfig"
+            v-if="selectedConfig"
+            :key="selectedConfig?.id"
+            :form-data="selectedConfig"
             :config-list="componentSetterList || []"
           ></ConfigFormRender>
           <div v-else class="option_hint"></div>
         </el-tab-pane>
         <el-tab-pane label="表单域配置" name="formArea">
           <ConfigFormRender
-            v-if="formAreaConfig"
-            :form-data="formAreaConfig"
+            v-if="formSchema.formAreaConfig"
+            :form-data="formSchema.formAreaConfig"
             :config-list="formAreaSetterList || []"
           ></ConfigFormRender>
         </el-tab-pane>

@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { useUndoRedo } from '@/hooks/useUndoRedo'
-import { cloneDeep, isEqual } from 'lodash'
-import { onBeforeUnmount, ref, watch } from 'vue'
-
 import typeDefs from '@/types/typeDefs'
+import { useSchemaStore } from '@/stores/schema'
+import { storeToRefs } from 'pinia'
 
-import type { ComponentConfig, FormSchema } from 'form-cook-render'
-import { collectFieldPaths } from '@/utils'
-import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
-const { state, initValue, commit, getSchemaByLocal, subscribe } = useUndoRedo()
-
-const formSchema = ref<FormSchema>(initValue)
-const selectedConfig = ref<ComponentConfig>()
+const store = useSchemaStore()
+const { formSchema } = storeToRefs(store)
 
 const dialogSchemaVisible = ref(false)
-
-formSchema.value = getSchemaByLocal()
 
 watch(
   () => formSchema.value,
@@ -24,45 +15,16 @@ watch(
   },
   { deep: true },
 )
-
-const unsubscribe = subscribe((val) => {
-  if (val) {
-    const result = cloneDeep(val)
-    formSchema.value = result
-  }
-})
-
-function handleCommit() {
-  if (!isEqual(state.value, formSchema.value)) {
-    const current = cloneDeep(formSchema.value)
-    state.value = current
-    updateAvailableFields(collectFieldPaths(current.formContentConfigList))
-    commit()
-  }
-}
-
-function clickPushContentItem(componentConfig: ComponentConfig) {
-  selectedConfig.value = componentConfig
-  formSchema.value.formContentConfigList.push(componentConfig)
-}
-
-onBeforeUnmount(() => {
-  unsubscribe()
-})
 </script>
 
 <template>
   <div class="page">
     <TopArea @clickHandleSchema="dialogSchemaVisible = true"></TopArea>
     <main class="main">
-      <LeftArea @clickPushContentItem="clickPushContentItem" />
-      <FormTree v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig"></FormTree>
-      <MiddleArea v-model:form-schema="formSchema" v-model:selectedConfig="selectedConfig" />
-      <RightArea
-        :componentConfig="selectedConfig"
-        :formAreaConfig="formSchema.formAreaConfig"
-        @onChange="handleCommit"
-      />
+      <LeftArea />
+      <FormTree></FormTree>
+      <MiddleArea />
+      <RightArea />
     </main>
 
     <el-dialog v-if="dialogSchemaVisible" v-model="dialogSchemaVisible" title="Schema">
