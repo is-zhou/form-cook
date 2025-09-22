@@ -6,7 +6,6 @@ import { cloneComponentConfig } from '@/utils'
 import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/cook'
 import { useSchemaStore } from '@/stores/schema'
-import cloneDeep from 'lodash/cloneDeep'
 
 const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
@@ -23,8 +22,19 @@ const changeMenu = (item: { label: string; materials: Material[] }) => {
   currentMenu.value = item.label
   materialsStore.changeMaterials(item.materials)
 }
+
 const drag = ref()
 onMounted(() => {
+  drag.value.addEventListener('click', (e: Event) => {
+    const target = (e.target as HTMLElement).closest('.material_item') as HTMLElement
+    if (target) {
+      const index = target.dataset.index
+      if (typeof index !== 'undefined') {
+        handleClick(materialsStore.materials[Number(index)])
+      }
+    }
+  })
+
   new Sortable(drag.value, {
     group: {
       name: 'form',
@@ -60,8 +70,8 @@ onMounted(() => {
           <div class="left_area">
             <Transition name="fade-slide" mode="out-in">
               <div ref="drag" class="materials_drag_container">
-                <template v-for="element in materialsStore.materials">
-                  <div class="material_item" @click.stop="handleClick(element)">
+                <template v-for="(element, index) in materialsStore.materials">
+                  <div class="material_item" :data-index="index">
                     <div>{{ element.label }}</div>
                     <component :is="materialIconMap[element.icon] || IconInput"></component>
                   </div>
