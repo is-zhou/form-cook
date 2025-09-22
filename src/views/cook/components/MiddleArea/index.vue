@@ -3,10 +3,10 @@ import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
 import Sortable from 'sortablejs'
-import { useMaterialsStore } from '@/stores/cook'
-import { cloneComponentConfig } from '@/utils'
+import { insertNodeAt, removeNode } from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
+import cloneDeep from 'lodash/cloneDeep'
 
 const store = useSchemaStore()
 const { formSchema, selectedConfig } = storeToRefs(store)
@@ -22,29 +22,73 @@ const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   defaultWidth: 375,
 })
 
-const materialsStore = useMaterialsStore()
-const drag = ref()
+let sortable: Sortable | null = null
 onMounted(() => {
   const target = document.querySelector('.canvas_area .el-form') as HTMLElement
 
-  console.log('target', target)
-
-  new Sortable(target!, {
-    group: {
-      name: 'form',
-    },
+  sortable = new Sortable(target, {
+    group: { name: 'form' },
     animation: 150,
 
-    onAdd: function (/**Event*/ evt) {
-      const index = evt.newIndex!
+    onStart(evt) {
+      evt.item._underlying_vm_ = cloneDeep(formSchema.value.formContentConfigList[evt.oldIndex!])
+    },
 
-      const cloneType = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
-      formSchema.value.formContentConfigList.splice(index, 0, cloneType)
-      selectedConfig.value = cloneType
-      evt.item.parentNode?.removeChild(evt.item)
+    onAdd(evt) {
+      const element = evt.item._underlying_vm_
+      if (!element) return
+
+      removeNode(evt.item)
+
+      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      formSchema.value.formContentConfigList.splice(newIndex, 0, element)
+
+      store.setSelect(element)
+      console.log('form-onAdd', evt)
+    },
+
+    onUpdate(evt) {
+      removeNode(evt.item)
+      insertNodeAt(evt.from, evt.item, evt.oldIndex!)
+
+      const oldIndex = getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
+      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+
+      const moved = formSchema.value.formContentConfigList.splice(oldIndex, 1)[0]
+      formSchema.value.formContentConfigList.splice(newIndex, 0, moved)
+
+      console.log('form-onUpdate', evt)
+    },
+
+    onRemove(evt) {
+      if (evt.pullMode === 'clone' || evt.clone) {
+        removeNode(evt.clone)
+      }
+      formSchema.value.formContentConfigList.splice(evt.oldIndex!, 1)
+      console.log('form-onRemove', evt)
     },
   })
 })
+
+onBeforeUnmount(() => {
+  sortable?.destroy()
+})
+
+// 工具函数
+function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
+  const children = Array.from(container.children).filter(
+    (el) =>
+      !(el as HTMLElement).classList.contains('sortable-ghost') &&
+      !(el as HTMLElement).classList.contains('sortable-chosen') &&
+      (el as HTMLElement).style.display !== 'none',
+  )
+  if (domIndex >= children.length) {
+    return formSchema.value.formContentConfigList.length
+  }
+  const targetNode = children[domIndex]
+  const index = children.indexOf(targetNode)
+  return index === -1 ? formSchema.value.formContentConfigList.length : index
+}
 </script>
 
 <template>
@@ -57,12 +101,14 @@ onMounted(() => {
           :class="{ option_hint: !formSchema.formContentConfigList.length }"
         >
           <el-form
-            ref="drag"
             style="height: 100%; padding-bottom: 20px"
             :model="_formData"
             v-bind="formSchema.formAreaConfig.attrs"
           >
-            <template v-for="(config, index) in formSchema.formContentConfigList">
+            <template
+              v-for="(config, index) in formSchema.formContentConfigList"
+              :key="`form_${config.id}`"
+            >
               <RenderFormItem
                 :form-data="_formData"
                 v-model:config="formSchema.formContentConfigList[index]"

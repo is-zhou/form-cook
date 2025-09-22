@@ -159,3 +159,16 @@ export function collectFieldPaths(
   }
   return paths;
 }
+
+export function removeNode(node: any) {
+  if (node.parentElement !== null) {
+    node.parentElement.removeChild(node);
+  }
+}
+
+export function insertNodeAt(fatherNode: HTMLElement, node: HTMLElement, position: number) {
+  const refNode =
+    position === 0 ? fatherNode.children[0] : fatherNode.children[position - 1].nextSibling
+  fatherNode.insertBefore(node, refNode)
+}
+

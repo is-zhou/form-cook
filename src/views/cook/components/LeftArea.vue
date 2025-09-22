@@ -6,6 +6,7 @@ import { cloneComponentConfig } from '@/utils'
 import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/cook'
 import { useSchemaStore } from '@/stores/schema'
+import cloneDeep from 'lodash/cloneDeep'
 
 const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
@@ -32,6 +33,9 @@ onMounted(() => {
     },
     animation: 150,
     sort: false, // 设为false，禁止sort
+    onStart: function (/**Event*/ evt) {
+      evt.item._underlying_vm_ = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
+    },
   })
 })
 </script>
@@ -55,7 +59,7 @@ onMounted(() => {
         <el-scrollbar height="100%">
           <div class="left_area">
             <Transition name="fade-slide" mode="out-in">
-              <div ref="drag" class="drag_wrap">
+              <div ref="drag" class="materials_drag_container">
                 <template v-for="element in materialsStore.materials">
                   <div class="material_item" @click.stop="handleClick(element)">
                     <div>{{ element.label }}</div>
@@ -114,7 +118,7 @@ onMounted(() => {
       .left_area {
         padding: 6px;
 
-        .drag_wrap {
+        .materials_drag_container {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;

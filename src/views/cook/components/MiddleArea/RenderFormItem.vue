@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useMaterialsStore } from '@/stores/cook'
 import { useSchemaStore } from '@/stores/schema'
-import { cloneComponentConfig } from '@/utils'
+import { insertNodeAt, removeNode } from '@/utils'
 import { getComponent, type ComponentConfig } from 'form-cook-render'
+import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
 import { storeToRefs } from 'pinia'
 import Sortable from 'sortablejs'
@@ -59,26 +59,54 @@ function getVisible(node: ComponentConfig) {
 
 const id = ref(`layout_${nanoid(10)}`)
 const drag = ref()
-const materialsStore = useMaterialsStore()
+let sortable: Sortable | null = null
+
 const onCompMounted = () => {
   const target = document.querySelector(`.${id.value}`) as HTMLElement
-  new Sortable(target, {
-    group: {
-      name: 'form',
-    },
+  sortable = new Sortable(target, {
+    group: { name: 'form' },
     animation: 150,
-    onAdd: function (/**Event*/ evt) {
-      const index = evt.newIndex!
-      const cloneType = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
-      if (config.value.componentType === 'layout') {
-        config.value.children?.splice(index, 0, cloneType)
-        handleSelected(cloneType)
-      }
 
-      evt.item.parentNode?.removeChild(evt.item)
+    onStart(evt) {
+      evt.item._underlying_vm_ = cloneDeep(config.value.children[evt.oldIndex!])
+    },
+
+    onAdd(evt) {
+      const element = evt.item._underlying_vm_
+      if (!element) return
+
+      removeNode(evt.item)
+
+      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      config.value.children?.splice(newIndex, 0, element)
+
+      store.setSelect(element)
+      console.log('layout-onAdd', evt)
+    },
+
+    onUpdate(evt) {
+      removeNode(evt.item)
+      insertNodeAt(evt.from, evt.item, evt.oldIndex!)
+
+      const oldIndex = getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
+      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+
+      const moved = config.value.children!.splice(oldIndex, 1)[0]
+      config.value.children!.splice(newIndex, 0, moved)
+
+      console.log('layout-onUpdate', evt)
+    },
+
+    onRemove(evt) {
+      if (evt.pullMode === 'clone' || evt.clone) {
+        removeNode(evt.clone)
+      }
+      config.value.children?.splice(evt.oldIndex!, 1)
+      console.log('layout-onRemove', evt)
     },
   })
 }
+
 watch(
   () => drag.value,
   () => {
@@ -88,6 +116,25 @@ watch(
   },
   { deep: true },
 )
+
+onBeforeUnmount(() => {
+  sortable?.destroy()
+})
+
+function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
+  const children = Array.from(container.children).filter(
+    (el) =>
+      !(el as HTMLElement).classList.contains('sortable-ghost') &&
+      !(el as HTMLElement).classList.contains('sortable-chosen') &&
+      (el as HTMLElement).style.display !== 'none',
+  )
+  if (domIndex >= (children.length ?? 0)) {
+    return config.value.children?.length
+  }
+  const targetNode = children[domIndex]
+  const index = children.indexOf(targetNode)
+  return index === -1 ? config.value.children?.length : index
+}
 </script>
 
 <template>
@@ -97,10 +144,10 @@ watch(
       v-bind="config.formItemAttrs"
       :class="{ selected: selectedConfig?.id === config.id, unVisible: !getVisible(config) }"
       @click.stop="handleSelectChange(config)"
+      :key="`item_${config.id}`"
     >
       <component
         :is="getComponent(config.componentName) || config.componentName"
-        :key="config.id"
         v-model="config.defaultValue"
         v-bind="getAttrs(config)"
       >
@@ -128,7 +175,7 @@ watch(
       <component
         ref="drag"
         :is="getComponent(config.componentName) || config.componentName"
-        :key="config.id"
+        :key="`layout_${config.id}`"
         v-bind="getAttrs(config)"
         :style="config.style"
         :class="{
@@ -141,7 +188,7 @@ watch(
       >
         <RenderFormItem
           v-for="(child, i) in config.children"
-          :key="child.id"
+          :key="`children_${child.id}`"
           v-model:config="config.children[i]"
           :form-data="formData"
           @onDel="config.children?.splice(i, 1)"
@@ -163,6 +210,8 @@ watch(
 .layout {
   border: #cbcdd3 dashed 1px;
   min-height: 20px;
+  padding: 6px;
+  margin-bottom: 18px;
 }
 .selected {
   position: relative;

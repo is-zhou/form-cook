@@ -47,7 +47,7 @@ const isDrag = ref(false)
         }"
       >
         <div class="layout_warp" v-if="element.children" :key="element.id">
-          <div style="margin-bottom: 4px">{{ element.componentName }}</div>
+          <div style="margin-bottom: 4px">{{ element.componentName }}/{{ element.id }}</div>
           <TreeDraggableArea
             v-model:configList="element.children"
             v-model:selectedConfig="selectedConfig"
@@ -61,7 +61,7 @@ const isDrag = ref(false)
         <div v-else class="item_wrap">
           <img width="30px" src="../../../../assets/temp.png" alt="" />
           <div class="info">
-            <div>{{ element.componentName }}</div>
+            <div>{{ element.componentName }}/{{ element.id }}</div>
             <div>{{ element.formItemAttrs.label }}</div>
             <div>{{ element.formItemAttrs.field }}</div>
           </div>
