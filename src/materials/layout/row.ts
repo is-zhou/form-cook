@@ -9,18 +9,7 @@ const m: Material = {
     componentType: 'layout',
     attrs: {},
     children: [
-      {
-        id: Date.now() + '',
-        componentName: 'col',
-        componentType: 'layout',
-        attrs: {
-          span: 6
-        },
-        children: [
 
-        ],
-        style: {},
-      },
     ],
     style: {},
   },
