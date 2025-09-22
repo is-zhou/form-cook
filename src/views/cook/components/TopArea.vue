@@ -5,12 +5,14 @@ import IconSave from '@/components/icon/IconSave.vue'
 import IconClear from '@/components/icon/IconClear.vue'
 import IconCode from '@/components/icon/IconCode.vue'
 import IconTree from '@/components/icon/IconTree.vue'
+import IconImport from '@/components/icon/IconImport.vue'
 import { View } from '@element-plus/icons-vue'
 
 import { ref } from 'vue'
 import { cloneDeep } from 'lodash'
 import { useStatusStore } from '@/stores'
 import { useSchemaStore } from '@/stores/schema'
+import type { FormCompConfig } from 'form-cook-render'
 
 const emits = defineEmits(['clickHandleSchema'])
 
@@ -26,18 +28,29 @@ const handlePreview = () => {
   c.value = cloneDeep(state.formSchema)
   dialogFormVisible.value = true
 }
+
+const handleSaveCompConfigList = (list: FormCompConfig[]) => {
+  state.formSchema.formContentConfigList.push(...list)
+}
 </script>
 
 <template>
   <header class="top_area">
     <div class="top_area_left" :class="{ w: statusStore.isTreeAreaOpen }">
       <h3>FormCook</h3>
-      <el-tooltip effect="light" content="表单树" placement="left">
-        <el-button
-          :icon="IconTree"
-          :type="statusStore.isTreeAreaOpen ? 'primary' : ''"
-          @click="statusStore.updateTreeAreaOpen"
-      /></el-tooltip>
+      <div>
+        <DialogImportFields
+          @onSaveCompConfigList="handleSaveCompConfigList"
+          v-model="state.formSchema.formContentConfigList"
+        ></DialogImportFields>
+        <el-tooltip effect="light" content="表单树" placement="bottom">
+          <el-button
+            :icon="IconTree"
+            :type="'primary'"
+            :plain="!statusStore.isTreeAreaOpen"
+            @click="statusStore.updateTreeAreaOpen"
+        /></el-tooltip>
+      </div>
     </div>
     <div class="top_area_middle">
       <div class="middle_l">
