@@ -68,16 +68,18 @@ onMounted(() => {
       <div class="menu_content">
         <el-scrollbar height="100%">
           <div class="left_area">
-            <Transition name="fade-slide" mode="out-in">
-              <div ref="drag" class="materials_drag_container">
-                <template v-for="(element, index) in materialsStore.materials">
-                  <div class="material_item" :data-index="index">
-                    <div>{{ element.label }}</div>
-                    <component :is="materialIconMap[element.icon] || IconInput"></component>
-                  </div>
-                </template>
-              </div>
-            </Transition>
+            <div ref="drag" class="materials_drag_container">
+              <template v-for="(element, index) in materialsStore.materials" :key="element.label">
+                <div class="material_item" :data-index="index">
+                  <Transition name="fade-slide" mode="out-in">
+                    <div :key="currentMenu">
+                      <div>{{ element.label }}</div>
+                      <component :is="materialIconMap[element.icon] || IconInput"></component>
+                    </div>
+                  </Transition>
+                </div>
+              </template>
+            </div>
           </div>
         </el-scrollbar>
       </div>
@@ -136,15 +138,17 @@ onMounted(() => {
             cursor: move;
           }
           .material_item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            border: 1px dashed #dcdfe6;
-            padding: 6px;
-            border-radius: 10px;
             font-size: 12px;
             background-color: #fff;
+            > div {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              border: 1px dashed #dcdfe6;
+              padding: 6px;
+              border-radius: 10px;
+            }
             svg {
               width: 108px;
               height: 80px;
