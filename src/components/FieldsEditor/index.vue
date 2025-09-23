@@ -94,38 +94,70 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <el-form ref="formRef" :model="dynamicValidateForm" label-width="0px" class="demo-dynamic">
-    <el-row :gutter="20">
-      <el-col :span="2"></el-col>
-      <el-col :span="5"><strong>字段</strong></el-col>
-      <el-col :span="5"><strong>标签</strong></el-col>
-      <el-col :span="6"><strong>组件</strong></el-col>
-      <el-col :span="6"><strong>操作</strong></el-col>
-    </el-row>
+  <div class="fieldsEditor">
+    <div class="form_wrap">
+      <div class="form_scroll">
+        <el-form ref="formRef" :model="dynamicValidateForm" label-width="0px">
+          <el-row :gutter="20">
+            <el-col :span="2"></el-col>
+            <el-col :span="5"><strong>字段</strong></el-col>
+            <el-col :span="5"><strong>标签</strong></el-col>
+            <el-col :span="6"><strong>组件</strong></el-col>
+            <el-col :span="6"><strong>操作</strong></el-col>
+          </el-row>
+          <br />
 
-    <DomainRow
-      v-for="(domain, index) in dynamicValidateForm.domains"
-      :key="domain.id"
-      :domain="domain"
-      :index="index"
-      :component-name-options="componentNameOptions"
-      @remove="removeDomain"
-      @addChild="addChildDomain"
-      :parent-path="'domains.' + index"
-    />
-
-    <el-form-item>
+          <DomainRow
+            v-for="(domain, index) in dynamicValidateForm.domains"
+            :key="domain.id"
+            :domain="domain"
+            :index="index"
+            :component-name-options="componentNameOptions"
+            @remove="removeDomain"
+            @addChild="addChildDomain"
+            :parent-path="'domains.' + index"
+          />
+        </el-form>
+      </div>
       <div style="text-align: center; width: 100%; margin-top: 20px">
         <el-button @click="addDomain">添加字段</el-button>
         <el-button type="primary" @click="submitForm(formRef)">确认导入</el-button>
         <el-button @click="resetForm(formRef)">重置</el-button>
       </div>
-    </el-form-item>
-  </el-form>
+    </div>
+    <div class="code_wrap">
+      <JsonToCompConfig
+        @onTransform="(list: ComponentConfig[]) => dynamicValidateForm.domains.push(...list)"
+      ></JsonToCompConfig>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.demo-dynamic .el-row {
-  margin-bottom: 10px;
+.fieldsEditor {
+  display: flex;
+  align-items: stretch;
+
+  .form_wrap {
+    border: 1px solid gainsboro;
+    padding: 10px;
+    flex: 1;
+
+    .form_scroll {
+      height: 500px;
+      overflow-y: auto;
+      box-sizing: border-box;
+
+      ::v-deep(.el-form) {
+        box-sizing: border-box;
+        width: 98%;
+      }
+    }
+  }
+  .code_wrap {
+    width: 240px;
+    border: 1px solid gainsboro;
+    padding: 10px;
+  }
 }
 </style>

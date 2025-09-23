@@ -23,7 +23,7 @@ const dialogVisible = ref(false)
       style="margin-right: 12px"
     />
   </el-tooltip>
-  <el-dialog v-model="dialogVisible" title="快速导入字段" width="800px">
+  <el-dialog v-model="dialogVisible" title="快速添加字段" width="900px">
     <FieldsEditor
       v-if="dialogVisible"
       @onSaveCompConfigList="handleSaveCompConfigList"
