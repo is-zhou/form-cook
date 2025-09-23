@@ -1,6 +1,6 @@
 import type { Material } from '@/types/material'
 import type { TSettersItem, TSettersModuleType } from '@/types/setter'
-import type { ComponentConfig, ComponentName } from 'form-cook-render'
+import type { BaseConfig, ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render'
 import { cloneDeep, omit } from 'lodash'
 import { nanoid } from 'nanoid'
 
@@ -172,3 +172,71 @@ export function insertNodeAt(fatherNode: HTMLElement, node: HTMLElement, positio
   fatherNode.insertBefore(node, refNode)
 }
 
+
+
+interface ComponentNameOption {
+  value: string
+  label: string
+  componentConfig: ComponentConfig
+}
+
+export function transformComponentConfig(
+  row: ComponentConfig,
+  target: ComponentNameOption
+): ComponentConfig {
+  const targetComp = target.componentConfig
+
+  const baseKeys = ['id', 'componentName', 'componentType', 'sort', 'style', 'slots', '_slots', 'visible', 'events']
+  const formKeys = ['formItemAttrs', 'defaultValue', 'attrs']
+  const layoutKeys = ['attrs', 'children']
+
+  const allowedKeys = [...baseKeys, ...(targetComp.componentType === 'form' ? formKeys : layoutKeys)]
+
+  for (const key of Object.keys(row)) {
+    if (!allowedKeys.includes(key)) {
+      delete (row as any)[key]
+    }
+  }
+
+  const sameType = row.componentType === targetComp.componentType
+
+  row.componentType = targetComp.componentType
+  row.componentName = target.value as ComponentName
+  row.id = row.id || `id_${nanoid(10)}`
+
+  if (sameType) {
+    if (targetComp.componentType === 'form') {
+      const r = row as FormCompConfig
+      r.formItemAttrs = cloneDeep((r as FormCompConfig).formItemAttrs)
+      r.attrs = cloneDeep((r as FormCompConfig).attrs)
+      if ((r as FormCompConfig).defaultValue !== undefined) {
+        r.defaultValue = cloneDeep((r as FormCompConfig).defaultValue)
+      }
+    } else {
+      const r = row as LayoutCompConfig
+      r.attrs = cloneDeep((r as LayoutCompConfig).attrs)
+      r.children = r.children ? cloneDeep(r.children) : []
+    }
+  } else {
+    if (targetComp.componentType === 'form') {
+      const t = targetComp as FormCompConfig
+
+        ; (row as FormCompConfig).formItemAttrs = cloneDeep(t.formItemAttrs)
+        ; (row as FormCompConfig).attrs = cloneDeep(t.attrs)
+      if (t.defaultValue !== undefined) {
+        (row as FormCompConfig).defaultValue = cloneDeep(t.defaultValue)
+      }
+      // 删除 layout 字段
+      delete (row as any).children
+    } else {
+      const t = targetComp as LayoutCompConfig
+        ; (row as LayoutCompConfig).attrs = cloneDeep(t.attrs)
+        ; (row as LayoutCompConfig).children = t.children ? cloneDeep(t.children) : []
+      // 删除 form 字段
+      delete (row as any).formItemAttrs
+      delete (row as any).defaultValue
+    }
+  }
+
+  return row
+}

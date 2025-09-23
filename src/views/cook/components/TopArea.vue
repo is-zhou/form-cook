@@ -28,10 +28,6 @@ const handlePreview = () => {
   c.value = cloneDeep(state.formSchema)
   dialogFormVisible.value = true
 }
-
-const handleSaveCompConfigList = (list: FormCompConfig[]) => {
-  state.formSchema.formContentConfigList.push(...list)
-}
 </script>
 
 <template>
@@ -39,10 +35,7 @@ const handleSaveCompConfigList = (list: FormCompConfig[]) => {
     <div class="top_area_left" :class="{ w: statusStore.isTreeAreaOpen }">
       <h3>FormCook</h3>
       <div>
-        <DialogImportFields
-          @onSaveCompConfigList="handleSaveCompConfigList"
-          v-model="state.formSchema.formContentConfigList"
-        ></DialogImportFields>
+        <DialogImportFields></DialogImportFields>
         <el-tooltip effect="light" content="表单树" placement="bottom">
           <el-button
             :icon="IconTree"
