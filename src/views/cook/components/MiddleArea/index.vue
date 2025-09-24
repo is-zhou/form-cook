@@ -7,6 +7,7 @@ import { insertNodeAt, removeNode } from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
+import type { ComponentConfig } from 'form-cook-render'
 
 const store = useSchemaStore()
 const { formSchema, selectedConfig } = storeToRefs(store)
@@ -31,11 +32,14 @@ onMounted(() => {
     animation: 150,
 
     onStart(evt) {
-      evt.item._underlying_vm_ = cloneDeep(formSchema.value.formContentConfigList[evt.oldIndex!])
+      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ = cloneDeep(
+        formSchema.value.formContentConfigList[evt.oldIndex!],
+      )
     },
 
     onAdd(evt) {
-      const element = evt.item._underlying_vm_
+      const element = (evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })
+        ._underlying_vm_
       if (!element) return
 
       removeNode(evt.item)

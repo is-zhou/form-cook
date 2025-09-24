@@ -6,6 +6,7 @@ import { cloneComponentConfig } from '@/utils'
 import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/cook'
 import { useSchemaStore } from '@/stores/schema'
+import type { ComponentConfig } from 'form-cook-render'
 
 const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
@@ -44,7 +45,8 @@ onMounted(() => {
     animation: 150,
     sort: false, // 设为false，禁止sort
     onStart: function (/**Event*/ evt) {
-      evt.item._underlying_vm_ = cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
+      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ =
+        cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
     },
   })
 })

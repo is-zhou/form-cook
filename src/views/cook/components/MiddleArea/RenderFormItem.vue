@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
 import { insertNodeAt, removeNode } from '@/utils'
-import { getComponent, type ComponentConfig } from 'form-cook-render'
+import {
+  getComponent,
+  type ComponentConfig,
+  type LayoutCompConfig,
+  type OptionsConfig,
+  type Option,
+} from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
 import { storeToRefs } from 'pinia'
@@ -68,16 +74,31 @@ const onCompMounted = () => {
     animation: 150,
 
     onStart(evt) {
-      evt.item._underlying_vm_ = cloneDeep(config.value.children[evt.oldIndex!])
+      if (config.value.componentType !== 'layout') {
+        return
+      }
+
+      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ = cloneDeep(
+        config.value.children?.[evt.oldIndex!]!,
+      )
     },
 
     onAdd(evt) {
-      const element = evt.item._underlying_vm_
+      const element = (evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })
+        ._underlying_vm_
       if (!element) return
+
+      if (config.value.componentType !== 'layout') {
+        return
+      }
 
       removeNode(evt.item)
 
       const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      if (typeof newIndex === 'undefined') {
+        return
+      }
+
       config.value.children?.splice(newIndex, 0, element)
 
       store.setSelect(element)
@@ -85,11 +106,18 @@ const onCompMounted = () => {
     },
 
     onUpdate(evt) {
+      if (config.value.componentType !== 'layout') {
+        return
+      }
       removeNode(evt.item)
       insertNodeAt(evt.from, evt.item, evt.oldIndex!)
 
       const oldIndex = getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
       const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+
+      if (typeof newIndex === 'undefined' || typeof oldIndex === 'undefined') {
+        return
+      }
 
       const moved = config.value.children!.splice(oldIndex, 1)[0]
       config.value.children!.splice(newIndex, 0, moved)
@@ -98,6 +126,9 @@ const onCompMounted = () => {
     },
 
     onRemove(evt) {
+      if (config.value.componentType !== 'layout') {
+        return
+      }
       if (evt.pullMode === 'clone' || evt.clone) {
         removeNode(evt.clone)
       }
@@ -129,11 +160,11 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
       (el as HTMLElement).style.display !== 'none',
   )
   if (domIndex >= (children.length ?? 0)) {
-    return config.value.children?.length
+    return (config.value as LayoutCompConfig).children?.length
   }
   const targetNode = children[domIndex]
   const index = children.indexOf(targetNode)
-  return index === -1 ? config.value.children?.length : index
+  return index === -1 ? (config.value as LayoutCompConfig).children?.length : index
 }
 </script>
 
@@ -152,12 +183,14 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         v-bind="getAttrs(config)"
       >
         <template v-for="(slot, name) in config?.slots" #[name!]>
-          <component
-            v-for="option in slot.options"
-            :is="getComponent(slot.componentName)"
-            v-bind="option"
-            >{{ option.label }}</component
-          >
+          <template v-for="option in slot.options">
+            <component
+              v-if="typeof option === 'object'"
+              :is="getComponent(slot.componentName)"
+              v-bind="{ ...(option as object) }"
+              >{{ (option as { label: string }).label }}</component
+            >
+          </template>
         </template>
       </component>
       <el-icon
