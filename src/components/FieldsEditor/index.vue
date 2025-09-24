@@ -144,7 +144,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     flex: 1;
 
     .form_scroll {
-      height: 500px;
+      height: 56vh;
       overflow-y: auto;
       box-sizing: border-box;
 

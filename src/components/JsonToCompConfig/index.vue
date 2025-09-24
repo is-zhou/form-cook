@@ -5,8 +5,8 @@ import { SerializeInput } from 'vue-serialize-input'
 const data = ref<Record<string, any>>()
 const emits = defineEmits<{ (e: 'onTransform', list: ComponentConfig[]): void }>()
 
-const isSaveDefault = ref(true)
-const isKeyToLabel = ref(true)
+const isSaveDefault = ref(false)
+const isKeyToLabel = ref(false)
 
 const placeholder = `输入示例：
 {
@@ -78,22 +78,47 @@ function flattenJsonToComponentConfig(
 </script>
 
 <template>
-  <SerializeInput
-    v-model="data"
-    serialize-type="object"
-    :autosize="{ minRows: 20, maxRows: 30 }"
-    :placeholder="placeholder"
-  ></SerializeInput>
-  &nbsp;
-  <div>
-    <el-checkbox label="值配置为默认值" v-model="isSaveDefault" />
-    <el-checkbox label="将key同时配置成label" v-model="isKeyToLabel" />
-  </div>
+  <div class="flatten">
+    <div class="flatten_input">
+      <SerializeInput
+        v-model="data"
+        serialize-type="object"
+        :placeholder="placeholder"
+      ></SerializeInput>
+    </div>
 
-  &nbsp;
-  <el-button type="primary" style="width: 100%" :disabled="!data" @click="handleTransform"
-    >解析生成</el-button
-  >
+    <div>
+      <br />
+      <br />
+      <el-checkbox label="值配置为默认值" v-model="isSaveDefault" />
+      <el-checkbox label="将key同时配置成label" v-model="isKeyToLabel" />
+      <br />
+      <br />
+      <el-button type="primary" style="width: 100%" :disabled="!data" @click="handleTransform"
+        >解析生成</el-button
+      >
+    </div>
+  </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.flatten {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .flatten_input {
+    box-sizing: border-box;
+    flex: 1;
+    ::v-deep(.serialize-input) {
+      height: 100%;
+      .el-textarea {
+        height: 100%;
+        textarea {
+          min-height: 100% !important;
+        }
+      }
+    }
+  }
+}
+</style>
