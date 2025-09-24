@@ -27,7 +27,7 @@ const functionCode = ref<functionType>()
 const remoteConfig = ref<remoteType>({
   url: '',
   method: 'GET',
-  map: (res) => res.data || [],
+  map: (res) => (res.data ? [res.data, null] : [[], null]),
 })
 
 // 初始化
@@ -56,7 +56,12 @@ watch(
       modelValue.value = staticOptions.value
     } else if (mode.value === 'function') {
       if (!functionCode.value) {
-        modelValue.value = deserialize(`()=>${serialize(staticOptions.value) || ''}`)
+        modelValue.value = deserialize(`()=> new Promise((res,rej)=>{
+  res([
+  ${serialize(staticOptions.value) || ''},
+  null
+  ])
+        })`)
         return
       }
       modelValue.value = functionCode.value
@@ -126,7 +131,7 @@ watch(
         type="textarea"
         :rows="8"
         serialize-type="function"
-        placeholder="请输入函数，如：async () => [{ label: 'A', value: 1 }]"
+        placeholder="请输入函数，如：async () =>  Promise [{ label: 'A', value: 1 }]"
       />
     </div>
 

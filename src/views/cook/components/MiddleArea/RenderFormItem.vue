@@ -34,19 +34,26 @@ const handleDel = () => {
 }
 
 function getAttrs(node: ComponentConfig) {
+  const attrs = cloneDeep(node.attrs)
+
   if (node.componentType === 'form') {
     if (typeof node.attrs.disabled === 'function') {
       const isVisible = node.attrs.disabled({ formData: formData, schemaItem: node })
-      node.attrs.disabled = !!isVisible
+      attrs.disabled = !!isVisible
     }
 
     if (typeof node.attrs.readonly === 'function') {
       const isVisible = node.attrs.readonly({ formData: formData, schemaItem: node })
-      node.attrs.readonly = !!isVisible
+      attrs.readonly = !!isVisible
+    }
+    if (!Array.isArray(node.attrs.options)) {
+      attrs.options = [{ label: '动态选项', value: '动态选项' }]
+    } else {
+      attrs.options = node.attrs.options
     }
   }
 
-  return node.attrs
+  return attrs
 }
 
 function getVisible(node: ComponentConfig) {
@@ -183,9 +190,9 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         v-bind="getAttrs(config)"
       >
         <template v-for="(slot, name) in config?.slots" #[name!]>
-          <template v-for="option in slot.options">
+          <template v-if="Array.isArray(slot.options)">
             <component
-              v-if="typeof option === 'object'"
+              v-for="option in slot.options"
               :is="getComponent(slot.componentName)"
               v-bind="{ ...(option as object) }"
               >{{ (option as { label: string }).label }}</component
