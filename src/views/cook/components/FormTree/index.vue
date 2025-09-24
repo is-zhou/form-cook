@@ -13,10 +13,13 @@ const statusStore = useStatusStore()
   <div class="form_tree" :class="{ active: statusStore.isTreeAreaOpen }">
     <div class="content">
       <div class="head">
-        <span>
+        <div>
           <IconTree width="14"></IconTree> &nbsp; <span style="line-height: 1">表单树</span>
-        </span>
-        <el-icon @click="statusStore.updateTreeAreaOpen"><i-ep-DArrowLeft /></el-icon>
+        </div>
+        <div>
+          <DialogBatchFields></DialogBatchFields>
+          <el-icon @click="statusStore.updateTreeAreaOpen"><i-ep-DArrowLeft /></el-icon>
+        </div>
       </div>
       <div class="body" :class="{ option_hint: !formSchema.formContentConfigList.length }">
         <el-scrollbar height="100%">
@@ -55,6 +58,11 @@ const statusStore = useStatusStore()
       height: 40px;
       font-size: 12px;
       background-color: #dcdfe6;
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
     .body {
       padding: 8px 0 8px 8px;

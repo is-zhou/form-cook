@@ -121,7 +121,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
       </div>
       <div style="text-align: center; width: 100%; margin-top: 20px">
         <el-button @click="addDomain">添加字段</el-button>
-        <el-button type="primary" @click="submitForm(formRef)">确认导入</el-button>
+        <el-button type="primary" @click="submitForm(formRef)">确认</el-button>
         <el-button @click="resetForm(formRef)">重置</el-button>
       </div>
     </div>
