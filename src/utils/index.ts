@@ -17,22 +17,13 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
   if (obj) {
     Object.keys(obj).forEach((key) => {
       const item = obj[key as keyof ComponentConfig]!
-
-      if (item.isHide !== true) {
-        const { setterChildren, ...arg } = item as TSettersItem
-
-        if (arg.componentName) {
-          arg.id = nanoid(10)
-          if (arg.componentType === 'form') {
-            arg.formItemAttrs.field = preKey ? `${preKey}.${key}` : key
-            arg.formItemAttrs.style = " border: 1px solid var(--el-border-color-light); padding:10px"
-          }
-          list.push(arg)
+      if (item.componentName) {
+        item.id = nanoid(10)
+        if (item.componentType === 'form') {
+          item.formItemAttrs.field = preKey ? `${preKey}.${key}` : key
+          item.formItemAttrs.style = " border: 1px solid var(--el-border-color-light); padding:10px"
         }
-      }
-
-      if (item.setterChildren) {
-        list.push(...getSettersListByObj(item.setterChildren, preKey ? `${preKey}.${key}` : key))
+        list.push(item)
       }
     })
 
