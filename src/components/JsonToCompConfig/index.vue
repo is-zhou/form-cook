@@ -7,6 +7,17 @@ const emits = defineEmits<{ (e: 'onTransform', list: ComponentConfig[]): void }>
 
 const isSaveDefault = ref(true)
 const isKeyToLabel = ref(true)
+
+const placeholder = `输入示例：
+{
+  name: "Tom",
+  age: 19,
+  address: {
+    province:"北京"
+    city: "北京",
+  }
+}
+`
 const handleTransform = () => {
   if (data.value) {
     const result = flattenJsonToComponentConfig(data.value, {
@@ -71,6 +82,7 @@ function flattenJsonToComponentConfig(
     v-model="data"
     serialize-type="object"
     :autosize="{ minRows: 20, maxRows: 30 }"
+    :placeholder="placeholder"
   ></SerializeInput>
   &nbsp;
   <div>
