@@ -32,8 +32,8 @@ importers:
         specifier: ^2.11.2
         version: 2.11.2(vue@3.5.21(typescript@5.8.3))
       form-cook-render:
-        specifier: ^0.0.2
-        version: 0.0.2(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
+        specifier: ^0.0.8
+        version: 0.0.8(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
       javascript-stringify:
         specifier: ^2.1.0
         version: 2.1.0
@@ -1577,8 +1577,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  form-cook-render@0.0.2:
-    resolution: {integrity: sha512-QUFvocrkiGZM3XyYG2dlVkgiQ9n5rqdUpfMT+DWuZVi2hZ4x/MQUIhUq/NCd+OEUE3lQZoPa5WlZF3jxe4qXSA==}
+  form-cook-render@0.0.8:
+    resolution: {integrity: sha512-7OkJ7TVz229OeB3XxyzHNL8Tt7lEtvHOJCJ8/+9stEwAw2PKALcIzaF13/jevleGXu9KbMRO+ioiRBX9eH+Uyw==}
     peerDependencies:
       element-plus: ^2.11.2
       vue: ^3.5.21
@@ -4164,7 +4164,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  form-cook-render@0.0.2(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
+  form-cook-render@0.0.8(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
     dependencies:
       element-plus: 2.11.2(vue@3.5.21(typescript@5.8.3))
       lodash-es: 4.17.21
