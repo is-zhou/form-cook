@@ -73,12 +73,10 @@ onMounted(() => {
             <div ref="drag" class="materials_drag_container">
               <template v-for="(element, index) in materialsStore.materials" :key="element.label">
                 <div class="material_item" :data-index="index">
-                  <Transition name="fade-slide" mode="out-in">
-                    <div :key="currentMenu">
-                      <div>{{ element.label }}</div>
-                      <component :is="materialIconMap[element.icon] || IconInput"></component>
-                    </div>
-                  </Transition>
+                  <div>
+                    <div>{{ element.label }}</div>
+                    <component :is="materialIconMap[element.icon] || IconInput"></component>
+                  </div>
                 </div>
               </template>
             </div>
