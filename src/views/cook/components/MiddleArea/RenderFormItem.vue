@@ -251,7 +251,6 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
   border: #cbcdd3 dashed 1px;
   min-height: 20px;
   padding: 6px;
-  margin-bottom: 18px;
 }
 .selected {
   position: relative;

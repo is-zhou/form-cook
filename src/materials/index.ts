@@ -1,4 +1,5 @@
 import type { Material } from "@/types/material"
+import { sortByProperty } from "@/utils"
 
 interface ModuleType {
   default: Material
@@ -20,6 +21,6 @@ for (const path in modulesLayout) {
 }
 
 export default {
-  materialFormList,
-  materialLayoutList,
+  materialFormList: sortByProperty(materialFormList, 'sort'),
+  materialLayoutList: sortByProperty(materialLayoutList, 'sort'),
 }

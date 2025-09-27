@@ -100,7 +100,7 @@ export function objectAssignByComponentConfig(currentConfig: Ref<ComponentConfig
 }
 
 
-function sortByProperty<T>(arr: Array<T>, property: keyof T) {
+export function sortByProperty<T>(arr: Array<T>, property: keyof T) {
   return arr.sort((a, b) => {
     // 获取 'property' 属性的值，如果没有，则视为 Infinity，排到后面
     const valueA = a[property] ?? Infinity;
