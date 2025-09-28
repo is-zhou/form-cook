@@ -6,7 +6,6 @@ import IconClear from '@/components/icon/IconClear.vue'
 import IconCode from '@/components/icon/IconCode.vue'
 import IconTree from '@/components/icon/IconTree.vue'
 import IconImport from '@/components/icon/IconImport.vue'
-import { View } from '@element-plus/icons-vue'
 
 import { ref } from 'vue'
 import { cloneDeep } from 'lodash'
@@ -22,7 +21,6 @@ const { history } = state
 const statusStore = useStatusStore()
 const dialogFormVisible = ref(false)
 
-const previewFormData = ref<{ [key: string]: any }>({})
 const c = ref({})
 const handlePreview = () => {
   c.value = cloneDeep(state.formSchema)
@@ -87,9 +85,7 @@ const handlePreview = () => {
       </div>
       <div class="middle_m"></div>
       <div class="middle_r">
-        <el-tooltip effect="light" content="预览" placement="bottom">
-          <el-button :icon="View" type="primary" @click="handlePreview" plain />
-        </el-tooltip>
+        <DialogReview></DialogReview>
         <el-tooltip effect="light" content="Schema" placement="bottom">
           <el-button
             :icon="IconCode"
@@ -103,9 +99,6 @@ const handlePreview = () => {
       </div>
     </div>
     <div class="top_area_right"></div>
-    <el-dialog v-if="dialogFormVisible" v-model="dialogFormVisible" title="表单预览" width="500">
-      <form-cook-render v-model="previewFormData" v-model:form-schema="c"></form-cook-render>
-    </el-dialog>
   </header>
 </template>
 
@@ -137,14 +130,17 @@ const handlePreview = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .middle_l {
     text-align: left;
+    min-width: 206px;
   }
   .middle_m {
     text-align: center;
   }
   .middle_r {
     text-align: right;
+    min-width: 206px;
   }
   > div {
     flex: 1;

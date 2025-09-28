@@ -70,12 +70,16 @@ export function useResizable(
   }
 
   onMounted(() => {
-    if (handle.value) {
-      handle.value.addEventListener('mousedown', onMouseDown)
-    }
     targetEl = target.value
     applyWidth()
   })
+
+  watch(() => handle.value, () => {
+    if (handle.value) {
+      handle.value?.removeEventListener('mousedown', onMouseDown)
+      handle.value.addEventListener('mousedown', onMouseDown)
+    }
+  }, { immediate: true, deep: true })
 
   onUnmounted(() => {
     document.removeEventListener('mousemove', onMouseMove)
