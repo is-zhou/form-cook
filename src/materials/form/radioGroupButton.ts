@@ -5,7 +5,7 @@ const radioGroupButton: Material = {
   icon: 'IconRadio',
   materialContent: {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'radioGroupButton',
     componentType: 'form',
     formItemAttrs: { field: '', label: '单选框按钮' },
     attrs: {},
