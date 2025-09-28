@@ -12,8 +12,19 @@ const s: TSettersModuleType = {
     attrs: {
       clearable: true,
     },
-    group: 'form',
-    defaultValue: ""
+  },
+  'style.height': {
+    id: '',
+    componentName: 'input',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '容器高度',
+    },
+    attrs: {
+      clearable: true,
+    },
+
   },
 }
 
