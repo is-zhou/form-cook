@@ -105,7 +105,7 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
           :class="{ option_hint: !formSchema.formContentConfigList.length }"
         >
           <el-form
-            style="height: 100%; padding-bottom: 20px"
+            style="padding-bottom: 20px"
             :model="_formData"
             v-bind="formSchema.formAreaConfig.attrs"
           >
@@ -234,6 +234,9 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
     min-height: calc(100vh - 40px - 20px - 40px);
     .el-form {
       min-height: calc(100vh - 40px - 20px - 40px);
+    }
+    .el-form.el-form--inline.el-form--label-top {
+      align-content: flex-start;
     }
 
     ::v-deep(.sortable-ghost) {
