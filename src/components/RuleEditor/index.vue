@@ -201,7 +201,9 @@ const reset = () => {
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    width: 100%;
+                    max-width: 220px;
+                    height: 48px;
+                    flex-shrink: 0;
                   "
                 >
                   <el-button
@@ -212,7 +214,9 @@ const reset = () => {
                   >
                   </el-button>
                   &nbsp; &nbsp;
-                  <span>规则 {{ index + 1 }}: {{ rule.message || '未填写提示信息' }}</span>
+                  <div class="ellipsis" style="font-size: 10px; line-height: 1">
+                    规则 {{ index + 1 }}: {{ rule.message || '未填写提示信息' }}
+                  </div>
                 </div>
               </template>
 
