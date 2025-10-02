@@ -87,7 +87,7 @@ const s: TSettersModuleType = {
   },
   'attrs.inactive-color': {
     id: '',
-    componentName: 'input',
+    componentName: 'colorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -100,7 +100,7 @@ const s: TSettersModuleType = {
   },
   'attrs.border-color': {
     id: '',
-    componentName: 'input',
+    componentName: 'colorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
