@@ -1,0 +1,46 @@
+import type { TSettersModuleType } from '@/types/setter.ts'
+
+const s: TSettersModuleType = {
+  'attrs.direction': {
+    id: '',
+    componentName: 'radioGroupButton',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '展示的方向',
+    },
+    attrs: {
+    },
+    slots: {
+      default: {
+        componentName: "radioButton",
+        options: [
+          { label: "horizontal", value: "horizontal" },
+          { label: "vertical", value: "vertical" },
+        ]
+      }
+    }
+  },
+  'attrs.block': {
+    id: '',
+    componentName: 'switch',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '撑满父元素宽度',
+    },
+    attrs: {},
+  },
+  'attrs.validate-event': {
+    id: '',
+    componentName: 'switch',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '是否触发表单验证',
+    },
+    attrs: {},
+  },
+}
+
+export default s
