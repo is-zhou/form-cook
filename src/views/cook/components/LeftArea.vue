@@ -78,14 +78,31 @@ onMounted(() => {
 function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+const keyword = ref('')
+
+const list = computed(() => {
+  return materialsStore.materials.filter((i) => i.label.includes(keyword.value))
+})
 </script>
 
 <template>
   <div class="left_area_wrap">
     <div class="head">
-      <span>
-        <span style="line-height: 1">组件</span>
-      </span>
+      <div class="label">
+        <IconMaterial width="14"></IconMaterial> &nbsp;<span style="line-height: 1">组件</span>
+      </div>
+      <el-input
+        v-model="keyword"
+        class=""
+        size="default"
+        clearable
+        placeholder="输入关键字查找组件"
+      >
+        <template #suffix>
+          <el-icon class="el-input__icon"><i-ep-search /></el-icon>
+        </template>
+      </el-input>
     </div>
     <div class="body">
       <ul class="menu">
@@ -97,7 +114,7 @@ function capitalizeFirstLetter(str: string) {
         <el-scrollbar height="100%">
           <div class="left_area">
             <div ref="drag" class="materials_drag_container">
-              <template v-for="(element, index) in materialsStore.materials" :key="element.label">
+              <template v-for="(element, index) in list" :key="element.label">
                 <div class="material_item" :data-index="index">
                   <div>
                     <div>{{ element.label }}</div>
@@ -131,12 +148,24 @@ function capitalizeFirstLetter(str: string) {
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 10px;
+    padding: 0 10px 0 0;
 
     height: 40px;
     font-size: 12px;
     background-color: #f5f7fa;
     color: #000000;
+
+    .label {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-right: 8px;
+      width: 60px;
+      text-align: center;
+      font-weight: 500;
+    }
   }
   .body {
     display: flex;
