@@ -3,17 +3,18 @@ import { useUndoRedo } from '@/hooks/useUndoRedo'
 import { createCode } from '@/utils/createCode'
 import IconCreateCode from '@/components/icon/IconCreateCode.vue'
 import { useClipboard } from '@vueuse/core'
+import { useSchemaStore } from '@/stores/schema'
 
 const { copy, copied } = useClipboard()
 
-const { state } = useUndoRedo()
+const state = useSchemaStore()
 
 const dialogVisible = ref(false)
 const code = ref()
 const isDownloading = ref(false)
 
 const handleCreate = () => {
-  code.value = createCode(state.value)
+  code.value = createCode(state.formSchema)
   dialogVisible.value = true
 }
 
