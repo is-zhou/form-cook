@@ -1,7 +1,7 @@
 import type { Material } from '@/types/material.ts'
 
 const m: Material = {
-  label: '容器',
+  label: '容器Div',
   icon: '',
   materialContent: {
     id: '',

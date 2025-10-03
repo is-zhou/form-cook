@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Material } from '@/types/material'
+import type { Material, MaterialGroup } from '@/types/material'
 import IconInput from '@/components/MaterialIcons/IconInput.vue'
 import materialIconMap from '@/components/MaterialIcons/index'
 import { cloneComponentConfig } from '@/utils'
@@ -17,15 +17,39 @@ const handleClick = (current: Material) => {
   store.setSelect(result)
 }
 
-const currentMenu = ref('所有')
+const currentMenu = ref<string | number>('form')
 
-const changeMenu = (item: { label: string; materials: Material[] }) => {
-  currentMenu.value = item.label
-  materialsStore.changeMaterials(item.materials)
+const menuList: { key: MaterialGroup; label: string }[] = [
+  {
+    key: 'all',
+    label: '所有',
+  },
+  {
+    key: 'form',
+    label: '表单',
+  },
+  {
+    key: 'layout',
+    label: '布局',
+  },
+  {
+    key: 'action',
+    label: '动作',
+  },
+  {
+    key: 'date',
+    label: '日期',
+  },
+]
+
+const changeMenu = (key: string | number) => {
+  currentMenu.value = key
+  materialsStore.changeMaterials(materialsStore.menus[key])
 }
 
 const drag = ref()
 onMounted(() => {
+  changeMenu('form')
   drag.value.addEventListener('click', (e: Event) => {
     const target = (e.target as HTMLElement).closest('.material_item') as HTMLElement
     if (target) {
@@ -61,10 +85,8 @@ onMounted(() => {
     </div>
     <div class="body">
       <ul class="menu">
-        <li v-for="item in materialsStore.menuList" @click="changeMenu(item)">
-          <el-button :type="currentMenu === item.label ? 'primary' : ''">{{
-            item.label
-          }}</el-button>
+        <li v-for="item in menuList" @click="changeMenu(item.key)">
+          <el-button :type="currentMenu === item.key ? 'primary' : ''">{{ item.label }}</el-button>
         </li>
       </ul>
       <div class="menu_content">

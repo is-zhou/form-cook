@@ -2,7 +2,7 @@ import type { Material } from '@/types/material'
 import type { TSettersModuleType } from '@/types/setter.ts'
 import { getSettersListByObj } from '@/utils'
 import material from '@/materials/index'
-const materials: Material[] = [...material.materialFormList,]
+const materials: Material[] = [...(material['form'] || [])]
 
 const componentNameOptions: {
   value: string,

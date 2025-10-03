@@ -4,7 +4,7 @@ import type { Material } from '@/types/material'
 import material from '@/materials/index'
 import { getSettersListByObj } from '@/utils'
 
-const materials: Material[] = [...material.materialLayoutList]
+const materials: Material[] = [...(material['layout'] || [])]
 
 const componentNameOptions: {
   value: string,

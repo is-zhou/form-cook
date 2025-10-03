@@ -7,7 +7,7 @@ import type { Material } from '@/types/material'
 import material from '@/materials/index'
 import cloneDeep from 'lodash/cloneDeep'
 
-const materials: Material[] = [...material.materialFormList, ...material.materialLayoutList]
+const materials: Material[] = [...material['all']]
 
 const componentNameOptions = materials.map((i) => ({
   value: i.materialContent.componentName,

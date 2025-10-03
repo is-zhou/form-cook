@@ -10,7 +10,7 @@ import publicSetterList from '@/setters/public.ts'
 import publicLayoutSetterList from '@/setters/publicLayout.ts'
 
 import material from '@/materials/index'
-const materials: Material[] = [...material.materialFormList, ...material.materialLayoutList]
+const materials: Material[] = [...material['all']]
 
 export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
   let list: ComponentConfig[] = []

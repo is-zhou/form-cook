@@ -1,26 +1,33 @@
-import type { Material } from "@/types/material"
+import type { Material, MaterialGroup } from "@/types/material"
 import { sortByProperty } from "@/utils"
 
 interface ModuleType {
   default: Material
 }
 
-const modulesForm = import.meta.glob('./form/*.ts', { eager: true }) as Record<string, ModuleType>
-const modulesLayout = import.meta.glob('./layout/*.ts', { eager: true }) as Record<string, ModuleType>
+const modules = import.meta.glob('./*/*.ts', { eager: true }) as Record<string, ModuleType>
 
-const materialFormList: Material[] = []
-for (const path in modulesForm) {
-  const defaultExport = modulesForm[path].default
-  defaultExport && materialFormList.push(defaultExport)
+const materialList: Material[] = []
+for (const path in modules) {
+  const defaultExport = modules[path].default
+  const group = path.match(/^\.\/([^/]+)\//)?.[1]!;
+  if (!defaultExport.group) {
+    defaultExport.group = group as MaterialGroup
+  }
+  defaultExport && materialList.push(defaultExport)
 }
 
-const materialLayoutList: Material[] = []
-for (const path in modulesLayout) {
-  const defaultExport = modulesLayout[path].default
-  defaultExport && materialLayoutList.push(defaultExport)
-}
+const result: { [key: string]: Material[] } = { all: sortByProperty(materialList, 'sort') }
+
+sortByProperty(materialList, 'sort').forEach(i => {
+  if (Array.isArray(result[i.group!])) {
+    result[i.group!].push(i)
+  } else {
+    result[i.group!] = [i]
+  }
+})
+
 
 export default {
-  materialFormList: sortByProperty(materialFormList, 'sort'),
-  materialLayoutList: sortByProperty(materialLayoutList, 'sort'),
+  ...result
 }

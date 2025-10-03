@@ -9,3 +9,9 @@ body {
   height: 60px;
   margin-top: 6px;
 }
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
