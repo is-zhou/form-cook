@@ -1,6 +1,6 @@
 import type { ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render';
 
-export type TSetterGroup = 'formItem' | 'form';
+export type TSetterGroup = 'all' | 'layout' | 'form';
 export type TisHide = true | undefined;
 
 export type TSettersItem = { group?: TSetterGroup } & ComponentConfig

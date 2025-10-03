@@ -1,6 +1,18 @@
 import type { TSettersModuleType } from '@/types/setter.ts'
 
 const s: TSettersModuleType = {
+  'slots.default.text': {
+    id: '',
+    componentName: 'input',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '按钮文本',
+    },
+    attrs: {
+      placeholder: `按钮文本`,
+    },
+  },
   'attrs.action': {
     id: '',
     componentName: 'input',

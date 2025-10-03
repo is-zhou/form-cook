@@ -3,7 +3,11 @@ import formAreaSetterList from '@/setters/formArea.ts'
 import { cloneDeep, debounce } from 'lodash'
 
 import type { ComponentConfig } from 'form-cook-render'
-import { objectAssignByComponentConfig, updateSettersByComponentConfig } from '@/utils'
+import {
+  objectAssignByComponentConfig,
+  updateSettersByComponentConfig,
+  updatePublicSettersByComponentConfig,
+} from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 
@@ -22,7 +26,7 @@ watch(
   () => cloneDeep(selectedConfig.value),
   (newData, oldData) => {
     if (selectedConfig.value) {
-      activeName.value = 'component'
+      activeName.value === 'formArea' && (activeName.value = 'component')
       componentSetterList.value = updateSettersByComponentConfig(selectedConfig.value)
     } else {
       activeName.value = 'formArea'
@@ -65,6 +69,15 @@ function handleChange() {
             :key="selectedConfig?.id"
             :form-data="selectedConfig"
             :config-list="componentSetterList || []"
+          ></ConfigFormRender>
+          <div v-else class="option_hint"></div>
+        </el-tab-pane>
+        <el-tab-pane label="基础配置" name="base">
+          <ConfigFormRender
+            v-if="selectedConfig"
+            :key="selectedConfig?.id"
+            :form-data="selectedConfig"
+            :config-list="updatePublicSettersByComponentConfig(selectedConfig) || []"
           ></ConfigFormRender>
           <div v-else class="option_hint"></div>
         </el-tab-pane>

@@ -16,12 +16,26 @@ const s: TSettersModuleType = {
     id: '',
     componentName: 'select',
     componentType: 'form',
+    sort: 1,
     formItemAttrs: { field: '', label: '组件名称' },
     attrs: {
       clearable: true,
       options: componentNameOptions,
     },
     defaultValue: '',
+  },
+  visible: {
+    id: '',
+    componentName: 'BoolOrFnEditor',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '显示',
+    },
+    attrs: {
+      clearable: true,
+    },
+    defaultValue: true,
   },
 }
 

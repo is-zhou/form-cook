@@ -136,7 +136,6 @@ const s: TSettersModuleType = {
       label: '标签效果',
     },
     attrs: {},
-    defaultValue: "",
     slots: {
       default: {
         componentName: 'radioButton',

@@ -21,8 +21,31 @@ const publicFormItem: TSettersModuleType = {
     },
     defaultValue: '',
   },
+  'formItemAttrs.field': {
+    id: '',
+    sort: 1,
+    componentName: 'input',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '字段' },
+    attrs: {
+      clearable: true,
+    },
+    defaultValue: '',
+  },
+  'formItemAttrs.label': {
+    id: '',
+    sort: 1,
+    componentName: 'input',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '标签' },
+    attrs: {
+      clearable: true,
+    },
+    defaultValue: '',
+  },
   defaultValue: {
     id: '',
+    sort: 1,
     componentName: 'input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '默认值' },
@@ -31,11 +54,11 @@ const publicFormItem: TSettersModuleType = {
     },
     defaultValue: '',
   },
-
   'attrs.placeholder': {
     id: '',
     componentName: 'input',
     componentType: 'form',
+    sort: 1,
     formItemAttrs: {
       field: '',
       label: '输入提示',
@@ -113,28 +136,7 @@ const publicFormItem: TSettersModuleType = {
       }
     },
   },
-  'formItemAttrs.field': {
-    id: '',
-    sort: 1,
-    componentName: 'input',
-    componentType: 'form',
-    formItemAttrs: { field: '', label: '字段' },
-    attrs: {
-      clearable: true,
-    },
-    defaultValue: '',
-  },
-  'formItemAttrs.label': {
-    id: '',
-    sort: 1,
-    componentName: 'input',
-    componentType: 'form',
-    formItemAttrs: { field: '', label: '标签' },
-    attrs: {
-      clearable: true,
-    },
-    defaultValue: '',
-  },
+
   'formItemAttrs.rules': {
     id: '',
     sort: 1,

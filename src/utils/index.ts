@@ -46,6 +46,13 @@ export function cloneComponentConfig(current: Material): ComponentConfig {
 
 
 export function updateSettersByComponentConfig(componentConfig: ComponentConfig) {
+
+  const targetList = setters.setters[componentConfig.componentName] || []
+
+  return sortByProperty(targetList, 'sort')
+}
+
+export function updatePublicSettersByComponentConfig(componentConfig: ComponentConfig) {
   let list = [...publicSetterList]
 
   if (componentConfig.componentType === 'form') {
@@ -54,9 +61,7 @@ export function updateSettersByComponentConfig(componentConfig: ComponentConfig)
   if (componentConfig.componentType === 'layout') {
     list = list.concat(publicLayoutSetterList)
   }
-  const targetList = setters.setters[componentConfig.componentName] || []
 
-  list = list.concat(targetList)
   return sortByProperty(list, 'sort')
 }
 
