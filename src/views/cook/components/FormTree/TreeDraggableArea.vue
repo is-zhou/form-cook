@@ -62,8 +62,8 @@ const isDrag = ref(false)
         <div v-else class="item_wrap">
           <img width="30px" src="../../../../assets/temp.png" alt="" />
           <div class="info">
-            <div>{{ element.componentName }}/{{ element.id }}</div>
-            <div>{{ element.formItemAttrs.label }}</div>
+            <div>{{ element.formItemAttrs.label }}/{{ element.componentName }}</div>
+            <div></div>
             <div>{{ element.formItemAttrs.field }}</div>
           </div>
 
@@ -88,16 +88,16 @@ const isDrag = ref(false)
     border-radius: 8px;
     margin-bottom: 6px;
     font-size: 10px;
-
     background-color: #e3e3e4;
     color: #333639;
     overflow: hidden;
     border: transparent dashed 1px;
+    // border: #a9a8a8 dashed 1px;
 
     cursor: move;
 
     &:hover {
-      border: #a9a8a8 dashed 1px;
+      border: var(--el-color-primary) dashed 1px;
     }
 
     &:last-child {
@@ -105,7 +105,9 @@ const isDrag = ref(false)
     }
     &.selected {
       position: relative;
-      border: var(--el-color-primary) dashed 1px;
+      color: var(--el-color-primary);
+      border: var(--el-color-primary) solid 1px;
+      background-color: var(--el-color-primary-light-9);
     }
     .layout_warp {
       position: relative;
