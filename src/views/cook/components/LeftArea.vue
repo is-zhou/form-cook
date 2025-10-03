@@ -74,6 +74,10 @@ onMounted(() => {
     },
   })
 })
+
+function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 </script>
 
 <template>
@@ -97,7 +101,14 @@ onMounted(() => {
                 <div class="material_item" :data-index="index">
                   <div>
                     <div>{{ element.label }}</div>
-                    <component :is="materialIconMap[element.icon] || IconInput"></component>
+                    <component
+                      :is="
+                        materialIconMap[
+                          element.icon ||
+                            `Icon${capitalizeFirstLetter(element.materialContent.componentName)}`
+                        ] || IconInput
+                      "
+                    ></component>
                   </div>
                 </div>
               </template>

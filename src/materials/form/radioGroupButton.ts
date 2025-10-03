@@ -2,7 +2,6 @@ import type { Material } from '@/types/material.ts'
 
 const radioGroupButton: Material = {
   label: '单选框按钮',
-  icon: 'IconRadio',
   materialContent: {
     id: '',
     componentName: 'radioGroupButton',
