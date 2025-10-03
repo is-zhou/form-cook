@@ -46,9 +46,10 @@ const isDrag = ref(false)
           selected: selectedConfig?.id === element.id,
         }"
       >
-        <div class="layout_warp" v-if="element.children" :key="element.id">
+        <div class="layout_warp" v-if="element.componentType === 'layout'" :key="element.id">
           <div style="margin-bottom: 4px">{{ element.componentName }}/{{ element.id }}</div>
           <TreeDraggableArea
+            v-if="element.children"
             v-model:configList="element.children"
             v-model:selectedConfig="selectedConfig"
             :class="{ layout: true }"

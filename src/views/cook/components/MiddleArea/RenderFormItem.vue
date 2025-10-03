@@ -46,10 +46,19 @@ function getAttrs(node: ComponentConfig) {
       const isVisible = node.attrs.readonly({ formData: formData, schemaItem: node })
       attrs.readonly = !!isVisible
     }
-    if (!Array.isArray(node.attrs.options)) {
-      attrs.options = [{ label: '动态选项', value: '动态选项' }]
-    } else {
-      attrs.options = node.attrs.options
+    if (typeof node.attrs.options !== 'undefined') {
+      if (!Array.isArray(node.attrs.options)) {
+        attrs.options = [{ label: '动态选项', value: '动态选项' }]
+      } else {
+        attrs.options = node.attrs.options
+      }
+    }
+    if (typeof node.attrs.data !== 'undefined') {
+      if (!Array.isArray(node.attrs.data)) {
+        attrs.data = [{ label: '动态选项', value: '动态选项' }]
+      } else {
+        attrs.data = node.attrs.data
+      }
     }
   }
 
@@ -190,14 +199,20 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         v-bind="getAttrs(config)"
       >
         <template v-for="(slot, name) in config?.slots" #[name!]>
-          <template v-if="Array.isArray(slot.options)">
-            <component
-              v-for="option in slot.options"
-              :is="getComponent(slot.componentName)"
-              v-bind="{ ...(option as object) }"
-              >{{ (option as { label: string }).label }}</component
-            >
+          <template v-if="typeof slot === 'object'">
+            <template v-if="Array.isArray(slot.options)">
+              <component
+                v-for="option in slot.options"
+                :is="getComponent(slot.componentName)"
+                v-bind="{ ...(option as object) }"
+                >{{ (option as { label: string }).label }}</component
+              >
+            </template>
+            <component v-else :is="getComponent(slot.componentName)" v-bind="slot.attrs">{{
+              slot.text
+            }}</component>
           </template>
+          <template v-else>{{ slot }}</template>
         </template>
       </component>
       <el-icon
@@ -241,6 +256,36 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         >
           <i-ep-Delete />
         </el-icon>
+      </component>
+    </template>
+    <template v-if="config.slots">
+      <component
+        :is="getComponent(config.componentName) || config.componentName"
+        v-bind="getAttrs(config)"
+        :class="{
+          selected: selectedConfig?.id === config.id,
+          unVisible: !getVisible(config),
+          [id]: true,
+        }"
+        @click.stop="handleSelectChange(config)"
+      >
+        <template v-for="(slot, name) in config?.slots" #[name!]>
+          <template v-if="typeof slot === 'object'">
+            <component :is="getComponent(slot.componentName)" v-bind="slot.attrs">
+              {{ slot.text }}
+            </component>
+          </template>
+          <template v-else>
+            {{ slot }}
+            <el-icon
+              @click.stop="handleDel()"
+              v-if="selectedConfig?.id === config.id"
+              class="current_del"
+              size="12"
+            >
+              <i-ep-Delete /> </el-icon
+          ></template>
+        </template>
       </component>
     </template>
   </template>
