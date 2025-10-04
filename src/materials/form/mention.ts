@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconMention',
   materialContent: {
     id: '',
-    componentName: 'mention',
+    componentName: 'Mention',
     componentType: 'form',
     formItemAttrs: {
       field: '',

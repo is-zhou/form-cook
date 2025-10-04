@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconCheckbox',
   materialContent: {
     id: '',
-    componentName: 'checkboxGroup',
+    componentName: 'CheckboxGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -15,7 +15,7 @@ const m: Material = {
     },
     slots: {
       default: {
-        componentName: "checkbox",
+        componentName: "Checkbox",
         options: [
           { label: "Option 1", value: "Value 1", name: '1' },
           { label: "Option 2", value: "Value 2", name: '1' },

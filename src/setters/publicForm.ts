@@ -12,7 +12,7 @@ const publicFormItem: TSettersModuleType = {
   componentName: {
     id: '',
     sort: 1,
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: { field: '', label: '组件名称' },
     attrs: {
@@ -24,7 +24,7 @@ const publicFormItem: TSettersModuleType = {
   'formItemAttrs.field': {
     id: '',
     sort: 1,
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '字段' },
     attrs: {
@@ -35,7 +35,7 @@ const publicFormItem: TSettersModuleType = {
   'formItemAttrs.label': {
     id: '',
     sort: 1,
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '标签' },
     attrs: {
@@ -46,7 +46,7 @@ const publicFormItem: TSettersModuleType = {
   defaultValue: {
     id: '',
     sort: 1,
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '默认值' },
     attrs: {
@@ -56,7 +56,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'attrs.placeholder': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     sort: 1,
     formItemAttrs: {
@@ -103,7 +103,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'attrs.size': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -114,7 +114,7 @@ const publicFormItem: TSettersModuleType = {
     slots: {
       default: {
         name: 'default',
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           {
             value: 'large',
@@ -151,7 +151,7 @@ const publicFormItem: TSettersModuleType = {
   },
   'formItemAttrs.required': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否必填' },
     attrs: {

@@ -5,7 +5,7 @@ const select: Material = {
   icon: 'IconSelect',
   materialContent: {
     id: '',
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: {
       field: '',

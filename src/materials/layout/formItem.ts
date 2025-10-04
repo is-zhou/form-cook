@@ -5,7 +5,7 @@ const m: Material = {
   icon: '',
   materialContent: {
     id: '',
-    componentName: 'formItem',
+    componentName: 'FormItem',
     componentType: 'layout',
     attrs: { label: "formItem" },
     children: [],

@@ -14,7 +14,7 @@ const componentNameOptions: {
 const s: TSettersModuleType = {
   componentName: {
     id: '',
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     sort: 1,
     formItemAttrs: { field: '', label: '组件名称' },

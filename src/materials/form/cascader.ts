@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconCascader',
   materialContent: {
     id: '',
-    componentName: 'cascader',
+    componentName: 'Cascader',
     componentType: 'form',
     formItemAttrs: {
       field: '',

@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.step': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
   },
   'attrs.step-strictly': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -23,7 +23,7 @@ const s: TSettersModuleType = {
   },
   'attrs.precision': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -33,7 +33,7 @@ const s: TSettersModuleType = {
   },
   'attrs.min': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -43,7 +43,7 @@ const s: TSettersModuleType = {
   },
   'attrs.max': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -53,7 +53,7 @@ const s: TSettersModuleType = {
   },
   'attrs.controls': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -63,7 +63,7 @@ const s: TSettersModuleType = {
   },
   'attrs.controls-position': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -73,7 +73,7 @@ const s: TSettersModuleType = {
     defaultValue: "",
     slots: {
       default: {
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           {
             value: '',
@@ -89,7 +89,7 @@ const s: TSettersModuleType = {
   },
   'attrs.align': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -99,7 +99,7 @@ const s: TSettersModuleType = {
     defaultValue: "",
     slots: {
       default: {
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           {
             value: 'left',

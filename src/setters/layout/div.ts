@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'style.width': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -15,7 +15,7 @@ const s: TSettersModuleType = {
   },
   'style.height': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',

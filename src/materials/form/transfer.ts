@@ -18,7 +18,7 @@ const m: Material = {
   icon: 'IconTransfer',
   materialContent: {
     id: '',
-    componentName: 'transfer',
+    componentName: 'Transfer',
     componentType: 'form',
     formItemAttrs: {
       field: '',

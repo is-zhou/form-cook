@@ -17,14 +17,14 @@ const formArea: TSettersModuleType = {
   },
   "attrs.inline": {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '行内表单模式' },
     attrs: {},
   },
   'attrs.label-position': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: { field: '', label: '标签的位置' },
     attrs: {
@@ -33,7 +33,7 @@ const formArea: TSettersModuleType = {
     slots: {
       default: {
         name: 'default',
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           { value: 'left', label: 'left' },
           { value: 'right', label: 'right' },
@@ -44,7 +44,7 @@ const formArea: TSettersModuleType = {
   },
   'attrs.label-width': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '标签的长度' },
     attrs: {
@@ -54,7 +54,7 @@ const formArea: TSettersModuleType = {
   },
   'attrs.size': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: { field: '', label: '组件大小' },
     attrs: {
@@ -63,7 +63,7 @@ const formArea: TSettersModuleType = {
     slots: {
       default: {
         name: 'default',
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           { value: 'large', label: 'large' },
           { value: 'default', label: 'default' },
@@ -74,28 +74,28 @@ const formArea: TSettersModuleType = {
   },
   'attrs.disabled': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否禁用该表单内的所有组件' },
     attrs: {},
   },
   'attrs.hide-required-asterisk': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否隐藏必填字段标签旁边的红色星号' },
     attrs: {},
   },
   'attrs.require-asterisk-position': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: { field: '', label: '星号的位置' },
     attrs: {},
     slots: {
       default: {
         name: 'default',
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           { value: 'left', label: 'left' },
           { value: 'right', label: 'right' },
@@ -105,28 +105,28 @@ const formArea: TSettersModuleType = {
   },
   'attrs.inline-message': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否以行内形式展示校验信息' },
     attrs: {},
   },
   'attrs.status-icon': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否在输入框中显示校验结果反馈图标' },
     attrs: {},
   },
   'attrs.scroll-to-error': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '当校验失败时，滚动到第一个错误表单项' },
     attrs: {},
   },
   defaultCreateBtn: {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: { field: '', label: '默认提交按钮设置' },
     attrs: {
@@ -137,7 +137,7 @@ const formArea: TSettersModuleType = {
   },
   defaultRestBtn: {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: { field: '', label: '默认重置按钮' },
     attrs: {

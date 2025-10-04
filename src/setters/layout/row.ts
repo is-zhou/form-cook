@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.gutter': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -15,7 +15,7 @@ const s: TSettersModuleType = {
   },
   "attrs.justify": {
     id: '',
-    componentName: 'selectV2',
+    componentName: 'SelectV2',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -34,7 +34,7 @@ const s: TSettersModuleType = {
   },
   "attrs.align": {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -42,7 +42,7 @@ const s: TSettersModuleType = {
     },
     slots: {
       "default": {
-        componentName: "radioButton",
+        componentName: "RadioButton",
         options: [
           { label: 'top', value: 'top' },
           { label: 'middle', value: 'middle' },
@@ -56,7 +56,7 @@ const s: TSettersModuleType = {
   },
   "attrs.tag": {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',

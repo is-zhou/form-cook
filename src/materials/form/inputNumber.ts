@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconInputNumber',
   materialContent: {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',

@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconDatePicker',
   materialContent: {
     id: '',
-    componentName: 'datePicker',
+    componentName: 'DatePicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',

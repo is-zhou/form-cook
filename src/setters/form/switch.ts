@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.width': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -16,7 +16,7 @@ const s: TSettersModuleType = {
   },
   'attrs.inline-prompt': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -26,7 +26,7 @@ const s: TSettersModuleType = {
   },
   'attrs.active-text': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -38,7 +38,7 @@ const s: TSettersModuleType = {
   },
   'attrs.inactive-text': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -50,7 +50,7 @@ const s: TSettersModuleType = {
   },
   'attrs.active-value': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -62,7 +62,7 @@ const s: TSettersModuleType = {
   },
   'attrs.inactive-value': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -74,7 +74,7 @@ const s: TSettersModuleType = {
   },
   'attrs.active-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -87,7 +87,7 @@ const s: TSettersModuleType = {
   },
   'attrs.inactive-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -100,7 +100,7 @@ const s: TSettersModuleType = {
   },
   'attrs.border-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',

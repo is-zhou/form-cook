@@ -5,7 +5,7 @@ const rate: Material = {
   icon: 'IconRate',
   materialContent: {
     id: '',
-    componentName: 'rate',
+    componentName: 'Rate',
     componentType: 'form',
     formItemAttrs: {
       field: '',

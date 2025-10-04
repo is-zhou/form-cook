@@ -14,7 +14,7 @@ const s: TSettersModuleType = {
   },
   'attrs.prefix': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -27,7 +27,7 @@ const s: TSettersModuleType = {
   },
   'attrs.split': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -39,7 +39,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filter-option': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -53,7 +53,7 @@ const s: TSettersModuleType = {
   },
   'attrs.placement': {
     id: '',
-    componentName: 'radioGroupButton',
+    componentName: 'RadioGroupButton',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -64,7 +64,7 @@ const s: TSettersModuleType = {
     },
     slots: {
       default: {
-        componentName: "radioButton",
+        componentName: "RadioButton",
         options: [
           { label: "bottom", value: 'bottom' },
           { label: "top", value: 'top' },
@@ -74,7 +74,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-arrow': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -85,7 +85,7 @@ const s: TSettersModuleType = {
   },
   'attrs.offset': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -95,7 +95,7 @@ const s: TSettersModuleType = {
   },
   'attrs.whole': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

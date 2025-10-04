@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconTreeSelect',
   materialContent: {
     id: '',
-    componentName: 'treeSelect',
+    componentName: 'TreeSelect',
     componentType: 'form',
     formItemAttrs: {
       field: '',

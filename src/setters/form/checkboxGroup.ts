@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.min': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -15,7 +15,7 @@ const s: TSettersModuleType = {
   },
   'attrs.max': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -27,7 +27,7 @@ const s: TSettersModuleType = {
   },
   'attrs.text-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -39,7 +39,7 @@ const s: TSettersModuleType = {
   },
   'attrs.fill': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -51,7 +51,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -63,7 +63,7 @@ const s: TSettersModuleType = {
   },
   'attrs.validate-event': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

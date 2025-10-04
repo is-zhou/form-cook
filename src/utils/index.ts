@@ -47,7 +47,7 @@ export function cloneComponentConfig(current: Material): ComponentConfig {
 
 export function updateSettersByComponentConfig(componentConfig: ComponentConfig) {
 
-  const targetList = setters.setters[componentConfig.componentName] || []
+  const targetList = setters.setters[componentConfig.componentName.toLowerCase()] || []
 
   return sortByProperty(targetList, 'sort')
 }

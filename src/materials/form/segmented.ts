@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconSegmented',
   materialContent: {
     id: '',
-    componentName: 'segmented',
+    componentName: 'Segmented',
     componentType: 'form',
     formItemAttrs: {
       field: '',

@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconTimePicker',
   materialContent: {
     id: '',
-    componentName: 'timePicker',
+    componentName: 'TimePicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',

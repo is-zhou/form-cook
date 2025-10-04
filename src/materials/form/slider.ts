@@ -5,7 +5,7 @@ const slider: Material = {
   icon: 'IconSlider',
   materialContent: {
     id: '',
-    componentName: 'slider',
+    componentName: 'Slider',
     componentType: 'form',
     formItemAttrs: {
       field: '',

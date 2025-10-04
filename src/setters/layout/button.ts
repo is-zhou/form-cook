@@ -5,7 +5,7 @@ const s: TSettersModuleType = {
   'slots.default': {
     id: '',
     sort: 1,
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '按钮文本' },
     attrs: {
@@ -15,7 +15,7 @@ const s: TSettersModuleType = {
   'attrs.type': {
     id: '',
     sort: 1,
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: { field: '', label: '按钮类型' },
     attrs: {
@@ -32,7 +32,7 @@ const s: TSettersModuleType = {
   },
   'attrs.plain': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -42,7 +42,7 @@ const s: TSettersModuleType = {
   },
   'attrs.text': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -52,7 +52,7 @@ const s: TSettersModuleType = {
   },
   'attrs.bg': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -62,7 +62,7 @@ const s: TSettersModuleType = {
   },
   'attrs.link': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -72,7 +72,7 @@ const s: TSettersModuleType = {
   },
   'attrs.round': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -82,7 +82,7 @@ const s: TSettersModuleType = {
   },
   'attrs.circle': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -92,7 +92,7 @@ const s: TSettersModuleType = {
   },
   'attrs.disabled': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -102,7 +102,7 @@ const s: TSettersModuleType = {
   },
   'attrs.auto-insert-space': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -112,7 +112,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',

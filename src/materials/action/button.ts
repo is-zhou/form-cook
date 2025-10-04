@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconButton',
   materialContent: {
     id: '',
-    componentName: 'button',
+    componentName: 'Button',
     componentType: 'layout',
     attrs: {
       type: 'primary',

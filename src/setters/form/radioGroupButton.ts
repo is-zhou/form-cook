@@ -10,7 +10,7 @@ const s: TSettersModuleType = {
   },
   'attrs.text-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -20,7 +20,7 @@ const s: TSettersModuleType = {
   },
   'attrs.fill': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',

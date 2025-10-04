@@ -6,7 +6,7 @@ const m: Material = {
   sort: 1,
   materialContent: {
     id: '',
-    componentName: 'row',
+    componentName: 'Row',
     componentType: 'layout',
     attrs: {},
     children: [

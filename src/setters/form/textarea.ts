@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.clearable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
   },
   'attrs.maxlength': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -25,7 +25,7 @@ const s: TSettersModuleType = {
   },
   'attrs.minlength': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -37,7 +37,7 @@ const s: TSettersModuleType = {
   },
   'attrs.rows': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -49,7 +49,7 @@ const s: TSettersModuleType = {
   },
   'attrs.autosize': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -59,7 +59,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-word-limit': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

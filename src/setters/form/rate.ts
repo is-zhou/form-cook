@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.max': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
   },
   'attrs.allow-half': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -23,7 +23,7 @@ const s: TSettersModuleType = {
   },
   'attrs.low-threshold': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -33,7 +33,7 @@ const s: TSettersModuleType = {
   },
   'attrs.high-threshold': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -43,7 +43,7 @@ const s: TSettersModuleType = {
   },
   'attrs.void-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -53,7 +53,7 @@ const s: TSettersModuleType = {
   },
   'attrs.disabled-void-color': {
     id: '',
-    componentName: 'colorPicker',
+    componentName: 'ColorPicker',
     componentType: 'form',
     formItemAttrs: {
       field: '',

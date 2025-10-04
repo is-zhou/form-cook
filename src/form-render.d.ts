@@ -7,8 +7,7 @@ declare module 'form-cook-render' {
   export interface ComponentNameMap {
     // 在这里添加你想要扩展的组件名
     // 属性值设为 unknown 即可，与原始定义保持一致
-    'serializeInput': unknown;
-    'div': unknown;
+    SerializeInput: unknown;
     RuleEditor: unknown;
     OptionsEditor: unknown;
     BoolOrFnEditor: unknown;

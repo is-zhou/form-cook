@@ -4,7 +4,7 @@ const s: TSettersModuleType = {
   'attrs.label': {
     id: '',
     sort: 1,
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: { field: '', label: '标签' },
     attrs: {
@@ -14,7 +14,7 @@ const s: TSettersModuleType = {
   },
   'attrs.required': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '是否必填' },
     attrs: {

@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.direction': {
     id: '',
-    componentName: 'radioGroupButton',
+    componentName: 'RadioGroupButton',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
     },
     slots: {
       default: {
-        componentName: "radioButton",
+        componentName: "RadioButton",
         options: [
           { label: "horizontal", value: "horizontal" },
           { label: "vertical", value: "vertical" },
@@ -23,7 +23,7 @@ const s: TSettersModuleType = {
   },
   'attrs.block': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -33,7 +33,7 @@ const s: TSettersModuleType = {
   },
   'attrs.validate-event': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

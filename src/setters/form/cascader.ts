@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.clearable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filterable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -23,7 +23,7 @@ const s: TSettersModuleType = {
   },
   'attrs.props.multiple': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -43,7 +43,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-all-levels': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -54,7 +54,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -66,7 +66,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags-tooltip': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -78,7 +78,7 @@ const s: TSettersModuleType = {
   },
   'attrs.separator': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -90,7 +90,7 @@ const s: TSettersModuleType = {
   },
   'attrs.validate-event': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -100,7 +100,7 @@ const s: TSettersModuleType = {
   },
   'attrs.autosize': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -110,7 +110,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-word-limit': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconUpload',
   materialContent: {
     id: '',
-    componentName: 'upload',
+    componentName: 'Upload',
     componentType: 'form',
     formItemAttrs: {
       field: '',

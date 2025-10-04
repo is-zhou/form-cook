@@ -5,7 +5,7 @@ const m: Material = {
   icon: '',
   materialContent: {
     id: '',
-    componentName: 'textarea',
+    componentName: 'Textarea',
     componentType: 'form',
     formItemAttrs: {
       field: '',

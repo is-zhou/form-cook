@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'slots.default.text': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -15,7 +15,7 @@ const s: TSettersModuleType = {
   },
   'slots.tip.text': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -28,7 +28,7 @@ const s: TSettersModuleType = {
   },
   'attrs.action': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -41,7 +41,7 @@ const s: TSettersModuleType = {
   },
   'attrs.headers': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -54,7 +54,7 @@ const s: TSettersModuleType = {
   },
   'attrs.method': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -68,7 +68,7 @@ const s: TSettersModuleType = {
   },
   'attrs.multiple': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -78,7 +78,7 @@ const s: TSettersModuleType = {
   },
   'attrs.data': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -92,7 +92,7 @@ const s: TSettersModuleType = {
   },
   'attrs.name': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -105,7 +105,7 @@ const s: TSettersModuleType = {
   },
   'attrs.with-credentials': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -115,7 +115,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-file-list': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -125,13 +125,13 @@ const s: TSettersModuleType = {
   },
   'attrs.list-type': {
     id: '',
-    componentName: 'radioGroupButton',
+    componentName: 'RadioGroupButton',
     componentType: 'form',
     formItemAttrs: { field: '', label: '文件列表的类型' },
     attrs: {},
     slots: {
       default: {
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           { value: 'text', label: 'text' },
           { value: 'picture', label: 'picture' },
@@ -142,7 +142,7 @@ const s: TSettersModuleType = {
   },
   'attrs.drag': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -152,7 +152,7 @@ const s: TSettersModuleType = {
   },
   'attrs.accept': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -165,7 +165,7 @@ const s: TSettersModuleType = {
   },
   'attrs.auto-upload': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -175,7 +175,7 @@ const s: TSettersModuleType = {
   },
   'attrs.limit': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -187,7 +187,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-preview': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -201,7 +201,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-remove': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -215,7 +215,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-success': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -229,7 +229,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-error': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -243,7 +243,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-change': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -257,7 +257,7 @@ const s: TSettersModuleType = {
   },
   'attrs.on-exceed': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -271,7 +271,7 @@ const s: TSettersModuleType = {
   },
   'attrs.before-upload': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -285,7 +285,7 @@ const s: TSettersModuleType = {
   },
   'attrs.before-remove': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',

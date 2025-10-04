@@ -6,7 +6,7 @@ const m: Material = {
   sort: 2,
   materialContent: {
     id: '',
-    componentName: 'col',
+    componentName: 'Col',
     componentType: 'layout',
     attrs: {
       span: 6

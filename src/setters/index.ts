@@ -20,7 +20,7 @@ function setSetters(target: Record<string, ModuleType>) {
   for (const path in target) {
     const defaultExport = cloneDeep(target[path].default)
 
-    setters[path.replace(/^.*\/(.*)\.ts$/, '$1') as ComponentName] = getSettersListByObj(defaultExport)
+    setters[path.replace(/^.*\/(.*)\.ts$/, '$1').toLowerCase() as ComponentName] = getSettersListByObj(defaultExport)
   }
 }
 

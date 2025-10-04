@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.type': {
     id: '',
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -28,7 +28,7 @@ const s: TSettersModuleType = {
   },
   'attrs.clearable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -38,7 +38,7 @@ const s: TSettersModuleType = {
   },
   'attrs.shortcuts': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -51,7 +51,7 @@ const s: TSettersModuleType = {
   },
   'attrs.disabled-date': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -68,7 +68,7 @@ const s: TSettersModuleType = {
   },
   'attrs.editable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -78,7 +78,7 @@ const s: TSettersModuleType = {
   },
   'attrs.start-placeholder': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -90,7 +90,7 @@ const s: TSettersModuleType = {
   },
   'attrs.end-placeholder': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -102,7 +102,7 @@ const s: TSettersModuleType = {
   },
   'attrs.format': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -115,7 +115,7 @@ const s: TSettersModuleType = {
   },
   'attrs.value-format': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -128,7 +128,7 @@ const s: TSettersModuleType = {
   },
   'attrs.time-format': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -141,7 +141,7 @@ const s: TSettersModuleType = {
   },
   'attrs.range-separator': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -153,7 +153,7 @@ const s: TSettersModuleType = {
   },
   'attrs.default-value': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -169,7 +169,7 @@ const s: TSettersModuleType = {
   },
   'attrs.default-time': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -185,7 +185,7 @@ const s: TSettersModuleType = {
   },
   'attrs.unlink-panels': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -195,7 +195,7 @@ const s: TSettersModuleType = {
   },
   'attrs.validate-event': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -205,7 +205,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-footer': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -215,7 +215,7 @@ const s: TSettersModuleType = {
   },
   'attrs.show-week-number': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

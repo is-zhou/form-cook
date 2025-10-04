@@ -4,7 +4,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.clearable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -14,7 +14,7 @@ const s: TSettersModuleType = {
   },
   'attrs.max': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -26,7 +26,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag-type': {
     id: '',
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -63,7 +63,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag-effect': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -72,7 +72,7 @@ const s: TSettersModuleType = {
     attrs: {},
     slots: {
       default: {
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           {
             value: 'light',
@@ -96,7 +96,7 @@ const s: TSettersModuleType = {
   },
   'attrs.draggable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -106,7 +106,7 @@ const s: TSettersModuleType = {
   },
   'attrs.delimiter': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -116,7 +116,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -126,7 +126,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags-tooltip': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -136,7 +136,7 @@ const s: TSettersModuleType = {
   },
   'attrs.save-on-blur': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

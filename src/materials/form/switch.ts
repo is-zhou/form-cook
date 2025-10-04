@@ -5,7 +5,7 @@ const m: Material = {
   icon: 'IconSwitch',
   materialContent: {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

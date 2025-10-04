@@ -12,7 +12,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filterable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -22,7 +22,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filter-placeholder': {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -34,7 +34,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filter-method': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -47,7 +47,7 @@ const s: TSettersModuleType = {
   },
   'attrs.titles': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -60,7 +60,7 @@ const s: TSettersModuleType = {
   },
   'attrs.button-texts': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -73,7 +73,7 @@ const s: TSettersModuleType = {
   },
   'attrs.render-content': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -86,7 +86,7 @@ const s: TSettersModuleType = {
   },
   'attrs.props': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -104,7 +104,7 @@ const s: TSettersModuleType = {
   },
   'attrs.left-default-checked': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -117,7 +117,7 @@ const s: TSettersModuleType = {
   },
   'attrs.right-default-checked': {
     id: '',
-    componentName: 'serializeInput',
+    componentName: 'SerializeInput',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -130,7 +130,7 @@ const s: TSettersModuleType = {
   },
   'attrs.validate-event': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',

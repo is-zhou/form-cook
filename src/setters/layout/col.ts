@@ -3,7 +3,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.span': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -16,7 +16,7 @@ const s: TSettersModuleType = {
   },
   'attrs.offset': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -28,7 +28,7 @@ const s: TSettersModuleType = {
   },
   'attrs.push': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -40,7 +40,7 @@ const s: TSettersModuleType = {
   },
   'attrs.pull': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -52,7 +52,7 @@ const s: TSettersModuleType = {
   },
   'attrs.xs': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -65,7 +65,7 @@ const s: TSettersModuleType = {
   },
   'attrs.sm': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -78,7 +78,7 @@ const s: TSettersModuleType = {
   },
   'attrs.md': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -91,7 +91,7 @@ const s: TSettersModuleType = {
   },
   'attrs.lg': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -104,7 +104,7 @@ const s: TSettersModuleType = {
   },
   'attrs.xl': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -117,7 +117,7 @@ const s: TSettersModuleType = {
   },
   "attrs.tag": {
     id: '',
-    componentName: 'input',
+    componentName: 'Input',
     componentType: 'form',
     formItemAttrs: {
       field: '',

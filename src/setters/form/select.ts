@@ -4,7 +4,7 @@ import type { TSettersModuleType } from '@/types/setter.ts'
 const s: TSettersModuleType = {
   'attrs.clearable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: { field: '', label: '显示清除按钮' },
     attrs: {},
@@ -22,7 +22,7 @@ const s: TSettersModuleType = {
   },
   'attrs.multiple': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -32,7 +32,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -42,7 +42,7 @@ const s: TSettersModuleType = {
   },
   'attrs.collapse-tags-tooltip': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -52,7 +52,7 @@ const s: TSettersModuleType = {
   },
   'attrs.multiple-limit': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -62,7 +62,7 @@ const s: TSettersModuleType = {
   },
   'attrs.filterable': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -72,7 +72,7 @@ const s: TSettersModuleType = {
   },
   'attrs.allow-create': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -82,7 +82,7 @@ const s: TSettersModuleType = {
   },
   'attrs.fit-input-width': {
     id: '',
-    componentName: 'switch',
+    componentName: 'Switch',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -92,7 +92,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag-type': {
     id: '',
-    componentName: 'select',
+    componentName: 'Select',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -129,7 +129,7 @@ const s: TSettersModuleType = {
   },
   'attrs.tag-effect': {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: {
       field: '',
@@ -138,7 +138,7 @@ const s: TSettersModuleType = {
     attrs: {},
     slots: {
       default: {
-        componentName: 'radioButton',
+        componentName: 'RadioButton',
         options: [
           {
             value: 'light',
@@ -162,7 +162,7 @@ const s: TSettersModuleType = {
   },
   'attrs.offset': {
     id: '',
-    componentName: 'inputNumber',
+    componentName: 'InputNumber',
     componentType: 'form',
     formItemAttrs: {
       field: '',

@@ -5,12 +5,12 @@ const radioGroup: Material = {
   icon: 'IconRadio',
   materialContent: {
     id: '',
-    componentName: 'radioGroup',
+    componentName: 'RadioGroup',
     componentType: 'form',
     formItemAttrs: { field: '', label: '单选框' },
     slots: {
       default: {
-        componentName: 'radio',
+        componentName: 'Radio',
         options: [
           { value: 'large', label: 'large' },
           { value: 'default', label: 'default' },

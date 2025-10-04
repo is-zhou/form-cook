@@ -18,7 +18,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(formRender, {
-  components: { serializeInput: SerializeInput, div: "div", RuleEditor, OptionsEditor, BoolOrFnEditor, EventEditor }
+  components: { SerializeInput, RuleEditor, OptionsEditor, BoolOrFnEditor, EventEditor }
 })
 
 app.mount('#app')
