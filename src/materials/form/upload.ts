@@ -21,8 +21,13 @@ const m: Material = {
           type: "primary",
           size: "small"
         },
+      },
+      tip: {
+        componentName: "div",
+        text: " jpg/png files with a size less than 500kb",
       }
-    }
+    },
+    defaultValue: []
   },
 }
 

@@ -13,6 +13,19 @@ const s: TSettersModuleType = {
       placeholder: `按钮文本`,
     },
   },
+  'slots.tip.text': {
+    id: '',
+    componentName: 'input',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '上传提示',
+    },
+    attrs: {
+      placeholder: `请输入上传提示`,
+      type: "textarea"
+    },
+  },
   'attrs.action': {
     id: '',
     componentName: 'input',
@@ -69,7 +82,7 @@ const s: TSettersModuleType = {
     componentType: 'form',
     formItemAttrs: {
       field: '',
-      label: '设置上传的请求头部',
+      label: '上传时附带的额外参数',
     },
     attrs: {
       serializeType: ['object', 'function'],
@@ -110,6 +123,23 @@ const s: TSettersModuleType = {
     },
     attrs: {},
   },
+  'attrs.list-type': {
+    id: '',
+    componentName: 'radioGroupButton',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '文件列表的类型' },
+    attrs: {},
+    slots: {
+      default: {
+        componentName: 'radioButton',
+        options: [
+          { value: 'text', label: 'text' },
+          { value: 'picture', label: 'picture' },
+          { value: 'picture-card', label: 'picture-card' },
+        ],
+      },
+    },
+  },
   'attrs.drag': {
     id: '',
     componentName: 'switch',
@@ -127,10 +157,32 @@ const s: TSettersModuleType = {
     formItemAttrs: {
       field: '',
       label: '接受上传的文件类型',
-      placeholder: ".pdf,.png"
     },
     attrs: {
       clearable: true,
+      placeholder: ".pdf,.png"
+    },
+  },
+  'attrs.auto-upload': {
+    id: '',
+    componentName: 'switch',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '是否自动上传文件',
+    },
+    attrs: {},
+  },
+  'attrs.limit': {
+    id: '',
+    componentName: 'inputNumber',
+    componentType: 'form',
+    formItemAttrs: {
+      field: '',
+      label: '允许上传文件的最大数量',
+    },
+    attrs: {
+      precision: 0
     },
   },
   'attrs.on-preview': {
@@ -243,45 +295,6 @@ const s: TSettersModuleType = {
       serializeType: ['function'],
       autosize: true,
       placeholder: `(uploadFile: UploadFile, uploadFiles: UploadFiles) => Awaitable<boolean>`
-    },
-  },
-  'attrs.auto-upload': {
-    id: '',
-    componentName: 'switch',
-    componentType: 'form',
-    formItemAttrs: {
-      field: '',
-      label: '是否自动上传文件',
-    },
-    attrs: {},
-  },
-  'attrs.list-type': {
-    id: '',
-    componentName: 'radioGroupButton',
-    componentType: 'form',
-    formItemAttrs: { field: '', label: '文件列表的类型' },
-    attrs: {},
-    slots: {
-      default: {
-        componentName: 'radioButton',
-        options: [
-          { value: 'text', label: 'text' },
-          { value: 'picture', label: 'picture' },
-          { value: 'picture-card', label: 'picture-card' },
-        ],
-      },
-    },
-  },
-  'attrs.limit': {
-    id: '',
-    componentName: 'inputNumber',
-    componentType: 'form',
-    formItemAttrs: {
-      field: '',
-      label: '允许上传文件的最大数量',
-    },
-    attrs: {
-      precision: 0
     },
   },
 
