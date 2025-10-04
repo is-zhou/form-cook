@@ -47,7 +47,11 @@ const isDrag = ref(false)
         }"
       >
         <div class="layout_warp" v-if="element.componentType === 'layout'" :key="element.id">
-          <div style="margin-bottom: 4px">{{ element.componentName }}/{{ element.id }}</div>
+          <div style="margin-bottom: 6px; display: flex">
+            <IconTemp width="14"></IconTemp>&nbsp;&nbsp;&nbsp;&nbsp;{{ element.componentName }}/{{
+              element.id
+            }}
+          </div>
           <TreeDraggableArea
             v-if="element.children"
             v-model:configList="element.children"
@@ -60,7 +64,7 @@ const isDrag = ref(false)
           </el-icon>
         </div>
         <div v-else class="item_wrap">
-          <img width="30px" src="../../../../assets/temp.png" alt="" />
+          <IconTemp width="14"></IconTemp>
           <div class="info">
             <div>{{ element.formItemAttrs.label }}/{{ element.componentName }}</div>
             <div></div>
@@ -88,7 +92,7 @@ const isDrag = ref(false)
     border-radius: 8px;
     margin-bottom: 6px;
     font-size: 10px;
-    background-color: #e3e3e4;
+    background-color: var(--el-fill-color-light);
     color: #333639;
     overflow: hidden;
     border: transparent dashed 1px;
@@ -108,6 +112,9 @@ const isDrag = ref(false)
       color: var(--el-color-primary);
       border: var(--el-color-primary) solid 1px;
       background-color: var(--el-color-primary-light-9);
+      svg {
+        fill: var(--el-color-primary);
+      }
     }
     .layout_warp {
       position: relative;
