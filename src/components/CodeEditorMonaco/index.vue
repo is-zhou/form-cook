@@ -19,10 +19,9 @@ const massage = ref('')
 const editorContainerRef = ref<HTMLDivElement | null>(null)
 let editor: monaco.editor.IStandaloneCodeEditor | null = null
 
-const diagnosticsOptions = {
+const diagnosticsOptions = ref({
   diagnosticCodesToIgnore: [6133, 6192],
-}
-
+})
 function toEditorString(value: string | object | undefined): string {
   if (typeof value === 'undefined') return ''
 
@@ -59,7 +58,7 @@ onMounted(() => {
   }
 
   if (diagnosticsOptions) {
-    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(diagnosticsOptions)
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(diagnosticsOptions.value)
   }
 
   editor = monaco.editor.create(editorContainerRef.value, {
@@ -71,30 +70,8 @@ onMounted(() => {
   })
 
   editor.onDidChangeModelContent(() => {
-    console.log(1)
-
-    const model = editor!.getModel()
-    if (!model) return
-    console.log(2)
-
-    const markers = monaco.editor.getModelMarkers({ resource: model.uri })
-    console.log('markers', markers)
-
-    if (!markers.length) {
-      console.log(3)
-
-      const val = editor!.getValue()
-      try {
-        const result = fromEditorString(val)
-        console.log('发送')
-        modelValue.value = result
-      } catch (err) {
-        console.error(err)
-      }
-    }
+    isValidator.value = true
   })
-
-  editor.onDidChangeModelContent(() => {})
 })
 
 onBeforeUnmount(() => {
@@ -114,6 +91,52 @@ watch(
     }
   },
 )
+const markerList = ref<monaco.editor.IMarker[]>([])
+const isValidator = ref(false)
+const isCanSave = ref(false)
+
+const validator = () => {
+  const model = editor!.getModel()
+  if (!model) return
+
+  const markers = monaco.editor.getModelMarkers({ resource: model.uri })
+  markerList.value = markers
+  if (!markers.length) {
+    const val = editor!.getValue()
+    try {
+      fromEditorString(val)
+      isValidator.value = false
+      isCanSave.value = true
+    } catch (err) {
+      console.error(err)
+    }
+  } else {
+    codeList.value = [
+      ...new Set([
+        ...diagnosticsOptions.value.diagnosticCodesToIgnore,
+        ...markerList.value.map((i) => i.code),
+      ]),
+    ] as string[]
+  }
+}
+const save = () => {
+  const val = editor!.getValue()
+  try {
+    const result = fromEditorString(val)
+    modelValue.value = result
+    isCanSave.value = false
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const updataDiagnosticCodesToIgnore = () => {
+  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(diagnosticsOptions.value)
+  isValidator.value = true
+  isCanSave.value = false
+}
+
+const codeList = ref<string[]>(['6133', '6192'])
 
 const isDownloading = ref(false)
 const copyText = () => {
@@ -140,16 +163,35 @@ const download = () => {
   <div class="editor_wrap">
     <div ref="editorContainerRef" style="height: 400px; border: 1px solid #ccc" />
     <span v-if="massage" class="massage"> {{ massage }}</span>
+
+    <div style="display: flex; align-items: center; margin: 10px 0">
+      请选择过滤的错误代码：
+      <el-checkbox-group
+        v-model="diagnosticsOptions.diagnosticCodesToIgnore"
+        @change="updataDiagnosticCodesToIgnore"
+        size="small"
+      >
+        <el-checkbox-button v-for="code in codeList" :key="code" :value="Number(code)">
+          {{ code }}
+        </el-checkbox-button>
+      </el-checkbox-group>
+    </div>
+
+    <div class="markers_wrap" v-if="markerList.length > 0">
+      <p v-for="item in markerList">
+        [{{ item.startLineNumber }}-{{ item.endLineNumber }}] {{ item.code }} : {{ item.message }}
+      </p>
+    </div>
     <div class="btn">
-      <el-button type="primary" @click="download">下载文件</el-button>
-      <el-button type="primary" @click="copyText">复制代码</el-button>
+      <el-button type="primary" :disabled="!isValidator" @click="validator">校验代码</el-button>
+      <el-button type="primary" :disabled="!isCanSave" @click="save">保存修改</el-button>
+      <el-button type="primary" :disabled="isValidator" @click="download">下载文件</el-button>
+      <el-button type="primary" :disabled="isValidator" @click="copyText">复制代码</el-button>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.editor_wrap {
-}
 .massage {
   font-size: 12px;
   color: red;
@@ -157,5 +199,12 @@ const download = () => {
 .btn {
   text-align: center;
   margin: 10px;
+}
+.markers_wrap {
+  font-size: 12px;
+  height: 100px;
+  overflow-y: auto;
+  border: 1px solid red;
+  padding: 0 10px;
 }
 </style>

@@ -6,44 +6,42 @@ import type { FormRules } from "element-plus";
 type ComponentType = 'form' | 'layout'
 
 export interface ComponentNameMap {
-  input: unknown,
-  textarea: unknown,
-  inputNumber: unknown,
-  inputTag: unknown,
-  rate: unknown,
-  radioGroup: unknown,
-  radio: unknown,
-  radioButton: unknown,
-  select: unknown,
-  switch: unknown,
-  slider: unknown,
-  colorPicker: unknown,
-  option: unknown,
-  selectV2: unknown,
-  datePicker: unknown,
-  timePicker: unknown,
-  formItem: unknown,
-  segmented: unknown,
-  checkboxGroup: unknown,
-  checkbox: unknown,
+  Input: unknown;
+  Textarea: unknown;
+  InputNumber: unknown;
+  InputTag: unknown;
+  Rate: unknown;
+  RadioGroup: unknown;
+  RadioGroupButton: unknown;
+  Radio: unknown;
+  RadioButton: unknown;
+  Select: unknown;
+  Switch: unknown;
+  Slider: unknown;
+  ColorPicker: unknown;
+  Option: unknown;
+  SelectV2: unknown;
+  DatePicker: unknown;
+  TimePicker: unknown;
+  FormItem: unknown;
+  Segmented: unknown;
+  CheckboxGroup: unknown;
+  Checkbox: unknown;
+  Row: unknown;
+  Col: unknown;
+  Cascader: unknown;
+  Mention: unknown;
+  Transfer: unknown;
+  TreeSelect: unknown;
+  Upload: unknown;
+  Button: unknown;
 }
-
-export type ComponentName = keyof ComponentNameMap
-
-/*
-外部扩展ComponentName类型：
-  外部项目通过声明declare module 方式扩展ComponentName，因为ComponentName是keyof ComponentNameMap所得，所以外部声明扩展 ComponentNameMap即可
-  (注意:ComponentNameMap必须为interface且在库的入口中被导出)
-
-在使用方（比如 src/main.ts 或某个 .d.ts 文件里）如下声明
-import 'form-cook-render'
-// 扩展内置接口
-declare module 'form-cook-render' {
-  export interface ComponentNameMap {
-     customInput: unknown
-   }
- }
-*/
+//string & {} 代表“任意字符串但不是字面量类型的泛型字符串”
+// type MyType = "foo" | "bar" | string
+// ❌ 这样写其实等价于 string，TS 不会再提示 "foo" "bar"。
+// 所以必须用 string & {} 的写法来保留字面量提示。
+type EnumLike<T extends string> = T | (string & {});
+export type ComponentName = EnumLike<keyof ComponentNameMap>
 
 type DynamicProp<T> = (params: {
   formData: Record<string, any>
@@ -70,12 +68,13 @@ export type Option = {
   label: string
   value: string | number
   disabled?: boolean
+  children?: Option[]
   [key: string]: unknown
 } | string | number
 
 export type OptionsConfig = staticType | functionType | remoteType
 
-interface FormItem {
+export interface FormItem {
   field: string;
   label?: string;
   required?: boolean;
@@ -83,18 +82,27 @@ interface FormItem {
 }
 
 export interface Slot {
-  componentName: ComponentName,
-  options?: OptionsConfig,
+  componentName: ComponentName;
+  options?: OptionsConfig;
+  text?: string;
+  attrs?: Attrs;
   [key: string]: unknown
 }
 
 export interface Attrs {
   options?: OptionsConfig;
+  data?: OptionsConfig;
+  clearable?: boolean;
+  precision?: number;
+  max?: number;
+  placeholder?: string;
+  autosize?: boolean | { minRows?: number; maxRows?: number };
+  serializeType?: string | string[]
   [key: string]: unknown
 }
 
 export interface Slots {
-  [key: string]: Slot
+  [key: string]: Slot | string
 }
 
 type eventName = 'click' | 'change' | 'input' | 'focus' | 'blur'
@@ -105,14 +113,14 @@ export interface EventConfig {
   fnName?: string
 }
 
-interface BaseConfig {
+export interface BaseConfig {
   id: string;
   componentName: ComponentName;
   componentType: ComponentType;
   sort?: number;
   style?: Record<string, unknown>;
   slots?: Slots;
-  _slots?: { [key: string]: () => Array<unknown> };
+  _slots?: { [key: string]: () => (Array<unknown> | string) };
   visible?: boolean | DynamicProp<boolean>
   events?: EventConfig[]
 }
@@ -124,6 +132,7 @@ export interface FormCompConfig extends BaseConfig {
   attrs: Attrs & {
     disabled?: boolean | DynamicProp<boolean>
     readonly?: boolean | DynamicProp<boolean>
+    rules?: FormRules
   };
 }
 
@@ -139,7 +148,7 @@ export interface FormAreaConfig {
   defaultCreateBtn?: string | boolean;
   defaultRestBtn?: string | boolean;
   attrs: {
-    rules?: unknown
+    rules?: FormRules
     inline?: boolean
     size?: '' | 'large' | 'default' | 'small'
     disabled?: boolean
