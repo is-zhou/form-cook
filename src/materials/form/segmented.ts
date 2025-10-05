@@ -12,7 +12,38 @@ const m: Material = {
       label: '分段控制器',
     },
     attrs: {
-      options: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      options: [{
+        label: 'Mon',
+        value: 'Mon',
+        disabled: true,
+      },
+      {
+        label: 'Tue',
+        value: 'Tue',
+      },
+      {
+        label: 'Wed',
+        value: 'Wed',
+        disabled: true,
+      },
+      {
+        label: 'Thu',
+        value: 'Thu',
+      },
+      {
+        label: 'Fri',
+        value: 'Fri',
+        disabled: true,
+      },
+      {
+        label: 'Sat',
+        value: 'Sat',
+      },
+      {
+        label: 'Sun',
+        value: 'Sun',
+      },
+      ]
     },
   },
 }

@@ -9,8 +9,10 @@ import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
 
 const { serialize, deserialize } = useSerialize()
 
-const DEFAULT = {
+const DEFAULT: FormSchema = {
   formAreaConfig: {
+    defaultCreateBtn: true,
+    defaultRestBtn: true,
     attrs: {
       rules: {}
     }

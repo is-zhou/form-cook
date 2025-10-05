@@ -15,7 +15,7 @@ const m: Material = {
     },
     slots: {
       default: {
-        componentName: "button",
+        componentName: "Button",
         text: "Click to upload",
         attrs: {
           type: "primary",

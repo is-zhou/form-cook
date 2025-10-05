@@ -17,7 +17,6 @@ const s: TSettersModuleType = {
     formItemAttrs: { field: '', label: '下拉选项' },
     attrs: {
       clearable: true,
-      type: 'number',
     },
   },
   'attrs.multiple': {

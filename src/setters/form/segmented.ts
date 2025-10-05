@@ -1,6 +1,16 @@
 import type { TSettersModuleType } from '@/types/setter.ts'
 
 const s: TSettersModuleType = {
+  'attrs.options': {
+    id: '',
+    sort: 1,
+    componentName: 'OptionsEditor',
+    componentType: 'form',
+    formItemAttrs: { field: '', label: '选项' },
+    attrs: {
+      clearable: true,
+    },
+  },
   'attrs.direction': {
     id: '',
     componentName: 'RadioGroupButton',
