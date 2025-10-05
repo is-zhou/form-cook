@@ -7,17 +7,14 @@ import { cloneDeep, isEqual } from 'lodash'
 import type { SerializeType } from 'vue-serialize-input/dist/components/SerializeInput.vue'
 import { getAvailableFields } from './availableFields'
 
-/** 规则类型 */
-type RuleType = 'required' | 'length' | 'pattern' | 'custom'
-
 /** 单条规则配置 */
-interface RuleConfig {
-  type: RuleType
+export interface RuleConfig {
+  type?: string
   required?: boolean
   min?: number
   max?: number
   pattern?: string
-  validatorFn?: string
+  validator?: (rule: any, value: any, callback: any) => void
   message: string
   trigger: 'blur' | 'change'
 }
@@ -60,20 +57,6 @@ watch(
   { immediate: true, deep: true },
 )
 
-/** 规则类型下拉 */
-const ruleTypeOptions: { label: string; value: RuleType }[] = [
-  { label: '必填', value: 'required' },
-  { label: '长度', value: 'length' },
-  { label: '正则', value: 'pattern' },
-  { label: '函数', value: 'custom' },
-]
-
-/** 触发方式下拉 */
-const triggerOptions = [
-  { label: '失焦 (blur)', value: 'blur' },
-  { label: '输入 (change)', value: 'change' },
-]
-
 /** 添加字段 */
 function addField(newField: string) {
   if (!newField) {
@@ -101,7 +84,6 @@ function removeField(field: string) {
 function addRule(field = 'default') {
   if (!rules.value[field]) rules.value[field] = []
   rules.value[field].push({
-    type: 'required',
     required: true,
     message: '',
     trigger: 'blur',
@@ -135,7 +117,7 @@ function saveRule() {
         ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的长度范围必须填写完整`)
         return
       }
-      if (rule.type === 'custom' && !rule.validatorFn) {
+      if (rule.type === 'custom' && !rule.validator) {
         ElMessage.error(`字段「${field}」第 ${idx + 1} 条规则的自定义函数不能为空`)
         return
       }
@@ -219,68 +201,7 @@ const reset = () => {
                   </div>
                 </div>
               </template>
-
-              <!-- 规则类型 -->
-              <el-form-item label="规则类型:">
-                <el-select v-model="rule.type" placeholder="选择规则类型">
-                  <el-option
-                    v-for="opt in ruleTypeOptions"
-                    :key="opt.value"
-                    :label="opt.label"
-                    :value="opt.value"
-                  />
-                </el-select>
-              </el-form-item>
-
-              <!-- 类型相关配置 -->
-              <template v-if="rule.type === 'required'">
-                <el-form-item label="是否必填:">
-                  <el-switch v-model="rule.required" />
-                </el-form-item>
-              </template>
-
-              <template v-if="rule.type === 'length'">
-                <el-form-item label="最小长度:">
-                  <el-input-number v-model="rule.min" :min="0" />
-                </el-form-item>
-                <el-form-item label="最大长度:">
-                  <el-input-number v-model="rule.max" :min="0" />
-                </el-form-item>
-              </template>
-
-              <template v-if="rule.type === 'pattern'">
-                <el-form-item label="正则表达式:">
-                  <el-input v-model="rule.pattern" placeholder="如：^\\d+$" />
-                </el-form-item>
-              </template>
-
-              <template v-if="rule.type === 'custom'">
-                <el-form-item label="自定义函数:">
-                  <SerializeInput
-                    type="textarea"
-                    autosize
-                    v-model="rule.validatorFn"
-                    placeholder="(rule, value, callback) => { ... }"
-                    serialize-type="function"
-                  />
-                </el-form-item>
-              </template>
-
-              <!-- 通用配置 -->
-              <el-form-item label="提示信息:">
-                <el-input v-model="rule.message" placeholder="请输入提示信息" />
-              </el-form-item>
-
-              <el-form-item label="触发方式:">
-                <el-select v-model="rule.trigger">
-                  <el-option
-                    v-for="opt in triggerOptions"
-                    :key="opt.value"
-                    :label="opt.label"
-                    :value="opt.value"
-                  />
-                </el-select>
-              </el-form-item>
+              <RuleItem v-model:rule="ruleArr[index]"></RuleItem>
             </el-collapse-item>
           </el-collapse>
 
