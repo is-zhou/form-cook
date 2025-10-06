@@ -31,7 +31,7 @@ const handlePreview = () => {
 <template>
   <header class="top_area">
     <div class="top_area_left" :class="{ w: statusStore.isTreeAreaOpen }">
-      <h3>FormCook</h3>
+      <h3 class="logo"><img height="30" src="../../../assets/fc_logo.png" alt="" /></h3>
       <div>
         <DialogImportFields></DialogImportFields>
         <el-tooltip effect="light" content="表单树" placement="bottom">
@@ -108,17 +108,25 @@ const handlePreview = () => {
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 8px 12px 8px 16px;
+  padding: 8px 12px 8px 4px;
   border-bottom: 1px solid #efefef;
 }
 .top_area_left {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  width: 312px;
+  width: 324px;
   transition: all 0.3s ease;
+  .logo {
+    position: relative;
+    > img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
   &.w {
-    width: 512px;
+    width: 524px;
   }
   h3 {
     font-weight: bold;
