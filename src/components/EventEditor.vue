@@ -84,7 +84,7 @@ const dynamicRules = computed(() => {
     rules[`events[${i}].fnName`] = [
       {
         validator: (_rule: any, value: any, callback: any) => {
-          if (formModel.events[i].handlerType === 'globalFn') {
+          if (formModel.events[i].handlerType === 'builtinFn') {
             if (!value) return callback(new Error('请选择函数'))
           }
           callback()
@@ -110,7 +110,7 @@ const saveEvents = async () => {
         !evt.eventName ||
         !evt.handlerType ||
         (evt.handlerType === 'fn' && !evt.fn) ||
-        (evt.handlerType === 'globalFn' && !evt.fnName),
+        (evt.handlerType === 'builtinFn' && !evt.fnName),
     )
 
     const msg =
@@ -162,7 +162,7 @@ const resetEvents = () => {
                 @change="() => onHandlerTypeChange(index)"
               >
                 <el-radio label="fn">内联代码</el-radio>
-                <el-radio label="globalFn">内置函数</el-radio>
+                <el-radio label="builtinFn">内置函数</el-radio>
               </el-radio-group>
             </el-form-item>
 
