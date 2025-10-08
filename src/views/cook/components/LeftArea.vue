@@ -11,7 +11,7 @@ import type { ComponentConfig } from 'form-cook-render'
 const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
 
-const handleClick = (current: Material) => {
+const pushComponentConfig = (current: Material) => {
   const result = cloneComponentConfig(current)
   store.pushItem(result)
   store.setSelect(result)
@@ -46,34 +46,48 @@ const changeMenu = (key: string | number) => {
   currentMenu.value = key
   materialsStore.changeMaterials(materialsStore.menus[key])
 }
-
+let sortable: Sortable | null = null
 const drag = ref()
 onMounted(() => {
   changeMenu('form')
-  drag.value.addEventListener('click', (e: Event) => {
-    const target = (e.target as HTMLElement).closest('.material_item') as HTMLElement
-    if (target) {
-      const index = target.dataset.index
-      if (typeof index !== 'undefined') {
-        handleClick(materialsStore.materials[Number(index)])
-      }
-    }
-  })
-
-  new Sortable(drag.value, {
-    group: {
-      name: 'form',
-      pull: 'clone',
-      put: false, // 不允许拖拽进这个列表
-    },
-    animation: 150,
-    sort: false, // 设为false，禁止sort
-    onStart: function (/**Event*/ evt) {
-      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ =
-        cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
-    },
-  })
 })
+
+watch(
+  () => drag.value,
+  () => {
+    if (!drag.value) {
+      return
+    }
+    sortable?.destroy()
+    drag.value.removeEventListener('click', handleClick)
+    drag.value.addEventListener('click', handleClick)
+
+    sortable = new Sortable(drag.value, {
+      group: {
+        name: 'form',
+        pull: 'clone',
+        put: false, // 不允许拖拽进这个列表
+      },
+      animation: 150,
+      sort: false, // 设为false，禁止sort
+      onStart: function (/**Event*/ evt) {
+        ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ =
+          cloneComponentConfig(materialsStore.materials[evt.oldIndex!])
+      },
+    })
+  },
+  {},
+)
+
+function handleClick(e: Event) {
+  const target = (e.target as HTMLElement).closest('.material_item') as HTMLElement
+  if (target) {
+    const index = target.dataset.index
+    if (typeof index !== 'undefined') {
+      pushComponentConfig(materialsStore.materials[Number(index)])
+    }
+  }
+}
 
 function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -83,6 +97,10 @@ const keyword = ref('')
 
 const list = computed(() => {
   return materialsStore.materials.filter((i) => i.label.includes(keyword.value))
+})
+
+onBeforeUnmount(() => {
+  sortable?.destroy()
 })
 </script>
 
@@ -113,7 +131,7 @@ const list = computed(() => {
       <div class="menu_content">
         <el-scrollbar height="100%">
           <div class="left_area">
-            <div ref="drag" class="materials_drag_container">
+            <div ref="drag" class="materials_drag_container" :key="currentMenu">
               <template v-for="(element, index) in list" :key="element.label">
                 <div class="material_item" :data-index="index">
                   <div>
