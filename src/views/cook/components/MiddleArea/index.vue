@@ -30,7 +30,8 @@ onMounted(() => {
   sortable = new Sortable(target, {
     group: { name: 'form' },
     animation: 150,
-
+    fallbackOnBody: true,
+    swapThreshold: 0.65,
     onStart(evt) {
       ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ = cloneDeep(
         formSchema.value.formContentConfigList[evt.oldIndex!],

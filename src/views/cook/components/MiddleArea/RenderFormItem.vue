@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
 import { insertNodeAt, removeNode } from '@/utils'
-import {
-  getComponent,
-  type ComponentConfig,
-  type LayoutCompConfig,
-  type OptionsConfig,
-  type Option,
-} from 'form-cook-render'
+import { getComponent, type ComponentConfig, type LayoutCompConfig } from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
 import { storeToRefs } from 'pinia'
@@ -21,10 +15,6 @@ const { selectedConfig } = storeToRefs(store)
 
 const handleSelectChange = (element: ComponentConfig | null) => {
   store.setSelect(element)
-}
-
-const handleSelected = (res: ComponentConfig) => {
-  handleSelectChange(res)
 }
 
 const emits = defineEmits(['onDel'])
@@ -84,11 +74,15 @@ const drag = ref()
 let sortable: Sortable | null = null
 
 const onCompMounted = () => {
-  const target = document.querySelector(`.${id.value}`) as HTMLElement
+  let target = document.querySelector(`.${id.value}`) as HTMLElement
+  if (config.value.componentName === 'FormItem') {
+    target = document.querySelector(`.${id.value} .el-form-item__content`) as HTMLElement
+  }
   sortable = new Sortable(target, {
     group: { name: 'form' },
     animation: 150,
-
+    fallbackOnBody: true,
+    swapThreshold: 0.65,
     onStart(evt) {
       if (config.value.componentType !== 'layout') {
         return
@@ -158,6 +152,7 @@ watch(
   () => drag.value,
   () => {
     if (drag.value) {
+      sortable?.destroy()
       onCompMounted()
     }
   },
