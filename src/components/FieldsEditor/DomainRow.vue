@@ -93,16 +93,19 @@ const handleRemove = () => {
     v-if="domain.componentType === 'layout' && domain.children?.length"
     style="padding-left: 20px; border-left: 1px dashed #ccc; margin-top: 5px"
   >
-    <DomainRow
-      v-for="(child, cIndex) in domain.children"
-      :key="child.id"
-      :domain="child"
-      :index="cIndex"
-      :parent-path="parentPath + '.children.' + cIndex"
-      :component-name-options="componentNameOptions"
-      @remove="$emit('remove', $event)"
-      @addChild="$emit('addChild', $event)"
-    />
+    <template v-for="(child, cIndex) in domain.children">
+      <DomainRow
+        v-if="typeof child !== 'string'"
+        :key="child.id"
+        :domain="child"
+        :index="cIndex"
+        :parent-path="parentPath + '.children.' + cIndex"
+        :component-name-options="componentNameOptions"
+        @remove="$emit('remove', $event)"
+        @addChild="$emit('addChild', $event)"
+      />
+      <template>{{ child }}</template>
+    </template>
   </div>
 </template>
 

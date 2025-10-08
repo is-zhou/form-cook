@@ -143,13 +143,16 @@ export const useSchemaStore = defineStore('schema', () => {
 
 
 export function findSelectedOrFallback(
-  list: ComponentConfig[],
+  list: Array<ComponentConfig | string>,
   selectedId: string | null | undefined
 ): ComponentConfig | null {
   if (!list || list.length === 0) return null
 
-  function dfs(list: ComponentConfig[]): ComponentConfig | null {
+  function dfs(list: Array<ComponentConfig | string>): ComponentConfig | null {
     for (const node of list) {
+      if (typeof node === 'string') {
+        continue
+      }
       if (node.id === selectedId) {
         return node
       }
@@ -166,6 +169,10 @@ export function findSelectedOrFallback(
   if (found) {
     return found
   } else {
-    return list[list.length - 1] ?? null
+    const target = list[list.length - 1]
+    if (typeof target === "string") {
+      return null
+    }
+    return target ?? null
   }
 }

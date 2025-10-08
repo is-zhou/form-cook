@@ -88,9 +88,8 @@ const onCompMounted = () => {
         return
       }
 
-      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ = cloneDeep(
-        config.value.children?.[evt.oldIndex!]!,
-      )
+      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig | string })._underlying_vm_ =
+        cloneDeep(config.value.children?.[evt.oldIndex!]!)
     },
 
     onAdd(evt) {
@@ -180,7 +179,10 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
 </script>
 
 <template>
-  <template v-if="config.componentType === 'form'">
+  <template v-if="typeof config === 'string'">
+    {{ config }}
+  </template>
+  <template v-else-if="config.componentType === 'form'">
     <el-form-item
       :prop="config.formItemAttrs.field"
       v-bind="config.formItemAttrs"
@@ -220,7 +222,7 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
       </el-icon>
     </el-form-item>
   </template>
-  <template v-if="config.componentType === 'layout'">
+  <template v-else-if="config.componentType === 'layout'">
     <template v-if="config.children">
       <component
         ref="drag"
@@ -236,13 +238,15 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         }"
         @click.stop="handleSelectChange(config)"
       >
-        <RenderFormItem
-          v-for="(child, i) in config.children"
-          :key="`children_${child.id}`"
-          v-model:config="config.children[i]"
-          :form-data="formData"
-          @onDel="config.children?.splice(i, 1)"
-        ></RenderFormItem>
+        <template v-for="(child, i) in config.children">
+          <template v-if="typeof config.children[i] !== 'string'">
+            <RenderFormItem
+              v-model:config="config.children[i]"
+              :form-data="formData"
+              @onDel="config.children?.splice(i, 1)"
+            ></RenderFormItem>
+          </template>
+        </template>
         <el-icon
           v-if="selectedConfig?.id === config.id"
           @click.stop="handleDel()"

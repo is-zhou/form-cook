@@ -1,7 +1,7 @@
 import type { Material } from '@/types/material'
-import type { TSettersItem, TSettersModuleType } from '@/types/setter'
-import type { BaseConfig, ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render'
-import { cloneDeep, omit } from 'lodash'
+import type { TSettersModuleType } from '@/types/setter'
+import type { ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render'
+import { cloneDeep } from 'lodash'
 import { nanoid } from 'nanoid'
 
 import setters from '@/setters'
@@ -122,13 +122,16 @@ export function sortByProperty<T>(arr: Array<T>, property: keyof T) {
  * @param parentPath 父级路径，用于递归拼接
  */
 export function collectFieldPaths(
-  schema: ComponentConfig[],
+  schema: Array<ComponentConfig | string>,
   parentPath = "",
   seen: Set<string> = new Set()
 ): string[] {
   const paths: string[] = [];
 
   for (const node of schema) {
+    if (typeof node === "string") {
+      continue
+    }
     if (node.componentType === 'form' && node.formItemAttrs?.field) {
       const fullPath = parentPath
         ? `${parentPath}.${node.formItemAttrs.field}`

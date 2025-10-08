@@ -26,14 +26,17 @@ const dynamicValidateForm = reactive<{ domains: ComponentConfig[] }>({
 
 // 删除字段
 const removeDomain = (item: ComponentConfig) => {
-  const deleteRecursive = (list: ComponentConfig[], target: ComponentConfig) => {
+  const deleteRecursive = (
+    list: Array<ComponentConfig | string>,
+    target: ComponentConfig | string,
+  ) => {
     const index = list.indexOf(target)
     if (index !== -1) {
       list.splice(index, 1)
       return true
     }
     for (const i of list) {
-      if ('children' in i && i.children) {
+      if (typeof i !== 'string' && 'children' in i && i.children) {
         if (deleteRecursive(i.children, target)) return true
       }
     }
