@@ -102,7 +102,6 @@ function getVisible(node: ComponentConfig) {
             :is="getComponent(element.componentName) || element.componentName"
             :key="element.id"
             v-bind="getAttrs(element)"
-            :style="element.style"
             :class="{
               selected: selectedConfig?.id === element.id,
               unVisible: !getVisible(element),

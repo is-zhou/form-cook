@@ -1,7 +1,7 @@
 import type { TSettersModuleType } from '@/types/setter.ts'
 
 const s: TSettersModuleType = {
-  'style.width': {
+  'attrs.style.width': {
     id: '',
     componentName: 'Input',
     componentType: 'form',
@@ -13,7 +13,7 @@ const s: TSettersModuleType = {
       clearable: true,
     },
   },
-  'style.height': {
+  'attrs.style.height': {
     id: '',
     componentName: 'Input',
     componentType: 'form',

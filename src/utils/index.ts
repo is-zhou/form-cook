@@ -93,10 +93,6 @@ export function objectAssignByComponentConfig(currentConfig: Ref<ComponentConfig
       currentConfig.value.attrs = cloneConfig.attrs
     }
 
-    if (currentConfig.value.style || cloneConfig.style) {
-      currentConfig.value.style = cloneConfig.style
-    }
-
     if (currentConfig.value.slots || cloneConfig.slots) {
       currentConfig.value.slots = cloneConfig.slots
     }

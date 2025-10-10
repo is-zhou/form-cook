@@ -1,5 +1,6 @@
 const typeDefs = `
 
+
 import type { FormRules } from "element-plus";
 
 
@@ -35,6 +36,7 @@ export interface ComponentNameMap {
   TreeSelect: unknown;
   Upload: unknown;
   Button: unknown;
+  ArrayContainer: unknown;
 }
 //string & {} 代表“任意字符串但不是字面量类型的泛型字符串”
 // type MyType = "foo" | "bar" | string
@@ -78,7 +80,8 @@ export interface FormItem {
   field: string;
   label?: string;
   required?: boolean;
-  [key: string]: any
+  rules?: FormRules
+  [key: string]: unknown
 }
 
 export interface Slot {
@@ -90,6 +93,7 @@ export interface Slot {
 }
 
 export interface Attrs {
+  style?: Record<string, unknown>;
   options?: OptionsConfig;
   data?: OptionsConfig;
   clearable?: boolean;
@@ -118,11 +122,10 @@ export interface BaseConfig {
   componentName: ComponentName;
   componentType: ComponentType;
   sort?: number;
-  style?: Record<string, unknown>;
   slots?: Slots;
   _slots?: { [key: string]: () => (Array<unknown> | string) };
-  visible?: boolean | DynamicProp<boolean>
-  events?: EventConfig[]
+  visible?: boolean | DynamicProp<boolean>;
+  events?: EventConfig[];
 }
 
 export interface FormCompConfig extends BaseConfig {
@@ -132,14 +135,14 @@ export interface FormCompConfig extends BaseConfig {
   attrs: Attrs & {
     disabled?: boolean | DynamicProp<boolean>
     readonly?: boolean | DynamicProp<boolean>
-    rules?: FormRules
   };
+  modifiers?: { trim?: boolean; number?: boolean; }
 }
 
 export interface LayoutCompConfig extends BaseConfig {
   componentType: "layout";
-  attrs: Attrs;
-  children?: ComponentConfig[];
+  attrs: Attrs & { arrayKeyPath?: string };
+  children?: Array<ComponentConfig | string>;
 }
 
 export type ComponentConfig = FormCompConfig | LayoutCompConfig;

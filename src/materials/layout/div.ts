@@ -7,9 +7,8 @@ const m: Material = {
     id: '',
     componentName: 'div',
     componentType: 'layout',
-    attrs: {},
+    attrs: { style: {}, },
     children: [],
-    style: {},
   },
 }
 

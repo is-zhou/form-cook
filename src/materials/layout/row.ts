@@ -8,11 +8,11 @@ const m: Material = {
     id: '',
     componentName: 'Row',
     componentType: 'layout',
-    attrs: {},
+    attrs: { style: {}, },
     children: [
 
     ],
-    style: {},
+
   },
 }
 

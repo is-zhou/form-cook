@@ -229,7 +229,6 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         :is="getComponent(config.componentName) || config.componentName"
         :key="`layout_${config.id}`"
         v-bind="getAttrs(config)"
-        :style="config.style"
         :class="{
           selected: selectedConfig?.id === config.id,
           unVisible: !getVisible(config),

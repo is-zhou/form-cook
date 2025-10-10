@@ -7,9 +7,9 @@ const m: Material = {
     id: '',
     componentName: 'FormItem',
     componentType: 'layout',
-    attrs: { label: "formItem" },
+    attrs: { label: "formItem", style: {}, },
     children: [],
-    style: {},
+
   },
 }
 
