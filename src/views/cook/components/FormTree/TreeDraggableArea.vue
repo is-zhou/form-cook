@@ -5,10 +5,10 @@ import { type ComponentConfig } from 'form-cook-render'
 type TDragCurrent = { item: { _underlying_vm_: ComponentConfig } }
 
 const configList = defineModel<ComponentConfig[]>('configList', { required: true })
-const selectedConfig = defineModel<ComponentConfig | null>('selectedConfig', {
+const selectedConfig = defineModel<ComponentConfig | null | undefined>('selectedConfig', {
   required: true,
 })
-const handleSelectChange = (element: ComponentConfig | null) => {
+const handleSelectChange = (element: ComponentConfig | null | undefined) => {
   isDrag.value = false
   selectedConfig.value = element
 }

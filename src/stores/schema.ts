@@ -142,7 +142,7 @@ export const useSchemaStore = defineStore('schema', () => {
 
 
 
-export function findSelectedOrFallback(
+function findSelectedOrFallback(
   list: Array<ComponentConfig | string>,
   selectedId: string | null | undefined
 ): ComponentConfig | null {
