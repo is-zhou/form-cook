@@ -1,0 +1,29 @@
+---
+# https://vitepress.dev/reference/default-theme-home-page
+layout: home
+
+hero:
+  name: 'form-cook'
+  text: '基于 Vue3 的低代码   可视化表单设计器'
+  tagline: 数据驱动，可视化界面搭建，提高开发者对表单的开发效率，让表单实现更简单。
+  image:
+    src: /logo_lt.png
+    alt: form-cook
+  actions:
+    - theme: brand
+      text: 立即体验
+      link: https://github.com/is-zhou/form-cook
+    - theme: alt
+      text: GitHub
+      link: https://github.com/is-zhou/form-cook
+
+features:
+  - title: 可视化表单设计
+    details: 通过拖拽与配置即可快速构建表单结构，无需手写繁琐代码，实时预览生成效果，显著提升开发效率。
+  - title: 动态渲染与数据驱动
+    details: 基于 Schema 的动态渲染机制，可根据配置自动生成表单组件，支持数据联动与条件显示逻辑。
+  - title: 灵活的事件与交互系统
+    details: 内置事件系统可绑定自定义逻辑，支持组件间交互、数据回调与远程加载，让表单具备高度可扩展性。
+  - title: 高度可扩展的组件生态
+    details: 支持自定义组件注册与复用，兼容第三方 UI 库，帮助团队快速构建符合业务需求的表单体系。
+---
