@@ -26,6 +26,10 @@ const handleDel = () => {
 function getAttrs(node: ComponentConfig) {
   const attrs = cloneDeep(node.attrs)
 
+  if (node.componentName === 'ArrayContainer') {
+    attrs.formData = formData
+  }
+
   if (node.componentType === 'form') {
     if (typeof node.attrs.disabled === 'function') {
       const isVisible = node.attrs.disabled({ formData: formData, schemaItem: node })
@@ -77,6 +81,9 @@ const onCompMounted = () => {
   let target = document.querySelector(`.${id.value}`) as HTMLElement
   if (config.value.componentName === 'FormItem') {
     target = document.querySelector(`.${id.value} .el-form-item__content`) as HTMLElement
+  }
+  if (config.value.componentName === 'ArrayContainer') {
+    target = document.querySelector(`.${id.value} .array_container`) as HTMLElement
   }
   sortable = new Sortable(target, {
     group: { name: 'form' },

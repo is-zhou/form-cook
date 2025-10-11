@@ -4,8 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides: null
-
 importers:
 
   .:
@@ -32,8 +30,8 @@ importers:
         specifier: ^2.11.2
         version: 2.11.2(vue@3.5.21(typescript@5.8.3))
       form-cook-render:
-        specifier: ^0.0.11
-        version: 0.0.11(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
+        specifier: ^0.0.15
+        version: 0.0.15(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
       javascript-stringify:
         specifier: ^2.1.0
         version: 2.1.0
@@ -62,8 +60,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.21(typescript@5.8.3))
       vue-serialize-input:
-        specifier: ^0.0.18
-        version: 0.0.18(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
+        specifier: ^0.0.19
+        version: 0.0.19(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3))
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.21(typescript@5.8.3))
@@ -1577,8 +1575,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  form-cook-render@0.0.11:
-    resolution: {integrity: sha512-n9GgkRyHCMwH1TdA0efwadhqkzD1Gl3nh+T6NV0sZl7kdia3H/5c9BW8g/FZNdxY9iWt9sBLTkMpOX2bWWcsUA==}
+  form-cook-render@0.0.15:
+    resolution: {integrity: sha512-bx2br04w7xH4UzfaMv7oszE7JMOCBORNR2taRKUTU2PU6M8hLwCdrpeeZqUslVnYxeovvKNeVPZU93S5fZRn7w==}
     peerDependencies:
       element-plus: ^2.11.2
       vue: ^3.5.21
@@ -2521,8 +2519,8 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  vue-serialize-input@0.0.18:
-    resolution: {integrity: sha512-GsBLlkNaumL2lPiLLlxTnFqwlkoVh0pXvu8HuZ+mdR1LEc5Wd+BRthLRVMb3432hW61iZ/yWpldvzDfOONUvaQ==}
+  vue-serialize-input@0.0.19:
+    resolution: {integrity: sha512-nMkv8ExTursUSLQXi7dX9jUaPf+IuiGTRjxCXbC1Po4JeF0rzfHjJNYPGha944MoN7xOQv3wnRg1JbfwKS46eA==}
     peerDependencies:
       element-plus: ^2.11.2
       vue: ^3.5.21
@@ -4164,7 +4162,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  form-cook-render@0.0.11(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
+  form-cook-render@0.0.15(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
     dependencies:
       element-plus: 2.11.2(vue@3.5.21(typescript@5.8.3))
       lodash-es: 4.17.21
@@ -5062,7 +5060,7 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.21(typescript@5.8.3)
 
-  vue-serialize-input@0.0.18(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
+  vue-serialize-input@0.0.19(element-plus@2.11.2(vue@3.5.21(typescript@5.8.3)))(vue@3.5.21(typescript@5.8.3)):
     dependencies:
       element-plus: 2.11.2(vue@3.5.21(typescript@5.8.3))
       javascript-stringify: 2.1.0
