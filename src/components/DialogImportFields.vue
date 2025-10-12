@@ -14,16 +14,15 @@ const dialogVisible = ref(false)
 </script>
 
 <template>
-  <!-- <el-tooltip effect="light" content="快速添加字段" placement="bottom"> -->
-  <el-button
-    :icon="IconImport"
-    type="primary"
-    plain
-    @click="dialogVisible = true"
-    style="margin-right: 12px"
-    >导入</el-button
-  >
-  <!-- </el-tooltip> -->
+  <el-tooltip effect="light" content="快速添加字段" placement="bottom">
+    <el-button
+      :icon="IconImport"
+      type="primary"
+      plain
+      @click="dialogVisible = true"
+      style="margin-right: 12px"
+    ></el-button>
+  </el-tooltip>
   <el-dialog v-model="dialogVisible" title="快速添加字段" width="900px">
     <FieldsEditor
       v-if="dialogVisible"
