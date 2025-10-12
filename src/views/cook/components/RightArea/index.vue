@@ -12,7 +12,7 @@ import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 
 const store = useSchemaStore()
-const { formSchema, selectedConfig } = storeToRefs(store)
+const { formSchema, selectedConfig, schemaKey } = storeToRefs(store)
 
 const activeName = ref<'component' | 'formArea'>('formArea')
 
@@ -84,6 +84,7 @@ function handleChange() {
         <el-tab-pane label="表单域配置" name="formArea">
           <ConfigFormRender
             v-if="formSchema.formAreaConfig"
+            :key="schemaKey"
             :form-data="formSchema.formAreaConfig"
             :config-list="formAreaSetterList || []"
           ></ConfigFormRender>

@@ -3,9 +3,10 @@ import { defineStore } from 'pinia'
 import type { ComponentConfig, FormSchema } from 'form-cook-render'
 import { useSerialize } from 'vue-serialize-input'
 import { useManualRefHistory } from '@vueuse/core'
-import { cloneDeep, debounce, isEqual } from 'lodash'
+import { cloneDeep, debounce, isEqual, set } from 'lodash'
 import { collectFieldPaths } from '@/utils'
 import { updateAvailableFields } from '@/components/RuleEditor/availableFields'
+import { nanoid } from 'nanoid'
 
 const { serialize, deserialize } = useSerialize()
 
@@ -88,6 +89,7 @@ const canSave = computed(() => {
 })
 
 export const useSchemaStore = defineStore('schema', () => {
+  const schemaKey = ref(nanoid(10))
 
   const formSchema = ref<FormSchema>(cloneDeep(DEFAULT))
   const selectedConfig = ref<ComponentConfig | null | undefined>()
@@ -100,6 +102,11 @@ export const useSchemaStore = defineStore('schema', () => {
 
   const setSelect = (value: ComponentConfig | null | undefined) => {
     selectedConfig.value = value
+  }
+
+  const replaceSchema = (templateSchema: FormSchema) => {
+    schemaKey.value = nanoid(10)
+    formSchema.value = templateSchema
   }
 
   const debouncedAddHistory = debounce(handleAddHistory, 200)
@@ -135,7 +142,12 @@ export const useSchemaStore = defineStore('schema', () => {
   }
 
   return {
-    formSchema, selectedConfig, setSelect, pushItem,
+    formSchema,
+    selectedConfig,
+    setSelect,
+    pushItem,
+    replaceSchema,
+    schemaKey,
     history: { canUndo, canRedo, undo, redo, canSave, saveSchemaToLocal, clearSchema, canClear }
   }
 })

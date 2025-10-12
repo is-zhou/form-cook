@@ -23,6 +23,7 @@ watch(
     <main class="main">
       <LeftArea />
       <FormTree></FormTree>
+      <FormTemplate></FormTemplate>
       <MiddleArea />
       <RightArea />
     </main>
