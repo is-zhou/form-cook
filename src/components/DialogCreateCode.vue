@@ -39,9 +39,11 @@ const download = () => {
 </script>
 
 <template>
-  <el-tooltip effect="light" content="生成代码" placement="bottom">
-    <el-button :icon="IconCreateCode" type="primary" @click="handleCreate" plain></el-button>
-  </el-tooltip>
+  <!-- <el-tooltip effect="light" content="生成代码" placement="bottom"> -->
+  <el-button :icon="IconCreateCode" type="primary" @click="handleCreate" plain>
+    生成代码
+  </el-button>
+  <!-- </el-tooltip> -->
   <div style="text-align: left">
     <el-dialog v-if="dialogVisible" v-model="dialogVisible" title="生成代码">
       <CodeEditor v-model="code"></CodeEditor>

@@ -34,66 +34,69 @@ const handlePreview = () => {
       <h3 class="logo"><img height="30" src="../../../assets/fc_logo.png" alt="" /></h3>
       <div>
         <DialogImportFields></DialogImportFields>
-        <el-tooltip effect="light" content="表单树" placement="bottom">
-          <el-button
-            :icon="IconTree"
-            :type="'primary'"
-            :plain="!statusStore.isTreeAreaOpen"
-            @click="statusStore.updateTreeAreaOpen"
-        /></el-tooltip>
+        <!-- <el-tooltip effect="light" content="表单树" placement="bottom"> -->
+        <el-button
+          :icon="IconTree"
+          :type="'primary'"
+          :plain="!statusStore.isTreeAreaOpen"
+          @click="statusStore.updateTreeAreaOpen"
+          >树</el-button
+        >
+        <!-- </el-tooltip> -->
       </div>
     </div>
     <div class="top_area_middle">
       <div class="middle_l">
         <el-divider direction="vertical" />
-        <el-tooltip effect="light" content="撤销" placement="bottom">
-          <el-button
-            :icon="IconUndo"
-            :type="history.canUndo ? 'primary' : ''"
-            :disabled="!history.canUndo"
-            @click="history.undo"
-            plain
-          />
-        </el-tooltip>
-        <el-tooltip effect="light" content="重做" placement="bottom">
-          <el-button
-            :icon="IconRedo"
-            :type="history.canRedo ? 'primary' : ''"
-            :disabled="!history.canRedo"
-            @click="history.redo"
-            plain
-          />
-        </el-tooltip>
-        <el-tooltip effect="light" content="保存" placement="bottom">
-          <el-button
-            :icon="IconSave"
-            :type="history.canSave ? 'primary' : ''"
-            :disabled="!history.canSave"
-            @click="history.saveSchemaToLocal"
-            plain
-          ></el-button>
-        </el-tooltip>
-        <el-tooltip effect="light" content="清空画布" placement="bottom">
-          <el-button
-            :icon="IconClear"
-            :type="history.canClear ? 'primary' : ''"
-            :disabled="!history.canClear"
-            @click="history.clearSchema"
-            plain
-          ></el-button>
-        </el-tooltip>
+        <!-- <el-tooltip effect="light" content="撤销" placement="bottom"> -->
+        <el-button
+          :icon="IconUndo"
+          :type="history.canUndo ? 'primary' : ''"
+          :disabled="!history.canUndo"
+          @click="history.undo"
+          plain
+          >撤销</el-button
+        >
+        <!-- </el-tooltip> -->
+        <!-- <el-tooltip effect="light" content="重做" placement="bottom"> -->
+        <el-button
+          :icon="IconRedo"
+          :type="history.canRedo ? 'primary' : ''"
+          :disabled="!history.canRedo"
+          @click="history.redo"
+          plain
+          >重做</el-button
+        >
+        <!-- </el-tooltip> -->
+        <!-- <el-tooltip effect="light" content="保存" placement="bottom"> -->
+        <el-button
+          :icon="IconSave"
+          :type="history.canSave ? 'primary' : ''"
+          :disabled="!history.canSave"
+          @click="history.saveSchemaToLocal"
+          plain
+          >保存</el-button
+        >
+        <!-- </el-tooltip> -->
+        <!-- <el-tooltip effect="light" content="清空画布" placement="bottom"> -->
+        <el-button
+          :icon="IconClear"
+          :type="history.canClear ? 'danger' : ''"
+          :disabled="!history.canClear"
+          @click="history.clearSchema"
+          plain
+          >清空</el-button
+        >
+        <!-- </el-tooltip> -->
       </div>
       <div class="middle_m"></div>
       <div class="middle_r">
         <DialogReview></DialogReview>
-        <el-tooltip effect="light" content="Schema" placement="bottom">
-          <el-button
-            :icon="IconCode"
-            type="primary"
-            @click="emits('clickHandleSchema')"
-            plain
-          ></el-button>
-        </el-tooltip>
+        <!-- <el-tooltip effect="light" content="Schema" placement="bottom"> -->
+        <el-button :icon="IconCode" type="primary" @click="emits('clickHandleSchema')" plain
+          >schema</el-button
+        >
+        <!-- </el-tooltip> -->
         <el-divider direction="vertical" />
         <DialogCreateCode></DialogCreateCode>
       </div>
@@ -149,9 +152,6 @@ const handlePreview = () => {
   .middle_r {
     text-align: right;
     min-width: 206px;
-  }
-  > div {
-    flex: 1;
   }
 }
 .top_area_right {

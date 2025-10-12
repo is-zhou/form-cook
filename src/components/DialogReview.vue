@@ -26,15 +26,11 @@ const handlePreview = () => {
 </script>
 
 <template>
-  <el-tooltip effect="light" content="预览" placement="bottom">
-    <el-button
-      :icon="View"
-      type="primary"
-      @click="handlePreview"
-      plain
-      style="margin-right: 12px"
-    />
-  </el-tooltip>
+  <!-- <el-tooltip effect="light" content="预览" placement="bottom"> -->
+  <el-button :icon="View" type="primary" @click="handlePreview" plain style="margin-right: 12px">
+    预览
+  </el-button>
+  <!-- </el-tooltip> -->
 
   <el-dialog
     v-model="dialogVisible"
