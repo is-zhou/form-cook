@@ -101,7 +101,11 @@ const handlePreview = () => {
         <DialogCreateCode></DialogCreateCode>
       </div>
     </div>
-    <div class="top_area_right"></div>
+    <div class="top_area_right">
+      <el-link href="https://github.com/is-zhou/form-cook" :underline="false" target="_blank">
+        <img src="https://api.iconify.design/simple-icons/github.svg" alt="" />
+      </el-link>
+    </div>
   </header>
 </template>
 
@@ -156,5 +160,6 @@ const handlePreview = () => {
 }
 .top_area_right {
   width: 324px;
+  text-align: right;
 }
 </style>
