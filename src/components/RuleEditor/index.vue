@@ -4,8 +4,8 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 import { Delete } from '@element-plus/icons-vue'
 import { SerializeInput } from 'vue-serialize-input'
 import { cloneDeep, isEqual } from 'lodash'
-import type { SerializeType } from 'vue-serialize-input/dist/components/SerializeInput.vue'
 import { getAvailableFields } from './availableFields'
+import type { SerializeType } from 'vue-serialize-input/dist/types'
 
 /** 单条规则配置 */
 export interface RuleConfig {
