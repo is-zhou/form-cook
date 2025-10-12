@@ -79,14 +79,23 @@ const handlePreview = () => {
         >
         <!-- </el-tooltip> -->
         <!-- <el-tooltip effect="light" content="清空画布" placement="bottom"> -->
-        <el-button
-          :icon="IconClear"
-          :type="history.canClear ? 'danger' : ''"
-          :disabled="!history.canClear"
-          @click="history.clearSchema"
-          plain
-          >清空</el-button
+        <el-popconfirm
+          title="确认清空画布及表单配置吗?"
+          @confirm="history.clearSchema"
+          confirm-button-text="确认"
+          cancel-button-text="取消"
         >
+          <template #reference>
+            <el-button
+              :icon="IconClear"
+              :type="history.canClear ? 'danger' : ''"
+              :disabled="!history.canClear"
+              plain
+              >清空</el-button
+            >
+          </template>
+        </el-popconfirm>
+
         <!-- </el-tooltip> -->
       </div>
       <div class="middle_m"></div>
