@@ -213,7 +213,7 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
               >
             </template>
             <component v-else :is="getComponent(slot.componentName)" v-bind="slot.attrs">{{
-              slot.text
+              slot.text || '动态选项'
             }}</component>
           </template>
           <template v-else>{{ slot }}</template>
