@@ -12,7 +12,7 @@ import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 
 const store = useSchemaStore()
-const { formSchema, selectedConfig, schemaKey } = storeToRefs(store)
+const { formSchema, selectedConfig, schemaKey, selectedConfigKey } = storeToRefs(store)
 
 const activeName = ref<'component' | 'formArea'>('formArea')
 
@@ -66,7 +66,7 @@ function handleChange() {
         <el-tab-pane label="组件配置" name="component">
           <ConfigFormRender
             v-if="selectedConfig"
-            :key="selectedConfig?.id"
+            :key="selectedConfig?.id + selectedConfigKey"
             :form-data="selectedConfig"
             :config-list="componentSetterList || []"
           ></ConfigFormRender>
@@ -75,7 +75,7 @@ function handleChange() {
         <el-tab-pane label="基础配置" name="base">
           <ConfigFormRender
             v-if="selectedConfig"
-            :key="selectedConfig?.id"
+            :key="selectedConfig?.id + selectedConfigKey"
             :form-data="selectedConfig"
             :config-list="updatePublicSettersByComponentConfig(selectedConfig) || []"
           ></ConfigFormRender>

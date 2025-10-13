@@ -90,6 +90,7 @@ const canSave = computed(() => {
 
 export const useSchemaStore = defineStore('schema', () => {
   const schemaKey = ref(nanoid(10))
+  const selectedConfigKey = ref(nanoid(10))
 
   const formSchema = ref<FormSchema>(cloneDeep(DEFAULT))
   const selectedConfig = ref<ComponentConfig | null | undefined>()
@@ -121,6 +122,7 @@ export const useSchemaStore = defineStore('schema', () => {
   const syncHistory = () => {
     formSchema.value = cloneDeep(historyState.value.schema)
     if (selectedConfig.value?.id) {
+      selectedConfigKey.value = nanoid(10)
       selectedConfig.value = findSelectedOrFallback(formSchema.value.formContentConfigList, historyState.value.selectedConfig?.id)
     }
   }
@@ -148,6 +150,7 @@ export const useSchemaStore = defineStore('schema', () => {
     pushItem,
     replaceSchema,
     schemaKey,
+    selectedConfigKey,
     history: { canUndo, canRedo, undo, redo, canSave, saveSchemaToLocal, clearSchema, canClear }
   }
 })
