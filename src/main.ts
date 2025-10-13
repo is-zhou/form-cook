@@ -13,12 +13,13 @@ import RuleEditor from "@/components/RuleEditor/index.vue"
 import OptionsEditor from "@/components/OptionsEditor/index.vue"
 import BoolOrFnEditor from "@/components/BoolOrFnEditor.vue"
 import EventEditor from "@/components/EventEditor.vue"
+import StyleEditor from "@/components/StyleEditor.vue"
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(formRender, {
-  components: { SerializeInput, RuleEditor, OptionsEditor, BoolOrFnEditor, EventEditor }
+  components: { SerializeInput, RuleEditor, OptionsEditor, BoolOrFnEditor, EventEditor, StyleEditor }
 })
 
 app.mount('#app')

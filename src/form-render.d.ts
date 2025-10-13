@@ -12,5 +12,6 @@ declare module 'form-cook-render' {
     OptionsEditor: unknown;
     BoolOrFnEditor: unknown;
     EventEditor: unknown;
+    StyleEditor: unknown;
   }
 }
