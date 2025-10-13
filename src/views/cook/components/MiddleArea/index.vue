@@ -20,7 +20,8 @@ const handleRef = ref<HTMLElement | null>(null)
 
 const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
   parent: parentRef,
-  defaultWidth: 375,
+  localStorageKey: 'canvas_width',
+  // defaultWidth: 375,
 })
 
 let sortable: Sortable | null = null

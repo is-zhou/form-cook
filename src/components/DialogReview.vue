@@ -15,7 +15,7 @@ const targetRef = ref<HTMLElement | null>(null)
 const handleRef = ref<HTMLElement | null>(null)
 
 const { width, isUpdateWidth } = useResizable(handleRef, targetRef, {
-  defaultWidth: 375,
+  defaultWidth: parseInt(getComputedStyle(document.body).width) / 2,
 })
 
 const review = ref({})
