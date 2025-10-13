@@ -21,6 +21,7 @@ const s: TSettersModuleType = {
       clearable: true,
     },
   },
+
 }
 
 export default s

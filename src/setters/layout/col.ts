@@ -126,7 +126,7 @@ const s: TSettersModuleType = {
     attrs: {
       type: "text"
     },
-  }
+  },
 }
 
 export default s
