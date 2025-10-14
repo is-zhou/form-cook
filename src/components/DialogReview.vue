@@ -39,7 +39,11 @@ const handlePreview = () => {
     style="text-align: left"
   >
     <div v-if="dialogVisible" ref="targetRef" class="preview_wrap">
-      <form-cook-render v-model="previewFormData" v-model:form-schema="review"></form-cook-render>
+      <form-cook-render
+        v-model="previewFormData"
+        v-model:form-schema="review"
+        @submit="(data: { [key: string]: any }) => console.log('提交数据:', data)"
+      ></form-cook-render>
     </div>
     <div class="handle_pull" :class="{ updateWidth: isUpdateWidth }">
       <span ref="handleRef"><IconPull></IconPull></span>{{ width }}px

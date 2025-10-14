@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
 import basics from '@/templates/basics'
+import rules from '@/templates/rules'
 import type { FormSchema } from 'form-cook-render'
 const store = useSchemaStore()
-const tList = [basics]
+const tList = [basics, rules]
 
 const loadSchema = (item: { label: string; icon: string; getSchema: () => FormSchema }) => {
   const templateSchema = item.getSchema()
