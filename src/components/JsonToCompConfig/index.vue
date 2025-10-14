@@ -13,7 +13,7 @@ const placeholder = `输入示例：
   name: "Tom",
   age: 19,
   address: {
-    province:"北京"
+    province:"北京",
     city: "北京",
   }
 }
