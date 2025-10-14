@@ -44,7 +44,7 @@ watch(
   display: flex;
   flex-direction: column;
   height: 100vh;
-  min-width: 1600px;
+  min-width: 1250px;
 }
 .main {
   flex: 1;

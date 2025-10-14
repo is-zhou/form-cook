@@ -31,7 +31,7 @@ const handlePreview = () => {
 
 <template>
   <header class="top_area">
-    <div class="top_area_left" :class="{ w: statusStore.isTreeAreaOpen }">
+    <div class="top_area_left">
       <h3 class="logo"><img height="30" src="../../../assets/fc_logo.png" alt="" /></h3>
       <div>
         <DialogImportFields></DialogImportFields>
@@ -142,7 +142,6 @@ const handlePreview = () => {
   justify-content: space-between;
   gap: 10px;
   width: 324px;
-  transition: all 0.3s ease;
   .logo {
     position: relative;
     > img {
@@ -151,9 +150,7 @@ const handlePreview = () => {
       transform: translateY(-50%);
     }
   }
-  &.w {
-    width: 524px;
-  }
+
   h3 {
     font-weight: bold;
     margin: 0;
@@ -178,7 +175,8 @@ const handlePreview = () => {
   }
 }
 .top_area_right {
+  display: flex;
+  justify-content: flex-end;
   width: 324px;
-  text-align: right;
 }
 </style>
