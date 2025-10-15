@@ -14,6 +14,7 @@ import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
 import type { ComponentConfig } from 'form-cook-render'
+import type { CustomItem } from './RenderFormItem.vue'
 
 const store = useSchemaStore()
 const { formSchema, selectedConfig } = storeToRefs(store)
@@ -40,22 +41,21 @@ onMounted(() => {
     fallbackOnBody: true,
     swapThreshold: 0.65,
     onStart(evt) {
-      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })._underlying_vm_ = cloneDeep(
+      ;(evt.item as CustomItem)._underlying_vm_ = cloneDeep(
         formSchema.value.formContentConfigList[evt.oldIndex!],
       )
     },
 
     onAdd(evt) {
-      const element = (evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })
-        ._underlying_vm_
+      const element = (evt.item as CustomItem)._underlying_vm_
       if (!element) return
 
       removeNode(evt.item)
 
       const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
-      formSchema.value.formContentConfigList.splice(newIndex, 0, element)
+      formSchema.value.formContentConfigList.splice(newIndex, 0, element as ComponentConfig)
 
-      store.setSelect(element)
+      store.setSelect(element as ComponentConfig)
       console.log('form-onAdd', evt)
     },
 

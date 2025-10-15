@@ -13,6 +13,8 @@ import { nanoid } from 'nanoid'
 import { storeToRefs } from 'pinia'
 import Sortable from 'sortablejs'
 
+export type CustomItem = HTMLElement & { _underlying_vm_: ComponentConfig | string }
+
 const config = defineModel<ComponentConfig>('config', { required: true })
 const { formData } = defineProps<{ formData: { [key: string]: any } }>()
 const emits = defineEmits(['onDel', 'onCopy', 'onDefaultAdd'])
@@ -30,19 +32,14 @@ const handleDel = () => {
 }
 
 const handleCopy = (index: number) => {
-  if (config.value.componentType === 'form' || !config.value.children?.length) {
-    return
-  }
-  const target = deepCloneAndModify(config.value.children[index] as ComponentConfig)
+  if (config.value.componentType === 'form' || !config.value.children?.length) return
 
+  const target = deepCloneAndModify(config.value.children[index] as ComponentConfig)
   config.value.children.splice(config.value.children.length, 0, target)
 }
 
 const layoutOptions = computed(() => {
-  if (config.value.componentName === 'Row') {
-    return ['defaultAdd']
-  }
-  return []
+  return config.value.componentName === 'Row' ? ['defaultAdd'] : []
 })
 
 function getAttrs(node: ComponentConfig) {
@@ -54,45 +51,41 @@ function getAttrs(node: ComponentConfig) {
 
   if (node.componentType === 'form') {
     if (typeof node.attrs.disabled === 'function') {
-      const isVisible = node.attrs.disabled({ formData: formData, schemaItem: node })
+      const isVisible = node.attrs.disabled({ formData, schemaItem: node })
       attrs.disabled = !!isVisible
     }
-
     if (typeof node.attrs.readonly === 'function') {
-      const isVisible = node.attrs.readonly({ formData: formData, schemaItem: node })
+      const isVisible = node.attrs.readonly({ formData, schemaItem: node })
       attrs.readonly = !!isVisible
     }
     if (typeof node.attrs.options !== 'undefined') {
-      if (!Array.isArray(node.attrs.options)) {
-        attrs.options = [{ label: '动态选项', value: '动态选项' }]
-      } else {
-        attrs.options = node.attrs.options
-      }
+      attrs.options = Array.isArray(node.attrs.options)
+        ? node.attrs.options
+        : [{ label: '动态选项', value: '动态选项' }]
     }
     if (typeof node.attrs.data !== 'undefined') {
-      if (!Array.isArray(node.attrs.data)) {
-        attrs.data = [{ label: '动态选项', value: '动态选项' }]
-      } else {
-        attrs.data = node.attrs.data
-      }
+      attrs.data = Array.isArray(node.attrs.data)
+        ? node.attrs.data
+        : [{ label: '动态选项', value: '动态选项' }]
     }
   }
 
   return attrs
 }
 
-function getVisible(node: ComponentConfig) {
+function getVisible(schemaItem: ComponentConfig) {
   let isVisible = true
-  if (typeof node.visible === 'boolean' && !node.visible) {
+  if (typeof schemaItem.visible === 'boolean' && !schemaItem.visible) {
     isVisible = false
   }
-  if (typeof node.visible === 'function') {
-    isVisible = !!node.visible({
-      formData: formData,
-      schemaItem: node,
-    })
+  if (typeof schemaItem.visible === 'function') {
+    isVisible = !!schemaItem.visible({ formData, schemaItem })
   }
   return isVisible
+}
+
+function getSelected(id: string) {
+  return selectedConfig.value?.id === id
 }
 
 const id = ref(`layout_${nanoid(10)}`)
@@ -113,49 +106,35 @@ const onCompMounted = () => {
     fallbackOnBody: true,
     swapThreshold: 0.65,
     onStart(evt) {
-      if (config.value.componentType !== 'layout') {
-        return
-      }
-
-      ;(evt.item as HTMLElement & { _underlying_vm_: ComponentConfig | string })._underlying_vm_ =
-        cloneDeep(config.value.children?.[evt.oldIndex!]!)
+      if (config.value.componentType !== 'layout') return
+      ;(evt.item as CustomItem)._underlying_vm_ = cloneDeep(config.value.children?.[evt.oldIndex!]!)
     },
 
     onAdd(evt) {
-      const element = (evt.item as HTMLElement & { _underlying_vm_: ComponentConfig })
-        ._underlying_vm_
-      if (!element) return
+      const element = (evt.item as CustomItem)._underlying_vm_
 
-      if (config.value.componentType !== 'layout') {
-        return
-      }
+      if (!element || config.value.componentType !== 'layout') return
 
       removeNode(evt.item)
 
       const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
-      if (typeof newIndex === 'undefined') {
-        return
-      }
-
+      if (typeof newIndex === 'undefined') return
       config.value.children?.splice(newIndex, 0, element)
 
-      store.setSelect(element)
+      store.setSelect(element as ComponentConfig)
       console.log('layout-onAdd', evt)
     },
 
     onUpdate(evt) {
-      if (config.value.componentType !== 'layout') {
-        return
-      }
+      if (config.value.componentType !== 'layout') return
+
       removeNode(evt.item)
       insertNodeAt(evt.from, evt.item, evt.oldIndex!)
 
       const oldIndex = _getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
       const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
 
-      if (typeof newIndex === 'undefined' || typeof oldIndex === 'undefined') {
-        return
-      }
+      if (typeof newIndex === 'undefined' || typeof oldIndex === 'undefined') return
 
       const moved = config.value.children!.splice(oldIndex, 1)[0]
       config.value.children!.splice(newIndex, 0, moved)
@@ -164,12 +143,9 @@ const onCompMounted = () => {
     },
 
     onRemove(evt) {
-      if (config.value.componentType !== 'layout') {
-        return
-      }
-      if (evt.pullMode === 'clone' || evt.clone) {
-        removeNode(evt.clone)
-      }
+      if (config.value.componentType !== 'layout') return
+      if (evt.pullMode === 'clone' || evt.clone) removeNode(evt.clone)
+
       config.value.children?.splice(evt.oldIndex!, 1)
       console.log('layout-onRemove', evt)
     },
@@ -207,10 +183,10 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
   <template v-else-if="config.componentType === 'form'">
     <el-form-item
       :prop="config.formItemAttrs.field"
-      v-bind="config.formItemAttrs"
-      :class="{ selected: selectedConfig?.id === config.id, unVisible: !getVisible(config) }"
-      @click.stop="handleSelectChange(config)"
+      :class="{ selected: getSelected(config.id), unVisible: !getVisible(config) }"
       :key="`item_${config.id}`"
+      v-bind="config.formItemAttrs"
+      @click.stop="handleSelectChange(config)"
     >
       <component
         :is="getComponent(config.componentName) || config.componentName"
@@ -224,12 +200,13 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
                 v-for="option in slot.options"
                 :is="getComponent(slot.componentName)"
                 v-bind="{ ...(option as object) }"
-                >{{ (option as { label: string }).label }}</component
               >
+                {{ (option as { label: string }).label }}
+              </component>
             </template>
-            <component v-else :is="getComponent(slot.componentName)" v-bind="slot.attrs">{{
-              slot.text || '动态选项'
-            }}</component>
+            <component v-else :is="getComponent(slot.componentName)" v-bind="slot.attrs">
+              {{ slot.text || '动态选项' }}
+            </component>
           </template>
           <template v-else>{{ slot }}</template>
         </template>
@@ -238,7 +215,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         v-if="selectedConfig?.id === config.id"
         @del="handleDel()"
         @copy="emits('onCopy')"
-      ></OptionList>
+      />
     </el-form-item>
   </template>
   <template v-else-if="config.componentType === 'layout'">
@@ -267,16 +244,16 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
               @onDel="config.children?.splice(i, 1)"
               @onCopy="handleCopy(i)"
               @onDefaultAdd="handleDefaultAdd(child as ComponentConfig)"
-            ></RenderFormItem>
+            />
           </template>
         </template>
         <OptionList
-          v-if="selectedConfig?.id === config.id"
+          v-if="getSelected(config.id)"
           :options="layoutOptions"
           @del="handleDel()"
           @copy="emits('onCopy')"
           @defaultAdd="emits('onDefaultAdd')"
-        ></OptionList>
+        />
       </component>
     </template>
     <template v-if="config.slots">
@@ -284,7 +261,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         :is="getComponent(config.componentName) || config.componentName"
         v-bind="getAttrs(config)"
         :class="{
-          selected: selectedConfig?.id === config.id,
+          selected: getSelected(config.id),
           unVisible: !getVisible(config),
           [id]: true,
         }"
@@ -298,11 +275,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
           </template>
           <template v-else>
             {{ slot }}
-            <OptionList
-              v-if="selectedConfig?.id === config.id"
-              @del="handleDel()"
-              @copy="emits('onCopy')"
-            ></OptionList>
+            <OptionList v-if="getSelected(config.id)" @del="handleDel()" @copy="emits('onCopy')" />
           </template>
         </template>
       </component>

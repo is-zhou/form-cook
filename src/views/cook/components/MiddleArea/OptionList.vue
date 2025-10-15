@@ -44,6 +44,7 @@ const isShow = (option: DefaultOptions | options) =>
   bottom: 0;
   right: 0;
   line-height: 1;
+  z-index: 100;
   i {
     cursor: pointer;
     padding: 1px;
