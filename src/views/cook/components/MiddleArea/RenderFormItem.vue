@@ -9,6 +9,7 @@ import Sortable from 'sortablejs'
 
 const config = defineModel<ComponentConfig>('config', { required: true })
 const { formData } = defineProps<{ formData: { [key: string]: any } }>()
+const emits = defineEmits(['onDel', 'onCopy'])
 
 const store = useSchemaStore()
 const { selectedConfig } = storeToRefs(store)
@@ -17,7 +18,6 @@ const handleSelectChange = (element: ComponentConfig | null) => {
   store.setSelect(element)
 }
 
-const emits = defineEmits(['onDel', 'onCopy'])
 const handleDel = () => {
   emits('onDel')
   handleSelectChange(null)
@@ -244,7 +244,10 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         @click.stop="handleSelectChange(config)"
       >
         <template v-for="(child, i) in config.children">
-          <template v-if="typeof config.children[i] !== 'string'">
+          <template v-if="typeof config.children[i] === 'string'">
+            {{ config.children[i] }}
+          </template>
+          <template v-else>
             <RenderFormItem
               v-model:config="config.children[i]"
               :form-data="formData"
