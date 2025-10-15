@@ -3,7 +3,7 @@ import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
 import Sortable from 'sortablejs'
-import { insertNodeAt, removeNode } from '@/utils'
+import { deepCloneAndModify, insertNodeAt, removeNode } from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
@@ -80,6 +80,16 @@ onBeforeUnmount(() => {
   sortable?.destroy()
 })
 
+const handleCopy = (index: number) => {
+  const target = deepCloneAndModify(formSchema.value.formContentConfigList[index] || {})
+
+  formSchema.value.formContentConfigList.splice(
+    formSchema.value.formContentConfigList.length,
+    0,
+    target,
+  )
+}
+
 // 工具函数
 function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
   const children = Array.from(container.children).filter(
@@ -119,6 +129,7 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
                 :form-data="_formData"
                 v-model:config="formSchema.formContentConfigList[index]"
                 @onDel="formSchema.formContentConfigList.splice(index, 1)"
+                @onCopy="handleCopy(index)"
               ></RenderFormItem>
             </template>
           </el-form>

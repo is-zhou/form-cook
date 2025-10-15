@@ -235,3 +235,30 @@ export function transformComponentConfig(
 
   return row
 }
+
+
+/**
+ * 从画布中直接复制组件处理函数，会深度递归更新id和field的值为“前缀_nanoid(10)”
+ * @param schema schema 复制的组件协议
+ */
+export function deepCloneAndModify(
+  schema: ComponentConfig,
+): ComponentConfig {
+
+  if (typeof schema === "string") {
+    return schema
+  }
+
+  const target = cloneDeep(schema)
+
+  target.id = `id_${nanoid(10)}`
+  if (target.componentType === 'form') {
+    target.formItemAttrs.field = `field_${nanoid(10)}`
+  }
+
+  if (target.componentType === 'layout' && target.children?.length) {
+    target.children = target.children.map(i => deepCloneAndModify(i as ComponentConfig))
+  }
+
+  return target
+}

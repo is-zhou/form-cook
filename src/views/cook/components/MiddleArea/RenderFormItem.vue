@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
-import { insertNodeAt, removeNode } from '@/utils'
+import { deepCloneAndModify, insertNodeAt, removeNode } from '@/utils'
 import { getComponent, type ComponentConfig, type LayoutCompConfig } from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
@@ -17,10 +17,19 @@ const handleSelectChange = (element: ComponentConfig | null) => {
   store.setSelect(element)
 }
 
-const emits = defineEmits(['onDel'])
+const emits = defineEmits(['onDel', 'onCopy'])
 const handleDel = () => {
   emits('onDel')
   handleSelectChange(null)
+}
+
+const handleCopy = (index: number) => {
+  if (config.value.componentType === 'form' || !config.value.children?.length) {
+    return
+  }
+  const target = deepCloneAndModify(config.value.children[index] as ComponentConfig)
+
+  config.value.children.splice(config.value.children.length, 0, target)
 }
 
 function getAttrs(node: ComponentConfig) {
@@ -219,14 +228,11 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
           <template v-else>{{ slot }}</template>
         </template>
       </component>
-      <el-icon
+      <OptionList
         v-if="selectedConfig?.id === config.id"
-        @click.stop="handleDel()"
-        class="current_del"
-        size="12"
-      >
-        <i-ep-Delete />
-      </el-icon>
+        @del="handleDel()"
+        @copy="emits('onCopy')"
+      ></OptionList>
     </el-form-item>
   </template>
   <template v-else-if="config.componentType === 'layout'">
@@ -250,17 +256,15 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
               v-model:config="config.children[i]"
               :form-data="formData"
               @onDel="config.children?.splice(i, 1)"
+              @onCopy="handleCopy(i)"
             ></RenderFormItem>
           </template>
         </template>
-        <el-icon
+        <OptionList
           v-if="selectedConfig?.id === config.id"
-          @click.stop="handleDel()"
-          class="current_del"
-          size="12"
-        >
-          <i-ep-Delete />
-        </el-icon>
+          @del="handleDel()"
+          @copy="emits('onCopy')"
+        ></OptionList>
       </component>
     </template>
     <template v-if="config.slots">
@@ -282,14 +286,12 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
           </template>
           <template v-else>
             {{ slot }}
-            <el-icon
-              @click.stop="handleDel()"
+            <OptionList
               v-if="selectedConfig?.id === config.id"
-              class="current_del"
-              size="12"
-            >
-              <i-ep-Delete /> </el-icon
-          ></template>
+              @del="handleDel()"
+              @copy="emits('onCopy')"
+            ></OptionList>
+          </template>
         </template>
       </component>
     </template>
@@ -299,18 +301,12 @@ function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
 <style scoped lang="scss">
 .layout {
   border: #cbcdd3 dashed 1px;
-  min-height: 20px;
+  min-height: 30px;
   padding: 6px;
 }
 .selected {
   position: relative;
-  border: var(--el-color-primary) dashed 1px;
-  .current_del {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    cursor: pointer;
-  }
+  border: var(--el-color-primary) solid 1px;
 }
 .unVisible {
   background-color: rgb(245, 244, 244) !important;
