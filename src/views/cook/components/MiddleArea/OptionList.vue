@@ -1,15 +1,35 @@
 <script setup lang="ts">
+type DefaultOptions = 'copy' | 'del'
+type options = 'defaultAdd'
+
+const { defaultOptions = ['copy', 'del'], options = [] } = defineProps<{
+  defaultOptions?: Array<DefaultOptions>
+  options?: Array<'defaultAdd'>
+}>()
+
 const emits = defineEmits<{
   (e: 'del'): void
   (e: 'copy'): void
+  (e: 'defaultAdd'): void
 }>()
+
+const isShow = (option: DefaultOptions | options) =>
+  [...defaultOptions, ...options].includes(option)
 </script>
 <template>
   <div class="option_list">
-    <el-icon @click.stop="emits('copy')" class="current_copy" size="14">
+    <el-icon
+      v-if="isShow('defaultAdd')"
+      @click.stop="emits('defaultAdd')"
+      class="current_copy"
+      size="14"
+    >
+      <i-ep-CirclePlus />
+    </el-icon>
+    <el-icon v-if="isShow('copy')" @click.stop="emits('copy')" class="current_copy" size="14">
       <i-ep-CopyDocument />
     </el-icon>
-    <el-icon @click.stop="emits('del')" class="current_del" size="14">
+    <el-icon v-if="isShow('del')" @click.stop="emits('del')" class="current_del" size="14">
       <i-ep-Delete />
     </el-icon>
   </div>

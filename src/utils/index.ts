@@ -1,8 +1,11 @@
 import type { Material } from '@/types/material'
 import type { TSettersModuleType } from '@/types/setter'
 import type { ComponentConfig, ComponentName, FormCompConfig, LayoutCompConfig } from 'form-cook-render'
+
 import { cloneDeep } from 'lodash'
 import { nanoid } from 'nanoid'
+
+import Col from "@/materials/layout/col"
 
 import setters from '@/setters'
 import publicFormSetterList from '@/setters/publicForm.ts'
@@ -31,8 +34,6 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
   return sortByProperty(list, 'sort')
 }
 
-
-
 export function cloneComponentConfig(current: Material): ComponentConfig {
   const materialContent: ComponentConfig = cloneDeep(current.materialContent)
   materialContent.id = `id_${nanoid(10)}`
@@ -43,7 +44,23 @@ export function cloneComponentConfig(current: Material): ComponentConfig {
   return { ...materialContent }
 }
 
-
+export function handleDefaultAdd(config: ComponentConfig) {
+  const target = cloneComponentConfigByParentName(config.componentName)
+  if (target && config.componentType === 'layout') {
+    config.children?.splice(config.children.length, 0, target)
+  }
+  function cloneComponentConfigByParentName(componentsName: string): ComponentConfig | null {
+    const componentsNameMap: Record<string, () => Material> = {
+      Row: () => cloneDeep(Col)
+    }
+    const material = componentsNameMap[componentsName]?.()
+    if (!material) {
+      ElMessage.warning(`${componentsName}组件未配置快捷添加的子组件！`)
+      return null
+    }
+    return cloneComponentConfig(material)
+  }
+}
 
 export function updateSettersByComponentConfig(componentConfig: ComponentConfig) {
 

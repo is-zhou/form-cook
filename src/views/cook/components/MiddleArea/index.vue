@@ -3,7 +3,13 @@ import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
 import Sortable from 'sortablejs'
-import { deepCloneAndModify, getVmIndexFromDomIndex, insertNodeAt, removeNode } from '@/utils'
+import {
+  deepCloneAndModify,
+  getVmIndexFromDomIndex,
+  handleDefaultAdd,
+  insertNodeAt,
+  removeNode,
+} from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
@@ -122,6 +128,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
                 v-model:config="formSchema.formContentConfigList[index]"
                 @onDel="formSchema.formContentConfigList.splice(index, 1)"
                 @onCopy="handleCopy(index)"
+                @onDefaultAdd="handleDefaultAdd(config)"
               ></RenderFormItem>
             </template>
           </el-form>

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
-import { deepCloneAndModify, getVmIndexFromDomIndex, insertNodeAt, removeNode } from '@/utils'
+import {
+  deepCloneAndModify,
+  getVmIndexFromDomIndex,
+  handleDefaultAdd,
+  insertNodeAt,
+  removeNode,
+} from '@/utils'
 import { getComponent, type ComponentConfig, type LayoutCompConfig } from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
@@ -9,7 +15,7 @@ import Sortable from 'sortablejs'
 
 const config = defineModel<ComponentConfig>('config', { required: true })
 const { formData } = defineProps<{ formData: { [key: string]: any } }>()
-const emits = defineEmits(['onDel', 'onCopy'])
+const emits = defineEmits(['onDel', 'onCopy', 'onDefaultAdd'])
 
 const store = useSchemaStore()
 const { selectedConfig } = storeToRefs(store)
@@ -31,6 +37,13 @@ const handleCopy = (index: number) => {
 
   config.value.children.splice(config.value.children.length, 0, target)
 }
+
+const layoutOptions = computed(() => {
+  if (config.value.componentName === 'Row') {
+    return ['defaultAdd']
+  }
+  return []
+})
 
 function getAttrs(node: ComponentConfig) {
   const attrs = cloneDeep(node.attrs)
@@ -253,13 +266,16 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
               :form-data="formData"
               @onDel="config.children?.splice(i, 1)"
               @onCopy="handleCopy(i)"
+              @onDefaultAdd="handleDefaultAdd(child as ComponentConfig)"
             ></RenderFormItem>
           </template>
         </template>
         <OptionList
           v-if="selectedConfig?.id === config.id"
+          :options="layoutOptions"
           @del="handleDel()"
           @copy="emits('onCopy')"
+          @defaultAdd="emits('onDefaultAdd')"
         ></OptionList>
       </component>
     </template>
