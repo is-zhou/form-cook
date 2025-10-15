@@ -3,7 +3,7 @@ import IconPull from '@/components/icon/IconPull.vue'
 
 import { useResizable } from '@/hooks/useResizable'
 import Sortable from 'sortablejs'
-import { deepCloneAndModify, insertNodeAt, removeNode } from '@/utils'
+import { deepCloneAndModify, getVmIndexFromDomIndex, insertNodeAt, removeNode } from '@/utils'
 import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
@@ -46,7 +46,7 @@ onMounted(() => {
 
       removeNode(evt.item)
 
-      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
       formSchema.value.formContentConfigList.splice(newIndex, 0, element)
 
       store.setSelect(element)
@@ -57,8 +57,8 @@ onMounted(() => {
       removeNode(evt.item)
       insertNodeAt(evt.from, evt.item, evt.oldIndex!)
 
-      const oldIndex = getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
-      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      const oldIndex = _getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
+      const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
 
       const moved = formSchema.value.formContentConfigList.splice(oldIndex, 1)[0]
       formSchema.value.formContentConfigList.splice(newIndex, 0, moved)
@@ -90,20 +90,12 @@ const handleCopy = (index: number) => {
   )
 }
 
-// 工具函数
-function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
-  const children = Array.from(container.children).filter(
-    (el) =>
-      !(el as HTMLElement).classList.contains('sortable-ghost') &&
-      !(el as HTMLElement).classList.contains('sortable-chosen') &&
-      (el as HTMLElement).style.display !== 'none',
+function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
+  return getVmIndexFromDomIndex(
+    container,
+    domIndex,
+    () => formSchema.value.formContentConfigList.length,
   )
-  if (domIndex >= children.length) {
-    return formSchema.value.formContentConfigList.length
-  }
-  const targetNode = children[domIndex]
-  const index = children.indexOf(targetNode)
-  return index === -1 ? formSchema.value.formContentConfigList.length : index
 }
 </script>
 

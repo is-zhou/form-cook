@@ -262,3 +262,32 @@ export function deepCloneAndModify(
 
   return target
 }
+
+/**
+ * 从真实dome下标值中获取虚拟dom的下标值
+ * @param container 真实dom容器
+ * @param domIndex 真实dom在容器中的下标值
+ * @param getLength 获取实际数据数组的长度
+ */
+export function getVmIndexFromDomIndex(
+  container: HTMLElement,
+  domIndex: number,
+  getLength: () => number
+) {
+  //过滤掉容器中无效的dom
+  const children = Array.from(container.children).filter(
+    (el) =>
+      !(el as HTMLElement).classList.contains('sortable-ghost') &&
+      !(el as HTMLElement).classList.contains('sortable-chosen') &&
+      (el as HTMLElement).style.display !== 'none',
+  )
+
+  const length = getLength()
+
+  if (domIndex >= children.length) return length
+
+  const targetNode = children[domIndex]
+  const index = children.indexOf(targetNode)
+
+  return index === -1 ? length : index
+}

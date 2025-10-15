@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSchemaStore } from '@/stores/schema'
-import { deepCloneAndModify, insertNodeAt, removeNode } from '@/utils'
+import { deepCloneAndModify, getVmIndexFromDomIndex, insertNodeAt, removeNode } from '@/utils'
 import { getComponent, type ComponentConfig, type LayoutCompConfig } from 'form-cook-render'
 import cloneDeep from 'lodash/cloneDeep'
 import { nanoid } from 'nanoid'
@@ -119,7 +119,7 @@ const onCompMounted = () => {
 
       removeNode(evt.item)
 
-      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
       if (typeof newIndex === 'undefined') {
         return
       }
@@ -137,8 +137,8 @@ const onCompMounted = () => {
       removeNode(evt.item)
       insertNodeAt(evt.from, evt.item, evt.oldIndex!)
 
-      const oldIndex = getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
-      const newIndex = getVmIndexFromDomIndex(evt.to, evt.newIndex!)
+      const oldIndex = _getVmIndexFromDomIndex(evt.from, evt.oldIndex!)
+      const newIndex = _getVmIndexFromDomIndex(evt.to, evt.newIndex!)
 
       if (typeof newIndex === 'undefined' || typeof oldIndex === 'undefined') {
         return
@@ -178,19 +178,12 @@ onBeforeUnmount(() => {
   sortable?.destroy()
 })
 
-function getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
-  const children = Array.from(container.children).filter(
-    (el) =>
-      !(el as HTMLElement).classList.contains('sortable-ghost') &&
-      !(el as HTMLElement).classList.contains('sortable-chosen') &&
-      (el as HTMLElement).style.display !== 'none',
+function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
+  return getVmIndexFromDomIndex(
+    container,
+    domIndex,
+    () => (config.value as LayoutCompConfig).children!.length,
   )
-  if (domIndex >= (children.length ?? 0)) {
-    return (config.value as LayoutCompConfig).children?.length
-  }
-  const targetNode = children[domIndex]
-  const index = children.indexOf(targetNode)
-  return index === -1 ? (config.value as LayoutCompConfig).children?.length : index
 }
 </script>
 
