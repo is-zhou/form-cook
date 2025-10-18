@@ -36,12 +36,22 @@ export function getSettersListByObj(obj: TSettersModuleType, preKey?: string) {
 
 export function cloneComponentConfig(current: Material): ComponentConfig {
   const materialContent: ComponentConfig = cloneDeep(current.materialContent)
-  materialContent.id = `id_${nanoid(10)}`
 
-  if (materialContent.componentType === 'form') {
-    materialContent.formItemAttrs.field = `field_${nanoid(10)}`
+  const cloneTarget = (target: ComponentConfig | string) => {
+    if (typeof target === "string") {
+      return target
+    }
+    target.id = `id_${nanoid(10)}`
+    if (target.componentType === 'form') {
+      target.formItemAttrs.field = `field_${nanoid(10)}`
+    }
+
+    if (target.componentType === "layout" && target.children?.length) {
+      target.children = target.children.map(i => cloneTarget(i))
+    }
+    return target
   }
-  return { ...materialContent }
+  return cloneTarget(materialContent) as ComponentConfig
 }
 
 export function handleDefaultAdd(config: ComponentConfig) {

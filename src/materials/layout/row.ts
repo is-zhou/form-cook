@@ -10,7 +10,16 @@ const m: Material = {
     componentType: 'layout',
     attrs: { style: {}, },
     children: [
-
+      {
+        id: '',
+        componentName: 'Col',
+        componentType: 'layout',
+        attrs: {
+          style: {},
+          span: 6
+        },
+        children: []
+      }
     ],
 
   },
