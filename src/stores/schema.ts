@@ -121,6 +121,7 @@ export const useSchemaStore = defineStore('schema', () => {
 
   const syncHistory = () => {
     formSchema.value = cloneDeep(historyState.value.schema)
+    schemaKey.value = nanoid(10)
     if (selectedConfig.value?.id) {
       selectedConfigKey.value = nanoid(10)
       selectedConfig.value = findSelectedOrFallback(formSchema.value.formContentConfigList, historyState.value.selectedConfig?.id)
