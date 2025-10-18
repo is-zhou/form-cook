@@ -19,4 +19,8 @@ export const useStatusStore = defineStore('status', () => {
   }
 
   return { isTreeAreaOpen, updateTreeAreaOpen, isTemplateOpen, updateTemplateOpen }
-})
+},
+  {
+    persist: true
+  }
+)

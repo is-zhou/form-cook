@@ -4,7 +4,7 @@ import IconInput from '@/components/MaterialIcons/IconInput.vue'
 import materialIconMap from '@/components/MaterialIcons/index'
 import { cloneComponentConfig } from '@/utils'
 import Sortable from 'sortablejs'
-import { useMaterialsStore } from '@/stores/cook'
+import { useMaterialsStore } from '@/stores/material'
 import { useSchemaStore } from '@/stores/schema'
 import type { ComponentConfig } from 'form-cook-render'
 

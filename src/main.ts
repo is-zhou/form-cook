@@ -14,9 +14,12 @@ import OptionsEditor from "@/components/OptionsEditor/index.vue"
 import BoolOrFnEditor from "@/components/BoolOrFnEditor.vue"
 import EventEditor from "@/components/EventEditor.vue"
 import StyleEditor from "@/components/StyleEditor.vue"
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate);
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(formRender, {
   components: { SerializeInput, RuleEditor, OptionsEditor, BoolOrFnEditor, EventEditor, StyleEditor }
