@@ -244,8 +244,12 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
       0 0 0 1px #ddd,
       0 2px 6px rgba(0, 0, 0, 0.05);
     min-height: calc(100vh - 40px - 20px - 40px);
-    .el-form {
+    &::v-deep(.el-form) {
       min-height: calc(100vh - 40px - 20px - 40px);
+      .el-form-item__label,
+      .el-mention {
+        pointer-events: none;
+      }
     }
     .el-form.el-form--inline.el-form--label-top {
       align-content: flex-start;
