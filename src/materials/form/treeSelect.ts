@@ -12,6 +12,9 @@ const m: Material = {
       label: '树形选择',
     },
     attrs: {
+      style: {
+        minWidth: '200px'
+      },
       data: [
         {
           value: '1',

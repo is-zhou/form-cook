@@ -11,7 +11,11 @@ const slider: Material = {
       field: '',
       label: '滑块',
     },
-    attrs: {},
+    attrs: {
+      style: {
+        minWidth: '200px'
+      },
+    },
     defaultValue: 0
   },
 }

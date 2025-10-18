@@ -12,6 +12,9 @@ const select: Material = {
       label: '选择器',
     },
     attrs: {
+      style: {
+        minWidth: '200px'
+      },
       options: [
         {
           value: 'Option1',
