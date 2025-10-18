@@ -26,10 +26,13 @@ watch(
   () => cloneDeep(selectedConfig.value),
   (newData, oldData) => {
     if (selectedConfig.value) {
-      activeName.value === 'formArea' && (activeName.value = 'component')
       componentSetterList.value = updateSettersByComponentConfig(selectedConfig.value)
     } else {
       activeName.value = 'formArea'
+    }
+
+    if (newData?.id !== oldData?.id) {
+      activeName.value === 'formArea' && (activeName.value = 'component')
     }
 
     if (
