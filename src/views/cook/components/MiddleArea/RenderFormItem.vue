@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMaterialsStore } from '@/stores/material'
 import { useSchemaStore } from '@/stores/schema'
 import {
   deepCloneAndModify,
@@ -17,10 +18,11 @@ export type CustomItem = HTMLElement & { _underlying_vm_: ComponentConfig | stri
 
 const config = defineModel<ComponentConfig>('config', { required: true })
 const { formData } = defineProps<{ formData: { [key: string]: any } }>()
-const emits = defineEmits(['onDel', 'onCopy', 'onDefaultAdd'])
+const emits = defineEmits(['onDel', 'onCopy', 'onDefaultAdd', 'onSaveMaterial'])
 
 const store = useSchemaStore()
 const { selectedConfig } = storeToRefs(store)
+const { addCustomMaterial } = useMaterialsStore()
 
 const handleSelectChange = (element: ComponentConfig | null) => {
   store.setSelect(element)
@@ -38,8 +40,21 @@ const handleCopy = (index: number) => {
   config.value.children.splice(config.value.children.length, 0, target)
 }
 
+const handleSaveMaterial = (index: number) => {
+  if (config.value.componentType === 'form' || !config.value.children?.length) return
+  addCustomMaterial(`收藏`, config.value.children[index] as ComponentConfig)
+}
+
 const layoutOptions = computed(() => {
-  return config.value.componentName === 'Row' ? ['defaultAdd'] : []
+  let options: string[] = []
+  if (config.value.componentName === 'Row') {
+    options = options.concat(['defaultAdd'])
+  }
+  if (config.value.componentType === 'layout' && !!config.value.children?.length) {
+    options = options.concat(['saveMaterial'])
+  }
+
+  return options
 })
 
 function getAttrs(node: ComponentConfig) {
@@ -244,6 +259,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
               :form-data="formData"
               @onDel="config.children?.splice(i, 1)"
               @onCopy="handleCopy(i)"
+              @onSaveMaterial="handleSaveMaterial(i)"
               @onDefaultAdd="handleDefaultAdd(child as ComponentConfig)"
             />
           </template>
@@ -254,6 +270,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
           @del="handleDel()"
           @copy="emits('onCopy')"
           @defaultAdd="emits('onDefaultAdd')"
+          @saveMaterial="emits('onSaveMaterial')"
         />
       </component>
     </template>

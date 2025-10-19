@@ -1,16 +1,17 @@
 <script setup lang="ts">
 type DefaultOptions = 'copy' | 'del'
-type options = 'defaultAdd'
+type options = 'defaultAdd' | 'saveMaterial'
 
 const { defaultOptions = ['copy', 'del'], options = [] } = defineProps<{
   defaultOptions?: Array<DefaultOptions>
-  options?: Array<'defaultAdd'>
+  options?: Array<options>
 }>()
 
 const emits = defineEmits<{
   (e: 'del'): void
   (e: 'copy'): void
   (e: 'defaultAdd'): void
+  (e: 'saveMaterial'): void
 }>()
 
 const isShow = (option: DefaultOptions | options) =>
@@ -18,6 +19,10 @@ const isShow = (option: DefaultOptions | options) =>
 </script>
 <template>
   <div class="option_list">
+    <el-icon v-if="isShow('saveMaterial')" @click.stop="emits('saveMaterial')" size="14">
+      <i-ep-Collection />
+    </el-icon>
+
     <el-icon
       v-if="isShow('defaultAdd')"
       @click.stop="emits('defaultAdd')"

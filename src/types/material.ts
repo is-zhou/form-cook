@@ -1,6 +1,6 @@
 import type { ComponentConfig } from "form-cook-render"
 
-export type MaterialGroup = "all" | "form" | "layout" | "action" | "date"
+export type MaterialGroup = "all" | "form" | "layout" | "action" | "date" | "custom"
 
 export type Material = {
   label: string

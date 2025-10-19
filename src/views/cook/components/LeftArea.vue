@@ -7,9 +7,11 @@ import Sortable from 'sortablejs'
 import { useMaterialsStore } from '@/stores/material'
 import { useSchemaStore } from '@/stores/schema'
 import type { ComponentConfig } from 'form-cook-render'
+import { storeToRefs } from 'pinia'
 
 const store = useSchemaStore()
 const materialsStore = useMaterialsStore()
+const { currentMenu } = storeToRefs(materialsStore)
 
 const pushComponentConfig = (current: Material) => {
   const result = cloneComponentConfig(current)
@@ -17,40 +19,16 @@ const pushComponentConfig = (current: Material) => {
   store.setSelect(result)
 }
 
-const currentMenu = ref<string | number>('form')
+const editIndex = ref()
+const editValue = ref('')
 
-const menuList: { key: MaterialGroup; label: string }[] = [
-  {
-    key: 'all',
-    label: '所有',
-  },
-  {
-    key: 'form',
-    label: '表单',
-  },
-  {
-    key: 'layout',
-    label: '布局',
-  },
-  {
-    key: 'action',
-    label: '动作',
-  },
-  {
-    key: 'date',
-    label: '日期',
-  },
-]
-
-const changeMenu = (key: string | number) => {
+const changeMenu = (key: string) => {
   currentMenu.value = key
-  materialsStore.changeMaterials(materialsStore.menus[key])
+  materialsStore.changeMaterials(key)
 }
+
 let sortable: Sortable | null = null
 const drag = ref()
-onMounted(() => {
-  changeMenu('form')
-})
 
 watch(
   () => drag.value,
@@ -80,7 +58,7 @@ watch(
 )
 
 function handleClick(e: Event) {
-  const target = (e.target as HTMLElement).closest('.material_item') as HTMLElement
+  const target = (e.target as HTMLElement).closest('.material_item .item_content') as HTMLElement
   if (target) {
     const index = target.dataset.index
     if (typeof index !== 'undefined') {
@@ -124,7 +102,7 @@ onBeforeUnmount(() => {
     </div>
     <div class="body">
       <ul class="menu">
-        <li v-for="item in menuList" @click="changeMenu(item.key)">
+        <li v-for="item in materialsStore.menuList" @click="changeMenu(item.key)">
           <el-button :type="currentMenu === item.key ? 'primary' : ''">{{ item.label }}</el-button>
         </li>
       </ul>
@@ -132,10 +110,39 @@ onBeforeUnmount(() => {
         <el-scrollbar height="100%">
           <div class="left_area">
             <div ref="drag" class="materials_drag_container" :key="currentMenu">
+              <div class="empty" v-if="!list.length">暂无数据~</div>
               <template v-for="(element, index) in list" :key="element.label">
-                <div class="material_item" :data-index="index">
-                  <div>
-                    <div>{{ element.label }}</div>
+                <div class="material_item">
+                  <div class="item_title">
+                    <div>
+                      <el-input
+                        v-if="currentMenu === 'custom' && editIndex === index"
+                        v-model="editValue"
+                        style="width: 80px"
+                        autofocus
+                        @blur="() => ((element.label = editValue), (editIndex = -1))"
+                      />
+                      <span
+                        v-else
+                        @click.self="((editIndex = index), (editValue = element.label))"
+                        >{{ element.label }}</span
+                      >
+                    </div>
+                    <el-popconfirm
+                      v-if="currentMenu === 'custom'"
+                      title="确认删除该收藏吗?"
+                      @confirm.stop="materialsStore.delCustomMaterial(index)"
+                      confirm-button-text="确认"
+                      cancel-button-text="取消"
+                    >
+                      <template #reference>
+                        <el-icon class="custom_del" size="14">
+                          <i-ep-Delete />
+                        </el-icon>
+                      </template>
+                    </el-popconfirm>
+                  </div>
+                  <div class="item_content" :data-index="index">
                     <component
                       :is="
                         materialIconMap[
@@ -190,16 +197,18 @@ onBeforeUnmount(() => {
     height: calc(100vh - 42px - 42px);
     width: 100%;
     .menu {
-      width: 60px;
+      width: 62px;
       list-style: none;
       margin: 2px 2px 0 0;
-      padding: 6px;
+      padding: 4px;
       font-size: 14px;
       background-color: #f5f7fa;
       li {
         padding: 4px 2px;
+        width: 100%;
         ::v-deep(.el-button) {
           border: none;
+          width: 100%;
         }
       }
     }
@@ -214,24 +223,46 @@ onBeforeUnmount(() => {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
-          :hover {
-            cursor: move;
+
+          .empty {
+            font-size: 14px;
+            color: #909399;
+            text-align: center;
+            width: 100%;
+            padding-top: 18px;
           }
+
           .material_item {
             font-size: 12px;
             background-color: #fff;
-            > div {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-              border: 1px dashed #dcdfe6;
-              padding: 6px;
-              border-radius: 10px;
-            }
+            border: 1px dashed #dcdfe6;
+            padding: 6px;
+            border-radius: 10px;
+
             svg {
               width: 108px;
               height: 80px;
+            }
+
+            .item_title {
+              display: flex;
+              align-items: center;
+              .custom_del {
+                > svg {
+                  cursor: pointer;
+                  width: 14px;
+                  height: 14px;
+                }
+              }
+            }
+            .item_content {
+              :hover {
+                cursor: move;
+              }
             }
           }
         }

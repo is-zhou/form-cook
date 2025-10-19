@@ -15,9 +15,11 @@ import { storeToRefs } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
 import type { ComponentConfig } from 'form-cook-render'
 import type { CustomItem } from './RenderFormItem.vue'
+import { useMaterialsStore } from '@/stores/material'
 
 const store = useSchemaStore()
 const { formSchema, selectedConfig } = storeToRefs(store)
+const { addCustomMaterial } = useMaterialsStore()
 
 const _formData = ref<{ [key: string]: any }>({})
 
@@ -96,6 +98,10 @@ const handleCopy = (index: number) => {
   )
 }
 
+const handleSaveMaterial = (index: number) => {
+  addCustomMaterial(`收藏`, formSchema.value.formContentConfigList[index] as ComponentConfig)
+}
+
 function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
   return getVmIndexFromDomIndex(
     container,
@@ -129,6 +135,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
                 @onDel="formSchema.formContentConfigList.splice(index, 1)"
                 @onCopy="handleCopy(index)"
                 @onDefaultAdd="handleDefaultAdd(config)"
+                @onSaveMaterial="handleSaveMaterial(index)"
               ></RenderFormItem>
             </template>
           </el-form>
