@@ -5,9 +5,10 @@ import basics from '@/templates/basics'
 import rules from '@/templates/rules'
 import col from '@/templates/col'
 import nested from '@/templates/nested'
+import nestedArray from '@/templates/nestedArray'
 
 const store = useSchemaStore()
-const tList = [basics, rules, col, nested]
+const tList = [basics, rules, col, nested, nestedArray]
 
 const loadSchema = (item: { label: string; icon: string; getSchema: () => FormSchema }) => {
   const templateSchema = item.getSchema()
