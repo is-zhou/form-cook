@@ -47,7 +47,6 @@ const getSchema = (): FormSchema => {
           ],
           date2: [
             {
-              type: "date",
               required: true,
               message: "Please pick a time",
               trigger: "change",
