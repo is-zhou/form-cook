@@ -124,6 +124,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
             style="padding-bottom: 20px"
             :model="_formData"
             v-bind="formSchema.formAreaConfig.attrs"
+            :validate-on-rule-change="false"
           >
             <template
               v-for="(config, index) in formSchema.formContentConfigList"

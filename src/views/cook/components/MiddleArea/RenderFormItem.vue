@@ -208,6 +208,7 @@ function _getVmIndexFromDomIndex(container: HTMLElement, domIndex: number) {
         v-model="config.defaultValue"
         v-bind="getAttrs(config)"
         style="pointer-events: none"
+        :validate-event="false"
       >
         <template v-for="(slot, name) in config?.slots" #[name!]>
           <template v-if="typeof slot === 'object'">
