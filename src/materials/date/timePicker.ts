@@ -12,7 +12,7 @@ const m: Material = {
       label: '时间选择器',
     },
     attrs: {
-      type: 'textarea',
+      'value-format': 'hh:mm:ss'
     },
     defaultValue: ""
   },

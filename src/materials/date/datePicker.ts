@@ -13,6 +13,7 @@ const m: Material = {
     },
     attrs: {
       type: 'date',
+      'value-format': 'YYYY-MM-DD',
       shortcuts: [
         {
           text: 'Today',
