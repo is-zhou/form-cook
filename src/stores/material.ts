@@ -16,8 +16,8 @@ export const useMaterialsStore = defineStore('materials', () => {
   ]
   const menus: { [key: string]: Material[] } = material
 
-  const currentMenu = ref()
-  const materials = ref<Material[]>([])
+  const currentMenu = ref("all")
+  const materials = ref<Material[]>([...menus.all])
   const customMaterials = ref<Material[]>([])
 
   watch(() => customMaterials.value, () => {
