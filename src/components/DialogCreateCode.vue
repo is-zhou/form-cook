@@ -41,7 +41,7 @@ const download = () => {
 <template>
   <!-- <el-tooltip effect="light" content="生成代码" placement="bottom"> -->
   <el-button :icon="IconCreateCode" type="primary" @click="handleCreate" plain>
-    生成代码
+    生成SFC代码
   </el-button>
   <!-- </el-tooltip> -->
   <div style="text-align: left">
