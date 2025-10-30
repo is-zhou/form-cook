@@ -13,7 +13,7 @@ import monacoEditorPlugin from 'vite-plugin-monaco-editor-esm'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/form-cook/demo/',
   plugins: [
     vue(),
     vueJsx(),
