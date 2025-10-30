@@ -50,7 +50,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  base: '/demo/',
+  base: '/form-cook/demo/',
   build: {
     outDir: '../docs/demo', // 构建后输出到 docs 目录中
     emptyOutDir: true
