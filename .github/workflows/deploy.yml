@@ -31,10 +31,7 @@ jobs:
 
       # 5️⃣ 构建 Demo（输出到 docs/demo）
       - name: Build demo
-        run: |
-          cd demo
-          pnpm run build
-          cd ..
+        run: pnpm run build
 
       # 6️⃣ 构建文档（假设用 VitePress）
       - name: Build docs
