@@ -1,4 +1,4 @@
-name: Deploy Docs & Demo
+name: Deploy Docs & Demo (pnpm)
 on:
   push:
     branches:
@@ -7,21 +7,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣ 检出仓库
       - uses: actions/checkout@v4
 
-      - name: Setup Node
+      # 2️⃣ 安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 3️⃣ 设置 Node 版本
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
-      - name: Install & Build
+      # 4️⃣ 安装依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5️⃣ 构建 Demo（输出到 docs/demo）
+      - name: Build demo
         run: |
-          npm ci
-          cd demo && npm ci && npm run build
-          cd .. && npm run docs:build
+          cd demo
+          pnpm run build
+          cd ..
 
-      - name: Deploy
+      # 6️⃣ 构建文档（假设用 VitePress）
+      - name: Build docs
+        run: pnpm run docs:build
+
+      # 7️⃣ 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
