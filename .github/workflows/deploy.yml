@@ -42,7 +42,7 @@ jobs:
       - name: Copy demo to docs output
         run: |
           mkdir -p docs/.vitepress/dist/demo
-          cp -r demo/dist/* docs/.vitepress/dist/demo/
+          cp -r dist/* docs/.vitepress/dist/demo/
 
       # 8️⃣ 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
