@@ -1,4 +1,5 @@
 name: Deploy Docs & Demo (pnpm)
+
 on:
   push:
     branches:
@@ -29,17 +30,23 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5️⃣ 构建 Demo（输出到 docs/demo）
+      # 5️⃣ 构建 Demo
       - name: Build demo
-        run: pnpm run build
+        run: pnpm run build --filter demo
 
-      # 6️⃣ 构建文档（假设用 VitePress）
+      # 6️⃣ 构建 VitePress 文档
       - name: Build docs
         run: pnpm run docs:build
 
-      # 7️⃣ 部署到 GitHub Pages
+      # 7️⃣ 合并 demo 到文档输出目录
+      - name: Copy demo to docs output
+        run: |
+          mkdir -p docs/.vitepress/dist/demo
+          cp -r demo/dist/* docs/.vitepress/dist/demo/
+
+      # 8️⃣ 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          publish_dir: ./docs/.vitepress/dist
