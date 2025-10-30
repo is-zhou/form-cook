@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 立即体验
-      link: https://github.com/is-zhou/form-cook
+      link: https://is-zhou.github.io/form-cook/demo/
     - theme: alt
       text: GitHub
       link: https://github.com/is-zhou/form-cook
