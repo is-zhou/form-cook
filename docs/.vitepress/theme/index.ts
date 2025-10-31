@@ -24,8 +24,6 @@ export default {
     // ...
     if (typeof window !== 'undefined') {
       router.onAfterRouteChange = (to) => {
-        console.log('router.onAfterRouteChange----------', to);
-
         if (to === repoBase) {
           requestAnimationFrame(setupHeroTilt)
         }
