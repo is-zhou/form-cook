@@ -6,7 +6,8 @@ import './style.css'
 
 import WebUI from './components/WebUI.vue'
 import ProfileList from './components/ProfileList.vue'
-
+const isProd = process.env.NODE_ENV === 'production'
+const repoBase = isProd ? '/form-cook/' : '/'
 export default {
   extends: DefaultTheme,
   Layout: () => {
@@ -25,7 +26,7 @@ export default {
       router.onAfterRouteChange = (to) => {
         console.log('router.onAfterRouteChange----------', to);
 
-        if (to === '/') {
+        if (to === repoBase) {
           requestAnimationFrame(setupHeroTilt)
         }
       }
