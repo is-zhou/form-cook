@@ -1,17 +1,21 @@
 <template>
-  <div class="designer_container">
-    <p>低代码表单解决方案，轻松应对各种业务场景</p>
-    <br /><br />
-    <div class="main_wrap" ref="wrapRef">
-      <img src="/bg.png" alt="" />
-      <img class="block1 floatable" src="/block1.png" alt="" />
+  <div class="VPFeatures VPHomeFeatures">
+    <div class="container">
+      <div class="designer_container">
+        <p>低代码表单解决方案，轻松应对各种业务场景</p>
+        <br /><br />
+        <div class="main_wrap" ref="wrapRef">
+          <img src="/bg.png" alt="" />
+          <img class="block1 floatable" src="/block1.png" alt="" />
 
-      <div class="block_group">
-        <img class="block2 floatable" src="/block2.png" alt="" />
-        <img class="block3 floatable" src="/1.png" alt="" />
-        <img class="block4 floatable" src="/2.png" alt="" />
-        <img class="block5 floatable" src="/3.png" alt="" />
-        <img class="block6 floatable" src="/4.png" alt="" />
+          <div class="block_group">
+            <img class="block2 floatable" src="/block2.png" alt="" />
+            <img class="block3 floatable" src="/1.png" alt="" />
+            <img class="block4 floatable" src="/2.png" alt="" />
+            <img class="block5 floatable" src="/3.png" alt="" />
+            <img class="block6 floatable" src="/4.png" alt="" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,6 +98,28 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.VPFeatures {
+  position: relative;
+  padding: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .VPFeatures {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPFeatures {
+    padding: 0 64px;
+  }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1152px;
+}
+
 .designer_container {
   display: flex;
   flex-direction: column;
@@ -105,7 +131,7 @@ onMounted(() => {
 
 .main_wrap {
   position: relative;
-  width: 40%;
+  width: 70%;
   display: inline-block;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
