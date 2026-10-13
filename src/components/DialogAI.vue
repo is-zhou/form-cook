@@ -212,8 +212,15 @@ function loadAIConfig(): AIConfig {
             placeholder="例如：生成一个员工入职表单，包含姓名、手机号、部门、职位、入职日期、紧急联系人"
           />
 
+          <div class="dialog_ai__actions">
+            <el-button type="primary" :loading="isGenerating" @click="handleGenerate">
+              生成表单
+            </el-button>
+            <el-button :disabled="!generatedSchema" @click="applySchema">应用到画布</el-button>
+          </div>
+
           <div class="dialog_ai__examples">
-            <span class="dialog_ai__label">示例提示词：</span>
+            <span class="dialog_ai__label">示例提示词 ( 快点击填充试试吧~ )：</span>
             <el-tag
               v-for="item in examples"
               :key="item"
@@ -225,12 +232,6 @@ function loadAIConfig(): AIConfig {
             </el-tag>
           </div>
 
-          <div class="dialog_ai__actions">
-            <el-button type="primary" :loading="isGenerating" @click="handleGenerate">
-              生成表单
-            </el-button>
-            <el-button :disabled="!generatedSchema" @click="applySchema">应用到画布</el-button>
-          </div>
         </div>
       </div>
 
@@ -238,8 +239,18 @@ function loadAIConfig(): AIConfig {
         <div class="dialog_ai__panel dialog_ai__panel--config">
           <div class="dialog_ai__panel_header">
             <div>
-              <div class="dialog_ai__title">模型配置</div>
-              <div class="dialog_ai__config_summary">{{ configSummary }}</div>
+              <div class="dialog_ai__title"> <span>模型配置：</span>
+                <el-radio-group
+                  :model-value="aiConfig.mode"
+                  class="dialog_ai__mode"
+                  @change="handleModeChange"
+                >
+                  <el-radio-button label="local" value="local">本地规则</el-radio-button>
+                  <el-radio-button label="openai-compatible" value="openai-compatible">
+                    OpenAI 兼容接口
+                  </el-radio-button>
+                </el-radio-group>
+              </div>
             </div>
             <div class="dialog_ai__config_actions">
               <el-button v-if="canExpandConfig" text @click="toggleConfigExpanded">
@@ -248,21 +259,11 @@ function loadAIConfig(): AIConfig {
               <el-button @click="resetConfig">恢复默认</el-button>
             </div>
           </div>
-
-          <el-radio-group
-            :model-value="aiConfig.mode"
-            class="dialog_ai__mode"
-            @change="handleModeChange"
-          >
-            <el-radio-button label="local" value="local">本地规则</el-radio-button>
-            <el-radio-button label="openai-compatible" value="openai-compatible">
-              OpenAI 兼容接口
-            </el-radio-button>
-          </el-radio-group>
+          <div class="dialog_ai__config_summary">当前模型配置 [ {{ configSummary }} ]</div>
 
           <el-collapse-transition>
             <div v-show="configExpanded && canExpandConfig" class="dialog_ai__config_body">
-              <el-form label-position="top">
+              <el-form label-width="90px">
                 <el-form-item label="服务商预设">
                   <el-select
                     v-model="aiConfig.provider"
@@ -365,6 +366,14 @@ function loadAIConfig(): AIConfig {
   &__title {
     font-size: 14px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-shrink: 0;
+    >span{
+      flex-shrink: 0;
+    }
   }
 
   &__panel {
@@ -393,15 +402,19 @@ function loadAIConfig(): AIConfig {
   }
 
   &__config_summary {
+    display: block;
     margin-top: 4px;
     font-size: 12px;
     color: #606266;
-    line-height: 1.5;
+    line-height: 1.8;
+    text-align: center;
+    color: #409eff;
   }
 
   &__label {
     font-size: 13px;
     color: #606266;
+    margin-top: 8px;
   }
 
   &__examples {
@@ -421,6 +434,12 @@ function loadAIConfig(): AIConfig {
   &__actions {
     display: flex;
     align-items: center;
+    gap: 8px;
+
+    .el-button {
+      flex: 1;
+      margin-left: 0 !important;
+    }
   }
 
   &__config_actions {
