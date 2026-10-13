@@ -20,7 +20,6 @@ const dialogVisible = ref(false)
       type="primary"
       plain
       @click="dialogVisible = true"
-      style="margin-right: 12px"
     ></el-button>
   </el-tooltip>
   <el-dialog v-model="dialogVisible" title="快速添加字段" width="900px">

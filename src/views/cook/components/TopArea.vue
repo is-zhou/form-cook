@@ -34,8 +34,8 @@ const handlePreview = () => {
     <div class="top_area_left">
       <h3 class="logo"><img height="30" src="../../../assets/fc_logo.png" alt="" /></h3>
       <div>
-        <DialogImportFields></DialogImportFields>
         <DialogAI></DialogAI>
+        <DialogImportFields></DialogImportFields>
       </div>
     </div>
     <div class="top_area_middle">
@@ -121,9 +121,23 @@ const handlePreview = () => {
       </div>
     </div>
     <div class="top_area_right">
-      <el-link href="https://github.com/is-zhou/form-cook" :underline="false" target="_blank">
-        <img src="https://api.iconify.design/simple-icons/github.svg" alt="" />
-      </el-link>
+      <el-tooltip effect="light" content="表单渲染器文档" placement="bottom">
+        <el-link href="https://is-zhou.github.io/form-cook-render/" :underline="false" target="_blank">
+          <img src="https://is-zhou.github.io/form-cook-render/favicon.ico" alt="renderer" />
+        </el-link>
+      </el-tooltip>
+      <el-tooltip effect="light" content="表单大厨文档" placement="bottom">
+        <el-link href="https://is-zhou.github.io/form-cook/" :underline="false" target="_blank">
+          <img src="https://is-zhou.github.io/form-cook/favicon.ico" alt="home" />
+        </el-link>
+      </el-tooltip>
+        <el-divider direction="vertical" />
+
+      <el-tooltip effect="light" content="GitHub" placement="bottom">
+        <el-link href="https://github.com/is-zhou/form-cook" :underline="false" target="_blank">
+          <img src="https://api.iconify.design/simple-icons/github.svg" alt="github" />
+        </el-link>
+      </el-tooltip>
     </div>
   </header>
 </template>
@@ -176,7 +190,15 @@ const handlePreview = () => {
 }
 .top_area_right {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  gap: 16px;
   width: 324px;
+
+  img {
+    display: block;
+    height: 20px;
+    width: 20px;
+  }
 }
 </style>

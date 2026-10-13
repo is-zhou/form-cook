@@ -194,7 +194,7 @@ function loadAIConfig(): AIConfig {
 
 <template>
   <el-tooltip effect="light" content="AI 生成表单" placement="bottom">
-    <el-button type="primary" plain @click="dialogVisible = true"
+    <el-button type="primary" plain style="margin-right: 12px" @click="dialogVisible = true"
       >AI<el-icon class="el-icon--right"><IconAI /></el-icon></el-button
     >
   </el-tooltip>
@@ -244,9 +244,9 @@ function loadAIConfig(): AIConfig {
                   class="dialog_ai__mode"
                   @change="handleModeChange"
                 >
-                  <el-radio-button label="local" value="local">本地规则</el-radio-button>
+                  <el-radio-button label="local" value="local">本地实验规则</el-radio-button>
                   <el-radio-button label="openai-compatible" value="openai-compatible">
-                    OpenAI 兼容接口
+                    在线模型配置
                   </el-radio-button>
                 </el-radio-group>
               </div>
