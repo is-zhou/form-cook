@@ -35,7 +35,12 @@ const handlePreview = () => {
       <h3 class="logo"><img height="30" src="../../../assets/fc_logo.png" alt="" /></h3>
       <div>
         <DialogImportFields></DialogImportFields>
-
+        <DialogAI></DialogAI>
+      </div>
+    </div>
+    <div class="top_area_middle">
+      <div class="middle_l">
+        <el-divider direction="vertical" />
         <el-tooltip effect="light" content="模板" placement="bottom">
           <el-button
             :icon="IconTemplate"
@@ -44,7 +49,6 @@ const handlePreview = () => {
             @click="statusStore.updateTemplateOpen"
           ></el-button>
         </el-tooltip>
-
         <el-tooltip effect="light" content="表单树" placement="bottom">
           <el-button
             :icon="IconTree"
@@ -53,10 +57,6 @@ const handlePreview = () => {
             @click="statusStore.updateTreeAreaOpen"
           ></el-button>
         </el-tooltip>
-      </div>
-    </div>
-    <div class="top_area_middle">
-      <div class="middle_l">
         <el-divider direction="vertical" />
         <!-- <el-tooltip effect="light" content="撤销" placement="bottom"> -->
         <el-button
