@@ -156,14 +156,14 @@ onMounted(() => {
 }
 
 .block1 {
-  top: -4%;
-  left: -2.8%;
-  width: 22%;
+  top: -2%;
+  left: -2%;
+  width: 21%;
   transform: translateZ(15px);
 }
 .block_group {
   top: 0;
-  right: 1%;
+  right: 4%;
   width: 18%;
   height: 100%;
   transform: translateZ(40px);
@@ -171,7 +171,7 @@ onMounted(() => {
 /* block2（完整图片） */
 .block2 {
   position: absolute;
-  top: 5%;
+  top: 7%;
   right: 1%;
   width: 100%;
   transition:
@@ -220,7 +220,7 @@ onMounted(() => {
 .block6.show {
   width: 120%;
   opacity: 1;
-  transform: translateX(-50%) translateZ(50px) scale(1.03) rotateX(var(--rx, 0deg));
+  transform: translateX(-46%) translateZ(50px) scale(1.03) rotateX(var(--rx, 0deg));
   /* box-shadow:
     0 16px 32px rgba(0, 0, 0, 0.15),
     0 4px 8px rgba(0, 0, 0, 0.08); */

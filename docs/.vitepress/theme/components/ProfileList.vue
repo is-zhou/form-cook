@@ -2,6 +2,40 @@
   <div  class="VPFeatures VPHomeFeatures">
     <div  class="container">
       <div  class="items">
+                <div  class="item">
+          <div  class="VPLink no-icon VPFeature">
+            <article  class="box">
+              <div class="comp_list_container">
+                <div class="image">
+                  <img src="../../../public/ai_create.png" width="100%"></img>
+                </div>
+                <div class="info">
+                  <h2  class="title name clip">AI 智能生成表单</h2>
+                  <p  class="details">
+                    1、用自然语言描述表单需求，即可自动生成表单 Schema，无需手动逐个拖拽组件；
+                  </p>
+                  <p  class="details">
+                    2、支持本地规则与自定义大模型两种模式，可自由切换 OpenAI、DeepSeek、硅基流动或者自定义服务商；
+                  </p>
+                  <p  class="details">
+                    3、生成结果先在弹窗中预览，确认无误后再一键应用到画布，避免误操作覆盖表单。
+                  </p>
+                  <div class="actions" >
+                    <div class="action">
+                      <span class="VPButton medium brand">自然语言生成</span>
+                    </div>
+                    <div class="action">
+                      <span  class="VPButton medium brand">大模型配置</span>
+                    </div>
+                    <div class="action">
+                      <span  class="VPButton medium brand">预览应用</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
         <div class="item">
           <div class="VPLink no-icon VPFeature">
             <article  class="box">
