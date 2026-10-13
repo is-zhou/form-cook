@@ -72,6 +72,7 @@ const configSummary = computed(() => {
 })
 
 const canExpandConfig = computed(() => aiConfig.value.mode === 'openai-compatible')
+const showResultPreview = computed(() => !(configExpanded.value && canExpandConfig.value))
 
 const fillExample = (value: string) => {
   prompt.value = value
@@ -79,7 +80,15 @@ const fillExample = (value: string) => {
 
 const handleModeChange = (mode: AIConfig['mode']) => {
   aiConfig.value.mode = mode
-  configExpanded.value = mode === 'openai-compatible'
+  if (mode === 'local') {
+    configExpanded.value = false
+    return
+  }
+
+  const needSetup = !aiConfig.value.baseUrl?.trim() || !aiConfig.value.model?.trim() || !aiConfig.value.apiKey?.trim()
+  if (needSetup) {
+    configExpanded.value = true
+  }
 }
 
 const toggleConfigExpanded = () => {
@@ -89,6 +98,22 @@ const toggleConfigExpanded = () => {
   }
   configExpanded.value = !configExpanded.value
 }
+
+watch(
+  () => aiConfig.value.mode,
+  (mode) => {
+    if (mode === 'local') {
+      configExpanded.value = false
+      return
+    }
+    const needSetup =
+      !aiConfig.value.baseUrl?.trim() || !aiConfig.value.model?.trim() || !aiConfig.value.apiKey?.trim()
+    if (needSetup) {
+      configExpanded.value = true
+    }
+  },
+  { immediate: true },
+)
 
 const handleProviderChange = (provider: AIProviderPreset) => {
   if (provider === 'custom') {
@@ -210,7 +235,7 @@ function loadAIConfig(): AIConfig {
       </div>
 
       <div class="dialog_ai__right">
-        <div class="dialog_ai__panel">
+        <div class="dialog_ai__panel dialog_ai__panel--config">
           <div class="dialog_ai__panel_header">
             <div>
               <div class="dialog_ai__title">模型配置</div>
@@ -293,7 +318,7 @@ function loadAIConfig(): AIConfig {
           </el-collapse-transition>
         </div>
 
-        <div class="dialog_ai__result">
+        <div v-show="showResultPreview" class="dialog_ai__result">
           <div class="dialog_ai__title">生成结果预览</div>
           <el-empty
             v-if="!previewCode"
@@ -313,12 +338,7 @@ function loadAIConfig(): AIConfig {
               />
             </div>
 
-            <CodeEditor
-              v-if="dialogVisible"
-              v-model="previewCode"
-              language="typescript"
-              read-only
-            />
+            <CodeEditor v-if="dialogVisible" v-model="previewCode" language="typescript" read-only />
           </template>
         </div>
       </div>
@@ -332,6 +352,7 @@ function loadAIConfig(): AIConfig {
   grid-template-columns: 320px 1fr;
   gap: 16px;
   align-items: start;
+  min-height: 380px;
 
   &__input,
   &__right,
@@ -432,10 +453,6 @@ function loadAIConfig(): AIConfig {
     display: flex;
     flex-direction: column;
     gap: 8px;
-  }
-
-  &__result {
-    min-height: 300px;
   }
 }
 </style>
