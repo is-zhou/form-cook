@@ -199,7 +199,7 @@ function loadAIConfig(): AIConfig {
     >
   </el-tooltip>
 
-  <el-dialog v-model="dialogVisible" title="AI 生成表单" width="960px">
+  <el-dialog v-model="dialogVisible" title="AI 生成表单" width="960px" :close-on-click-modal="false">
     <div class="dialog_ai">
       <div class="dialog_ai__input">
         <div class="dialog_ai__panel">
@@ -207,8 +207,7 @@ function loadAIConfig(): AIConfig {
           <el-input
             v-model="prompt"
             type="textarea"
-            :rows="6"
-            resize="none"
+            :autosize="{ minRows: 6, maxRows: 18 }"
             placeholder="例如：生成一个员工入职表单，包含姓名、手机号、部门、职位、入职日期、紧急联系人"
           />
 
