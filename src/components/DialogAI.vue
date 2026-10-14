@@ -8,10 +8,13 @@ import {
   type AIConfig,
   type AIProviderPreset,
 } from '@/services/aiForm'
+import { cloneDeep } from 'lodash'
 import { useSchemaStore } from '@/stores/schema'
 import type { FormSchema } from 'form-cook-render'
 
 const state = useSchemaStore()
+
+type ApplyMode = 'replace' | 'append'
 
 const dialogVisible = ref(false)
 const prompt = ref('')
@@ -159,15 +162,26 @@ const handleGenerate = async () => {
   }
 }
 
-const applySchema = () => {
+const applySchema = (mode: ApplyMode) => {
   if (!generatedSchema.value) {
     ElMessage.warning('请先生成表单')
     return
   }
 
-  state.replaceSchema(generatedSchema.value)
+  if (mode === 'replace') {
+    state.replaceSchema(cloneDeep(generatedSchema.value))
+    dialogVisible.value = false
+    ElMessage.success('已应用到画布')
+    return
+  }
+
+  // 追加模式：保留当前画布的表单配置，把生成的字段追加到末尾
+  const current = cloneDeep(state.formSchema)
+  const generated = cloneDeep(generatedSchema.value)
+  current.formContentConfigList.push(...(generated.formContentConfigList || []))
+  state.replaceSchema(current)
   dialogVisible.value = false
-  ElMessage.success('已应用到画布')
+  ElMessage.success('已追加到画布')
 }
 
 function loadAIConfig(): AIConfig {
@@ -215,7 +229,12 @@ function loadAIConfig(): AIConfig {
             <el-button type="primary" :loading="isGenerating" @click="handleGenerate">
               生成表单
             </el-button>
-            <el-button :disabled="!generatedSchema" @click="applySchema">应用到画布</el-button>
+            <el-button :disabled="!generatedSchema" @click="applySchema('replace')">
+              应用到画布
+            </el-button>
+            <el-button :disabled="!generatedSchema" @click="applySchema('append')">
+              追加到画布
+            </el-button>
           </div>
 
           <div class="dialog_ai__examples">
